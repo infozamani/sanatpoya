@@ -1,0 +1,47 @@
+{% extends "shop_template.html" %}  
+{% load render_partial %}  
+
+{% block title %}  
+   نتیجه جستجوی شما  
+{% endblock title %}  
+
+{% block content %}  
+
+{% if products %}
+    <div class="container">
+        <h2 style="text-align: center;"> نتیجه جستجوی شما</h2>
+        <div class="product-flexbox">
+            {% for product in products %}
+                {% include 'partials/products/product_box.html' with type=1 %}
+            {% endfor %}
+        </div>
+    </div>    
+{% elif specialties %}
+<div class="container">
+    <h2 style="text-align: center;"> نتیجه جستجوی شما</h2>
+    <div class="product-flexbox">
+         
+            {% for specialtie in specialties %}  
+            {% include 'partials/products/product_box.html' with type=4 %}
+                
+        
+            {% endfor %}  
+     
+       
+    </div>
+    </div>
+    {% elif blogs %}
+    <ul>  
+        {% for blog in blogs %}  
+            <li>{{ blog.title }} - {{ blog.description }}</li>  
+   
+        {% endfor %}  
+    </ul>
+    {% else %}    
+    <div class=" container" style="padding: 100px;">
+        <h3 style="text-align: center; color: red;"> این عنوان یافت نشد</h3>
+
+    </div>
+{% endif %}
+ 
+{% endblock content %}

@@ -1,0 +1,18 @@
+{% extends "main_template.html" %}
+ 
+{% block title %}
+   تیکت صنعت پویا  
+{% endblock title %}
+
+{% block content %}
+<!-- create_ticket.html -->
+<div class="container mt-5">
+    <a href="http://sanatpoya.com/support/tickets/" style="color: blue; text-decoration: none;font: 1em sans-serif;">بازگشت--← </a>
+<h1>ایجاد تیکت جدید</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">ارسال تیکت</button>
+</form>
+</div>
+{% endblock content %}

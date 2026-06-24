@@ -1,0 +1,26 @@
+{% extends "main_template.html" %}
+ 
+{% block title %}
+   تیکت صنعت پویا  
+{% endblock title %}
+
+{% block content %}
+<!-- view_ticket.html -->
+<div class="container mt-5">
+    
+    <a href="http://sanatpoya.com/support/tickets/" style="color: blue; text-decoration: none;font: 1em sans-serif;">بازگشت--← </a>
+
+<h1>{{ ticket.title }}</h1>
+<p><h5>{{ ticket.description }}</h5></p>
+<h2>پاسخ‌ها</h2>
+{% for reply in ticket.replies.all %}
+    <p style="color: aqua;">{{ reply.user }}: {{ reply.message }} </p>
+{% endfor %}
+<h3>ارسال پاسخ</h3>
+<form method="post">
+    {% csrf_token %}
+    {{ reply_form.as_p }}
+    <button type="submit">ارسال پاسخ</button>
+</form>
+</div>
+{% endblock content %}

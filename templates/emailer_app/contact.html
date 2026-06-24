@@ -1,0 +1,21 @@
+<!-- contact.html -->  
+{% extends "main_template.html" %}
+{% block title %}
+ایمیل
+{% endblock title %}
+{% block content %}
+<html lang="fa">  
+<head>  
+    <meta charset="UTF-8">  
+    <title>فرم تماس</title>  
+</head>  
+<body>  
+    <h1>     ارسال ایمیل</h1>  
+    <form method="post">  
+        {% csrf_token %}  
+        {{ form.as_p }}  
+        <button type="submit">ارسال</button>  
+    </form>  
+</body>  
+</html>
+{% endblock content %}

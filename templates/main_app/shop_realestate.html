@@ -1,0 +1,113 @@
+{% extends "real_template.html" %}
+{% load render_partial %}    
+
+{% block title %}
+فروشگاه
+{% endblock title %}
+
+{% block content %} 
+
+<!-- .block-slideshow  -->
+{%render_partial "main:sliders"%}    
+<!-- .block-slideshow / end -->
+
+
+<!-- .block-features / end -->
+<!-- .cheapest-popular -->
+<div class="block block--highlighted block-categories block-categories--layout--compact ">
+			 
+			  {% render_partial "realestate.:cheapest_product"  %} 
+			  {%render_partial 'realestate.:popular_product_groups' %}
+			<!-- cheapest-popular / end -->
+
+		
+			<!-- last_product -->
+			{% render_partial "realestate:last_product"  %}
+			<!-- last_product / end -->
+			
+			<!-- .block-features -->
+			<div class="block block-features block-features--layout--boxed">
+				<div  >
+					<div class="block-features__list">
+						<div class="block-features__item">
+							<div class="block-features__icon">
+								<i class="fa fa-list"></i>
+							</div>
+							<div class="block-features__content">
+								<div class="block-features__title">ارسال رایگان</div>
+								<div class="block-features__subtitle">       صنعت پویا</div>
+							</div>
+						</div>
+						<div class="block-features__divider"></div>
+						<div class="block-features__item">
+							<div class="block-features__icon">
+								<i class="fa fa-list"></i>
+							</div>
+							<div class="block-features__content">
+								<div class="block-features__title">پشتیبانی 24 ساعته</div>
+								<div class="block-features__subtitle">هر زمان تماس بگیرید</div>
+							</div>
+						</div>
+						<div class="block-features__divider"></div>
+						<div class="block-features__item">
+							<div class="block-features__icon">
+								<i class="fa fa-list"></i>
+							</div>
+							<div class="block-features__content">
+								<div class="block-features__title">100% امن</div>
+								<div class="block-features__subtitle">پرداخت های امن</div>
+							</div>
+						</div>
+						<div class="block-features__divider"></div>
+						<div class="block-features__item">
+							<div class="block-features__icon">
+								<i class="fa fa-list"></i>
+							</div>
+							<div class="block-features__content">
+								<div class="block-features__title">پیشنهادات جدید</div>
+								<div class="block-features__subtitle">تخفیف تا 90%</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div> 
+			
+			<!-- .block-brands -->
+{% comment %} 			
+			<div class="block block-brands">
+				<div class="container">
+					<div class="block-brands__slider">
+						<div class="owl-carousel">
+							<div class="block-brands__item " style="width:120px ;height: 18px;">
+								<a href=""><img src="{{media_url}}/images/brand/3cf9b61e-163d-4302-8b6c-86ab1ed4a2d6.png" alt=""></a>
+							</div>
+							<div class="block-brands__item">
+								<a href=""><img src="https://via.placeholder.com/380x80/08f.png/fff" alt=""></a>
+							</div>
+							<div class="block-brands__item">
+								<a href=""><img src="https://via.placeholder.com/380x80/a7f.png/fff" alt=""></a>
+							</div>
+							<div class="block-brands__item">
+								<a href=""><img src="https://via.placeholder.com/380x80/06f.png/fff" alt=""></a>
+							</div>
+							<div class="block-brands__item">
+								<a href=""><img src="https://via.placeholder.com/380x80/e5f.png/fff" alt=""></a>
+							</div>
+							<div class="block-brands__item">
+								<a href=""><img src="https://via.placeholder.com/380x80/04f.png/fff" alt=""></a>
+							</div>
+							<div class="block-brands__item">
+								<a href=""><img src="https://via.placeholder.com/380x80/f3f.png/fff" alt=""></a>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div> {% endcomment %}
+			<!-- .block-brands / end -->
+		</div>  
+		<!-- site__body / end -->
+{% endblock content %}
+
+
+

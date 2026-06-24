@@ -1,0 +1,16 @@
+{% extends "user_panel_template.html" %}
+{% load render_partial %}
+{% block title %}
+پنل کاربری صنعت پویا  
+{% endblock title %}
+{% block content %}
+    <div class="dashboard">
+        {% include 'account_app/partials/user_info_expert.html' %}
+        {% render_partial "specialties:checkout_expert" %}
+    </div>
+   
+ 
+
+{% endblock  %}
+
+

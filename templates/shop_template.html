@@ -1,0 +1,75 @@
+{% load static %}  
+{% load compress %}  
+
+<!DOCTYPE html>  
+<html lang="fa">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1">  
+    <meta name="format-detection" content="telephone=no">  
+
+    <title>
+     
+        {% block title %}  
+        فروشگاه صنعت پویا|صنعت پویا |املاک صنعت پویا
+        {% endblock title %}  
+    
+    </title>
+      
+
+      <!-- Meta Descriptions for SEO -->  
+      <meta property="og:description" content="صنعت پویا، مرجع جامع متخصصان صنعتی. برای اطلاعات بیشتر کلیک کنید! به ما بپیوندید." />    <meta name="keywords" content=" املاک صنعتی , فروشگاه صنعتی,  صنعت پویا">  
+    
+
+      <!-- Open Graph Meta Tags -->  
+      <meta property="og:title" content="{% block og_title %} صنعت پویا    {% endblock %}" />  
+      <meta property="og:description" content="{% block og_description %}     راهکارهای نوین در صنعت و تکنولوژی   {% endblock %}" />  
+      <meta property="og:image" content="{% block og_image %}images/{% endblock %}" />  
+      <meta property="og:url" content="{% block og_url %}"https://sanatpoya.com/" {% endblock %}" />  
+      <meta property="og:type" content="website" />  
+      {% comment %} <!-- Twitter Meta Tags -->  
+      <meta name="twitter:card" content="summary_large_image" />  
+      <meta name="twitter:title" content="{% block twitter_title %} صنعت پویا  {% endblock %}" />  
+      <meta name="twitter:description" content="{% block twitter_description %}توضیح Twitter{% endblock %}" />  
+      <meta name="twitter:image" content="{% block twitter_image %}آدرس تصویر{% endblock %}" />   {% endcomment %}
+  
+    <link rel="icon" type="image/png" href="{{ media_url }}/images/logo/logopoya.jpg">  
+
+    <!-- CSS -->  
+    {% compress css %}  
+        <link rel="stylesheet" href="{% static 'vendor/bootstrap-4.5.3/css/bootstrap.min.css' %}">  
+        <link rel="stylesheet" href="{% static 'vendor/owl-carousel-2.3.4/assets/owl.carousel.min.css' %}">  
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">  
+        <link rel="stylesheet" href="{% static 'css/stylelistpersen.css' %}">  
+        <link rel="stylesheet" href="{% static 'css/custom.css' %}">  
+        <link rel="stylesheet" href="{% static 'vendor/fontawesome-5.6.3/css/all.min.css' %}">  
+        
+        {% endcompress %}  
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">  
+</head>  
+
+<body   >  
+	{% include "main_app/partials/header_shop.html" %} 
+	{% include "partials/messages.html" %} 
+
+    <div class="container ">
+        {% block content %}  
+        {% endblock content %}  
+    </div>
+	 
+
+    {% include "partials/footer.html" %}  
+
+    <!-- JS -->  
+    {% compress js %}  
+        <script src="{% static 'vendor/jquery-3.3.1/jquery.min.js' %}"></script>  
+        <script src="{% static 'vendor/bootstrap-4.5.3/js/bootstrap.bundle.min.js' %}"></script>  
+        <script src="{% static 'vendor/owl-carousel-2.3.4/owl.carousel.min.js' %}"></script>  
+        <script src="{% static 'js/main.js' %}"></script>  
+        <script src="{% static 'js/admin_script.js' %}"></script>  
+        <script src="{% static 'js/myscript.js' %}"></script>  
+    {% endcompress %} 
+         
+</body>  
+
+</html>

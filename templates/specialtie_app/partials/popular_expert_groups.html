@@ -1,0 +1,29 @@
+<div class="block block--highlighted block-categories block-categories--layout--compact container">
+    <div class="container">
+        <div class="block-header">
+            <h3 class="block-header__title"  >     افراد متخصص ومتعهد</h3>
+            <div class="block-header__divider"></div>
+        </div>
+        <!-- Example single danger button -->
+
+        <div class="block-categories__list">
+           {% for group in expert_groups %}
+            <div class="block-categories__item category-card category-card--layout--compact">
+                <div class="category-card__body bg">
+                    <div class="category-card__image">
+                        <a href="{% url "specialties:expert_of_group" slug=group.slug%}">
+                            <img src="{{media_url}}{{group.image_name}}" alt="">
+                        </a>
+                    </div>
+                    <div class="category-card__content">
+                        <div class="category-card__name">
+                            <a href="{% url "specialties:expert_of_group" slug=group.slug%}">{{group.group_title}}</a>
+                        </div>
+                     </div>
+                </div>
+            </div>
+            {% endfor %}
+ 
+        </div>
+    </div>
+</div>

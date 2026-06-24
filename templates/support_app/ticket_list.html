@@ -1,0 +1,22 @@
+{% extends "main_template.html" %}
+ 
+{% block title %}
+   تیکت صنعت پویا  
+{% endblock title %}
+
+{% block content %}
+<!-- ticket_list.html -->
+<div class="container mt-5">
+    <a href="/" style="color: blue; text-decoration: none;font: 1em sans-serif;">بازگشت--← </a>
+<h1 style="  color: green;">لیست تیکت‌ها</h1>
+
+<table style="border: 1px;">
+    <ul>
+        {% for ticket in tickets %}
+            <li><a href="{% url 'support:view_ticket' ticket.id %}"><H5>{{ ticket.title }} ,{{ticket.created_at}} ,{{ticket.user}}<b style="color: black;"> مشاهده </b> </H5></a></li>
+        {% endfor %}
+    </ul>
+</table>
+<a href="{% url 'support:create_ticket' %}" style="color: blue;font-size:24px;">ایجاد تیکت جدید</a>
+</div>
+{% endblock content %}

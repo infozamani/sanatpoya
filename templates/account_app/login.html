@@ -1,0 +1,164 @@
+{% extends "shop_template.html" %}
+
+{% block title %}
+صنعت پویا
+{% endblock title %}
+
+{% block content %}
+<!-- site__body -->
+<div class="site__body">
+    <div class="page-header">
+        <div class="page-header__container container">
+            <div class="page-header__breadcrumb">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'main:index' %}">خانه</a> /</li>
+                        <li class="breadcrumb-item"><a href="#">حساب کاربری</a> /</li>
+                        <li class="active" aria-current="page">ورود به حساب کاربری</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="page-header__title d-flex justify-content-center">
+                <h1>ورود به حساب کاربری</h1>
+            </div>
+        </div>
+    </div>
+    
+    <div class="block">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-6">
+                    <div class="card flex-grow-1 mb-md-0">
+                        <div class="card-body">
+                            <h3 class="card-title text-center">ورود</h3>
+                            
+                            <!-- نمایش پیام‌ها -->
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
+                                        {{ message }}
+                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                            
+                            <form action="" method="post">
+                                {% csrf_token %}
+                                
+                                <!-- شماره موبایل -->
+                                <div class="form-group">
+                                    <label for="id_mobile_number">شماره موبایل</label>
+                                    <input type="text" name="mobile_number" id="id_mobile_number" 
+                                           class="form-control" placeholder="شماره موبایل خود را وارد کنید" dir="ltr">
+                                </div>
+                                
+                                <!-- رمز عبور -->
+                                <div class="form-group password-field-wrapper">
+                                    <label for="id_password">رمز عبور</label>
+                                    <div class="password-input-group">
+                                        <input type="password" name="password" id="id_password" 
+                                               class="form-control" placeholder="رمز عبور خود را وارد کنید">
+                                        <button type="button" class="toggle-password" onclick="togglePassword('id_password', this)">
+                                            <svg class="eye-icon eye-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                                <circle cx="12" cy="12" r="3"/>
+                                            </svg>
+                                            <svg class="eye-icon eye-closed" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;">
+                                                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                                                <line x1="1" y1="1" x2="23" y2="23"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="login-remember">
+                                        <label class="form-check-label" for="login-remember">به خاطر سپاری</label>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <a href="{% url 'accounts:remember_pass' %}">فراموشی رمز عبور</a>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary btn-block mt-4">ورود</button>
+                            </form>
+                            
+                            <div class="text-center mt-3">
+                                <p>ثبت‌نام نکرده‌اید؟ <a href="{% url 'accounts:register' %}">ثبت‌نام کنید</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- site__body / end -->
+
+<script>
+function togglePassword(inputId, button) {
+    const input = document.getElementById(inputId);
+    const eyeOpen = button.querySelector('.eye-open');
+    const eyeClosed = button.querySelector('.eye-closed');
+    
+    if (input.type === 'password') {
+        input.type = 'text';
+        eyeOpen.style.display = 'none';
+        eyeClosed.style.display = 'block';
+    } else {
+        input.type = 'password';
+        eyeOpen.style.display = 'block';
+        eyeClosed.style.display = 'none';
+    }
+}
+</script>
+
+<style>
+.password-field-wrapper {
+    position: relative;
+}
+.password-input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.password-input-group .form-control {
+    padding-left: 48px;
+}
+.toggle-password {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6c757d;
+    transition: all 0.3s ease;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+}
+.toggle-password:hover {
+    background: rgba(238, 65, 86, 0.08);
+    color: #ee4156;
+}
+.toggle-password:focus {
+    outline: none;
+}
+.eye-icon {
+    transition: all 0.3s ease;
+    stroke: currentColor;
+}
+.eye-closed {
+    display: none;
+}
+</style>
+
+{% endblock content %}

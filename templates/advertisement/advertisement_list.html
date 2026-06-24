@@ -1,0 +1,87 @@
+{% extends "shop_template.html" %}
+{% block title %}
+       تبلیغات
+{% endblock title %}
+{% block content %}
+<!-- block-banner -->
+ 
+<div class="container">
+    <h1>لیست تبلیغات</h1> 
+
+<div class="site__body " >
+		 
+			<div class="block block-banner container">
+				<div class="container">
+					<a href="" class="block-banner__body">
+						<div class="block-banner__image block-banner__image--desktop"
+							style="background-image: url('https://picsum.photos/1110/170')"></div>
+						<div class="block-banner__image block-banner__image--mobile"
+							style="background-image: url('https://picsum.photos/510/390')"></div>
+						<div class="block-banner__title" style="color:white;" >
+							فروش و تبلیغات	 
+							<br class="block-banner__mobile-br">
+						</div>
+						<div class="block-banner__text"><b style="background-color: blue; color: navajowhite;font-size: 12px;">سایت صنعت پویا، متخصص در ارائه خدمات فروش و تبلیغات، به‌صورت حرفه‌ای به بهبود کسب‌وکار شما کمک می‌کند. این فرصت را از دست ندهید و برای دیده‌شدن در صفحات اول گوگل،یک ماه به صورت رایگان از خدمات ما بهره مند شوید.(تبلیغات و استفاده از قسمت فروشگاهی کاملا رایگان می باشد)
+                            .</b></div>
+						<div class="block-banner__button"><span class="btn btn-sm btn-blue" style="background-color: blue; color: darksalmon;font-size:15px;">هم اکنون با ارسال تیکت یا تماس اقدام نمایید</span> 
+						</div>
+					</a>
+				</div>
+
+		</div>
+			<!-- endblock-banner -->
+      {% comment %}<a href="{% url 'advertisement_create' %}">ایجاد تبلیغ جدید</a> 
+    <div class="block block-banner">
+        <div class="container">
+            <a href="" class="block-banner__body">
+                <div class="block-banner__image block-banner__image--desktop" style="background-image: url('https://picsum.photos/1110/170')"></div>
+                <div class="block-banner__image block-banner__image--mobile" style="background-image: url('https://picsum.photos/510/390')"></div>
+                <div class="block-banner__title">
+                    کالای تبلیغاتی
+                    <br class="block-banner__mobile-br">
+                </div>
+                <div class="block-banner__text">بهترین کالا برای خرید شما</div>
+                <div class="block-banner__button"><span class="btn btn-sm btn-primary">هم اکنون بخرید</span>
+                </div>
+            </a>
+        </div>
+    </div>   {% endcomment %}
+    
+    <ul>  
+        {% for ad in ads %}  
+        
+            <li>  
+                <h2>{{ ad.title }}</h2>  
+                <img src="{{ media_url }}{{ad.image_name}}" alt="{{ ad.title }}">  
+                <p>{{ ad.description }}</p>  
+                <a href="{{ ad.url }}">بیشتر بخوانید</a>  
+            </li>  
+        {% empty %}  
+            <li>هیچ تبلیغی وجود ندارد.</li>  
+        {% endfor %}  
+    </ul>
+</div> 
+    <a href="javascript:void(0);" id="scroll-top" class="topbutton btn-show bg-blue-500 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition duration-300">  
+        <span class="fa fa-angle-double-up"></span>  
+    </a>  
+    <script>  
+        // Show button when scrolling down  
+        window.onscroll = function() {  
+            const button = document.getElementById('scroll-top');  
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {  
+                button.style.display = "block";  
+            } else {  
+                button.style.display = "none";  
+            }  
+        };  
+
+        // Scroll to top function  
+        document.getElementById('scroll-top').onclick = function() {  
+            window.scrollTo({top: 0, behavior: 'smooth'});  
+        }; 
+         
+    </script>  
+    <script src="https://cdn.tailwindcss.com"></script>   
+</body>  
+</html>
+{% endblock content %}

@@ -1,0 +1,412 @@
+{% comment %} {% extends "main-template.html" %} {% endcomment %}
+{% load static %}
+
+{% block title %}تیم ما | صنعت پویا{% endblock title %}
+
+{% comment %} {% block content %} {% endcomment %}
+
+<!-- ====== استایل‌های اختصاصی تیم ====== -->
+<style>
+  /* ---------- استایل پایه صفحه ---------- */
+  .page-title {
+    padding: 30px 0;
+    background: #f8f9fa;
+    border-bottom: 2px solid #e9ecef;
+  }
+  .page-title h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1e2a3a;
+  }
+  .breadcrumbs ol {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .breadcrumbs ol li {
+    margin-left: 10px;
+  }
+  .breadcrumbs ol li::after {
+    content: "/";
+    margin-left: 10px;
+    color: #6c757d;
+  }
+  .breadcrumbs ol li:last-child::after {
+    content: "";
+  }
+  .breadcrumbs a {
+    color: #007bff;
+    text-decoration: none;
+  }
+
+  /* ---------- کارت‌های تیم ---------- */
+  .team-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    height: 100%;
+    border: 1px solid #f0f2f5;
+  }
+  .team-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.10);
+  }
+
+  /* کارت ویژه (بزرگ) */
+  .team-card.featured .team-header {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+    gap: 20px;
+    align-items: center;
+    border-bottom: 1px solid #f0f2f5;
+  }
+  .team-card.featured .team-image {
+    flex: 0 0 120px;
+    position: relative;
+  }
+  .team-card.featured .team-image img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+  .experience-badge {
+    position: absolute;
+    bottom: -4px;
+    right: -4px;
+    background: #ffc107;
+    color: #212529;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 10px;
+    border-radius: 20px;
+    border: 2px solid #fff;
+  }
+  .team-card.featured .team-info {
+    flex: 1;
+  }
+  .team-card.featured .team-info h4 {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 4px;
+    color: #1e2a3a;
+  }
+  .team-card.featured .team-info .position {
+    color: #6c757d;
+    font-size: 14px;
+    display: block;
+    margin-bottom: 8px;
+  }
+  .contact-info a {
+    display: inline-block;
+    margin-right: 16px;
+    font-size: 13px;
+    color: #495057;
+    text-decoration: none;
+  }
+  .contact-info a i {
+    margin-left: 4px;
+  }
+  .team-details {
+    padding: 20px;
+  }
+  .team-details p {
+    font-size: 14px;
+    color: #495057;
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+  .credentials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .cred-item {
+    background: #f1f4f8;
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 13px;
+    color: #1e2a3a;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .cred-item i {
+    color: #0d6efd;
+  }
+  .social-links a {
+    display: inline-block;
+    margin-right: 12px;
+    color: #6c757d;
+    font-size: 18px;
+    transition: color 0.2s;
+  }
+  .social-links a:hover {
+    color: #0d6efd;
+  }
+
+  /* کارت جمع و جور (compact) */
+  .team-card.compact {
+    text-align: center;
+    padding: 0 0 16px 0;
+  }
+  .team-card.compact .member-photo {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px 12px 0 0;
+  }
+  .team-card.compact .member-photo img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .team-card.compact:hover .member-photo img {
+    transform: scale(1.04);
+  }
+  .hover-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(13, 110, 253, 0.82);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .team-card.compact:hover .hover-overlay {
+    opacity: 1;
+  }
+  .overlay-content {
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+  }
+  .overlay-content h5 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .overlay-content span {
+    font-size: 13px;
+    opacity: 0.9;
+    display: block;
+    margin-bottom: 12px;
+  }
+  .quick-contact a {
+    display: inline-block;
+    margin: 0 6px;
+    color: #fff;
+    font-size: 20px;
+    transition: transform 0.2s;
+  }
+  .quick-contact a:hover {
+    transform: scale(1.2);
+    color: #fff;
+  }
+
+  .member-summary {
+    padding: 16px 12px 0;
+  }
+  .member-summary h5 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 0;
+    color: #1e2a3a;
+  }
+  .member-summary span {
+    font-size: 13px;
+    color: #6c757d;
+    display: block;
+    margin-bottom: 8px;
+  }
+  .skills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 6px;
+  }
+  .skill-tag {
+    background: #e9ecef;
+    border-radius: 12px;
+    padding: 2px 12px;
+    font-size: 11px;
+    color: #495057;
+  }
+
+  /* ریسپانسیو */
+  @media (max-width: 768px) {
+    .team-card.featured .team-header {
+      flex-direction: column;
+      text-align: center;
+    }
+    .team-card.featured .team-image {
+      flex: unset;
+    }
+    .contact-info a {
+      display: block;
+      margin: 4px 0;
+    }
+    .team-card.compact .member-photo img {
+      height: 200px;
+    }
+  }
+</style>
+
+<!-- ====== لینک آیکون‌های Bootstrap Icons و AOS ====== -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+
+<!-- ====== صفحه عنوان ====== -->
+<div class="page-title light-background">
+  <div class="container d-lg-flex justify-content-between align-items-center">
+    <h1>تیم ما</h1>
+    <nav class="breadcrumbs">
+      <ol>
+        <li><a href="{% url 'main:index' %}">خانه</a></li>
+        <li class="current">تیم</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+
+<!-- ====== بخش تیم ====== -->
+<section id="team" class="team section">
+  <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+    <div class="row gy-4">
+
+      <!-- اعضای ویژه (Featured) -->
+      {% for member in featured_members %}
+      <div class="col-lg-6" data-aos="fade-up" data-aos-delay="{% widthratio forloop.counter 1 100 %}">
+        <div class="team-card featured">
+          <div class="team-header">
+            <div class="team-image">
+              {% if member.photo %}
+                <img src="{{ member.photo.url }}" class="img-fluid" alt="{{ member.name }}">
+              {% else %}
+                <img src="{{ media_url }}img/construction/team-{{ forloop.counter }}.webp" class="img-fluid" alt="{{ member.name }}">
+              {% endif %}
+              {% if member.experience_years > 0 %}
+                <div class="experience-badge">{{ member.experience_years }}+ سال</div>
+              {% endif %}
+            </div>
+            <div class="team-info">
+              <h4>{{ member.name }}</h4>
+              <span class="position">{{ member.role }}</span>
+              <div class="contact-info">
+                {% if member.email %}
+                  <a href="mailto:{{ member.email }}"><i class="bi bi-envelope"></i> {{ member.email }}</a>
+                {% endif %}
+                {% if member.phone %}
+                  <a href="tel:{{ member.phone }}"><i class="bi bi-telephone"></i> {{ member.phone }}</a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          <div class="team-details">
+            <p>{{ member.bio|default:"متخصصی باتجربه که به تعالی در صنعت ساخت‌وساز متعهد است."|truncatewords:30 }}</p>
+            <div class="credentials">
+              {% for cred in member.get_credentials_list|slice:":2" %}
+                <div class="cred-item">
+                  <i class="bi bi-award"></i>
+                  <span>{{ cred }}</span>
+                </div>
+              {% endfor %}
+            </div>
+            <div class="social-links">
+              {% if member.linkedin %}
+                <a href="{{ member.linkedin }}" target="_blank"><i class="bi bi-linkedin"></i></a>
+              {% endif %}
+              {% if member.twitter %}
+                <a href="{{ member.twitter }}" target="_blank"><i class="bi bi-twitter-x"></i></a>
+              {% endif %}
+              {% if member.facebook %}
+                <a href="{{ member.facebook }}" target="_blank"><i class="bi bi-facebook"></i></a>
+              {% endif %}
+              {% if member.instagram %}
+                <a href="{{ member.instagram }}" target="_blank"><i class="bi bi-instagram"></i></a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+      <!-- سایر اعضا (Compact) -->
+      {% for member in regular_members %}
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{% widthratio forloop.counter 1 100|add:100 %}">
+        <div class="team-card compact">
+          <div class="member-photo">
+            {% if member.photo %}
+              <img src="{{ member.photo.url }}" class="img-fluid" alt="{{ member.name }}">
+            {% else %}
+              <img src="{{ media_url }}img/construction/team-{{ forloop.counter|add:8 }}.webp" class="img-fluid" alt="{{ member.name }}">
+            {% endif %}
+            <div class="hover-overlay">
+              <div class="overlay-content">
+                <h5>{{ member.name }}</h5>
+                <span>{{ member.role }}</span>
+                <div class="quick-contact">
+                  {% if member.email %}
+                    <a href="mailto:{{ member.email }}"><i class="bi bi-envelope"></i></a>
+                  {% endif %}
+                  {% if member.phone %}
+                    <a href="tel:{{ member.phone }}"><i class="bi bi-telephone"></i></a>
+                  {% endif %}
+                  {% if member.linkedin %}
+                    <a href="{{ member.linkedin }}" target="_blank"><i class="bi bi-linkedin"></i></a>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="member-summary">
+            <h5>{{ member.name }}</h5>
+            <span>{{ member.role }}</span>
+            <div class="skills">
+              {% for skill in member.get_skills_list|slice:":2" %}
+                <span class="skill-tag">{{ skill }}</span>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+      {% if not featured_members and not regular_members %}
+      <div class="col-12">
+        <div class="alert alert-info text-center">
+          <p>در حال حاضر هیچ عضوی در تیم ثبت نشده است. لطفاً از پنل مدیریت اقدام به افزودن اعضا کنید.</p>
+        </div>
+      </div>
+      {% endif %}
+
+    </div><!-- /row -->
+  </div><!-- /container -->
+</section>
+
+<!-- ====== اسکریپت AOS برای انیمیشن ====== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    AOS.init({
+      duration: 600,
+      easing: 'ease-in-out',
+      once: true,
+    });
+  });
+</script>
+
+{% comment %} {% endblock content %} {% endcomment %}

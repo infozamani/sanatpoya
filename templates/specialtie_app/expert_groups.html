@@ -1,0 +1,28 @@
+{% extends "main_template.html" %}
+
+{% load render_partial %} 
+
+{% block title %}
+    صنعت پویا
+{% endblock title %}
+
+{% block content %}
+<div class="container">
+<div class="block-categories__list">
+    {% for group in expert_groups %}
+     <div class="block-categories__item category-card category-card--layout--compact">
+         <div class="category-card__body">
+             <div class="category-card__image">
+                 <a href="{% url "specialties:expert_details" %}">
+                     <img src="{{media_url}}{{group.image_name}}" alt="">
+                 </a>
+             </div>
+             <div class="category-card__content">
+                 <div class="category-card__name"><a href="{% url "specialties:expert_details" %}">{{group.group_title}}</a></div>
+               </div>
+         </div>
+     </div>
+     {% endfor %}
+      
+ </div> 
+{% endblock content %}

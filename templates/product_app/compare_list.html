@@ -1,0 +1,13 @@
+{% extends "shop_template.html" %}
+ 
+{% load render_partial %} 
+
+{% block title %}
+    لیست مقایسه 
+{% endblock title %}
+
+{% block content %}
+    <div id="compare_list">
+        {% render_partial "products:compare_table"%}
+    </div>
+{% endblock content %}

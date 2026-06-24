@@ -1,0 +1,15 @@
+{% extends "shop_template.html" %}
+{% load humanize %}
+{% load render_partial %} 
+
+{% block title %}
+    سبد خرید کالا
+{% endblock title %}
+
+{% block content %}
+
+    <div id="shop_cart_list">
+        {% render_partial "orders:show_shop_cart" %}
+    </div>
+ 
+{% endblock content %}

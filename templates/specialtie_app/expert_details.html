@@ -1,0 +1,257 @@
+{% extends "main_template.html" %}
+{% load render_partial %}
+{% load humanize %}
+
+{% block title %}
+پنل کاربری صنعت پویا  
+{% endblock title %}
+
+{% block content %}
+<div class="site__body bg_scour">
+  <div class="page-header">
+      <div class="page-header__container container">
+          <div class="page-header__breadcrumb">
+              <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                      <li class="breadcrumb-item">
+                          <a href="{% url "main:index" %}">خانه</a>
+                          /
+                      </li>
+                      <li class="breadcrumb-item">
+                          <a href="{% url "main:index" %}">افراد</a>
+                          /
+                      </li>
+
+                      <li class="active" aria-current="page">{{expert.expert_user}}</li>
+                    </ol>
+                    <hr>
+              </nav>
+          </div>
+      </div>
+  </div>
+  <div class="block bg_scour">
+      <div class="container">
+          <div class="product product--layout--columnar" data-layout="columnar">
+              <div class="product__content">
+                  <!-- .product__gallery -->
+                  <div class="product__gallery">
+                      <div class="product-gallery">
+                          <div class="product-gallery__featured">
+                              <div class="owl-carousel" id="product-image">
+                                    <a href="images/products/product-16.jpg" target="_blank"><img src="{{media_url}}{{expert.image_name}}" alt=""> </a>
+                                    {% for img in product.gallery_product.all %}
+                                    <a href="#" target="_blank"><img src="{{media_url}}{{ig.image_name}}" alt=""> </a>
+                                    {% endfor %} 
+                                </div>
+                            </div>
+                            <div class="content-person">  
+                                <div class="person-head mb-3">  
+                                    <div class="mt-3 res-title title-sm" id="showContactInfoTag">  
+                                    <a href="#" onclick="showContactInfo(event)" class="show-contactRed">  
+                                        <h5 id="toggleContactInfo">نمایش اطلاعات تماس</h5>  
+                                    </a>  
+
+                                                                        </div>  
+                                    <h5 id="expireTag" style="color: rgb(60, 162, 204); display: {% if expert.subscription %} none {% else %} block {% endif %};">  
+                                        عضویت کاربر <b style="color:#FF0000;"> منقضی </b> شده است  
+                                    </h5>  
+                                    
+                                    <div class="person-contact row" id="contactInfo" style="display: none;">  
+                                        <div class="col-md-6">  
+                                            <table border="3" style="border-collapse: collapse; width: 100%;">  
+                                             
+                                                <tbody>  
+                                                    <tr>  
+                                                        <td>  نام و نام خانوادگی </td>  
+                                                        <td  style="color:#FF0000;" >{{ expert.expert_user }}</td>  
+                                                    </tr>  
+                                                    <tr>  
+                                                        <td> مدرک تحصیلی:</td>  
+                                                        <td style="color:#FF0000;">{{ expert.degree }} </td>  
+                                                    </tr>  
+                                                    <tr>  
+                                                        <td>متخصص</td>  
+                                                        <td style="color:#FF0000;">{{ expert.ability }}</td>  
+                                                    </tr>  
+                                                    <tr>  
+                                                        <td>شماره تلفن</td>  
+                                                        <td style="color:#FF0000;">{{ expert.expert_user.phone_number }}</td>  
+                                                    </tr>  
+                                                    <tr>  
+                                                        <td>موبایل</td>  
+                                                        <td style="color:#FF0000;">  {{ expert.expert_customuser.mobile_number }} </td>  
+                                                    </tr>  
+                                                    <tr>  
+                                                        <td>ایمیل</td>  
+                                                        <td style="color:#FF0000;" > {{ expert.expert_customuser.email }} </td>  
+                                                    </tr>  
+                                                    <tr>  
+                                                        <td>آدرس</td>  
+                                                        <td style="color:#FF0000;">{{ expert.expert_user.address }} </td>  
+                                                    </tr>  
+                                                    <tr>  
+                                                        <td>وب سایت</td>  
+                                                        <td style="color:#FF0000;"><a id="contactWebAddress" target="_blank">{{ expert.website }} </td>  
+                                                    </tr>  
+                                                </tbody>  
+                                            </table>  
+                                            
+                                        </div>  
+                        
+                                    </div>  
+                                </div>  
+                            </div>
+                            <div class="product-gallery__carousel">
+                                <div class="owl-carousel" id="product-carousel">
+                                      {% for img in product.gallery_product.all %}
+                                    <a href="" class="product-gallery__carousel-item"><img class="product-gallery__carousel-image" src="{{media_url}}{{img.image_nam}}" alt=""> </a>
+                                    {% endfor %}   
+                                   <!--callt tel-->
+                              
+                                   <!--endcallt tel-->
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <!-- .product__gallery / end -->
+                  <!-- .product__info -->
+                  <div class="product__info ">
+                        <div class="product__wishlist-compare">
+                            <button type="button" class="btn btn-sm btn-light btn-svg-icon" data-toggle="tooltip" data-placement="right" title="Wishlist">
+                                <svg width="16px" height="16px">
+                                    <use xlink:href="images/sprite.svg#wishlist-16"></use>
+                                </svg>
+                            </button>
+                            <button type="button" class="btn btn-sm btn-light btn-svg-icon" data-toggle="tooltip" data-placement="right" title="Compare">
+                                <svg width="16px" height="16px">
+                                    <use xlink:href="images/sprite.svg#compare-16"></use>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="product__description">
+                            {% autoescape off %}
+                            {{expert.summery_description}}
+                            
+                            <a  href="#tab-description" style="color:#FF0000;"> توضیحات بیشتر</a>
+                            {% endautoescape %}
+                        </div>
+                      
+                        <hr>
+                        <ul class="product__meta  ">
+                            
+                            <li style="list-style: none;">شخصیت:     <a href="">     {{expert.identity}}</a></li>
+                            <hr>
+                             <li style="list-style: none;">تعداد نظرات: <a href="">{{expert.comments_product.all|length}}</a> نظر</li>
+  
+                        </ul>
+                        <div style="display: flex; justify-content: space-between;">
+                          <h6>میانگین امتیاز کالا: <span style="color: red;">{{expert.get_average_score_exp}}</span> </h6>
+                          {% if user.is_authenticated %}
+                             {% if expert.get_user_score_exp > 0 %}
+                                <div>
+                                  {% with ''|center:5 as range %}
+                                     {% for i in range %}
+                                         {% if forloop.counter <= expert.get_user_score_exp %}
+                                             <span id="star_{{forloop.counter}}" class="fa fa-star checked"></span>
+                                          {% else %}
+                                              <span id="star_{{forloop.counter}}" class="fa fa-star "></span>
+                                         {% endif %}
+                                     
+                                     {% endfor %}
+                                  {% endwith %}
+                                </div>
+                              {% else %}
+                              <div>
+                                  <span id='star_1' class="fa fa-star cursor-pointer" onclick="addScoreexpert(1,{{expert.id}})"></span>
+                                  <span id='star_2' class="fa fa-star cursor-pointer" onclick="addScoreexpert(2,{{expert.id}})"></span>
+                                  <span id='star_3' class="fa fa-star cursor-pointer" onclick="addScoreexpert(3,{{expert.id}})"></span>
+                                  <span id='star_4' class="fa fa-star cursor-pointer" onclick="addScoreexpert(4,{{expert.id}})"></span>
+                                  <span id='star_5' class="fa fa-star cursor-pointer" onclick="addScoreexpert(5,{{expert.id}})"></span>
+                              </div>
+                             {% endif %}
+                          {% else %}
+                             <h6 style="text-decoration: underline;">برای امتیاز دهی 
+                              <a href="{% url "accounts:login" %}?next=/products/product_details/{{product.slug}}/">ورود</a>
+                              یا
+                              <a href="{% url "accounts:register" %}?next=/products/product_details/{{product.slug}}/">ثبت نام</a>
+                              کنید
+                             </h6>   
+                          {% endif %}
+                        </div>
+                    </div>
+          
+                  <!-- .product__info / end -->
+                  <!-- .product__sidebar -->
+                  <div class="product__sidebar">
+                      <div class="product__availability">  <span class="text-success">نوع توانمندی</span></div>
+                      <i class="product__prices">{{expert.ability}}</i>
+                                <div class="form-group product__option">
+                                    <label class="product__option-label"> <h5>نوع فعالیت     : مهارت </h5> </label>
+                                    {% comment %} <table class="wishlist">
+
+                                        <thead class="wishlist__head">
+                                            <tr class="wishlist__row">
+                                                <th class="wishlist__column wishlist__column--image">نوع فعالیت </th>
+                                                <th class="wishlist__column wishlist__column--product"></th>
+                                            </tr>
+                                        </thead>
+                                    </table> {% endcomment %}
+                              <div class="input-radio-label">
+                                  <div class="input-radio-label__list">
+                                      {% for feature in expert.Expert_features.all %}
+                                      <label>
+                                          <hr>
+                                          <hr>
+                                          <input type="radio" name="material">
+                                        <h6>  <span> {{feature.feature}}  : {{feature.value}} </span></h6>
+                                        </label>
+                                     
+                                        {% endfor %}
+                                    </div>
+                              </div>
+                          </div>
+                            </div>
+                            </div>
+                      </form>
+                      <!-- .product__options / end -->
+                  </div>
+                  <!-- .product__end -->
+                  <div class="product__footer">
+                     
+                      <div class="product__share-links share-links">
+                  </div>
+              </div>
+            </div>
+            <div class="product-tabs">
+              <div  class="product-tabs__list"><a href="#tab-description"  class="product-tabs__item product-tabs__item--active" id="desc" >توضیحات</a><a href="#tab-reviews" class="product-tabs__item">دیدگاه ها</a></div>
+              <div class="product-tabs__content">
+                  <div class="product-tabs__pane product-tabs__pane--active" id="tab-description">
+                      <div class="typography">
+                          <h3  >توضیحات کامل توانمندی</h3>
+                          <div class="product__description">
+                            {% autoescape off %}
+                                {{expert.description}}
+                                
+                                {% endautoescape %}
+
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {% include 'partials/specialties/views.html' %}
+                </div>
+            </div>
+            </div>
+            
+  </div>
+  <!-- .block-products-carousel -->
+  {% comment %} {%render_partial "specialties:related_experts" slug=expert.slug%} {% endcomment %}
+   <!-- .block-products-carousel / end -->
+</div>
+
+ 
+{% endblock content %}
+
+
+
+

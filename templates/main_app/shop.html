@@ -1,0 +1,78 @@
+{% extends "shop_template.html" %}
+{% load render_partial %}    
+
+{% block title %}
+فروشگاه
+{% endblock title %}
+
+{% block content %} 
+
+<!-- .block-slideshow  -->
+{%render_partial "main:sliders"%}    
+<!-- .block-slideshow / end -->
+
+
+<!-- .block-features / end -->
+<!-- .cheapest-popular -->
+<div class="block block--highlighted block-categories block-categories--layout--compact  ">
+			 
+			  {% comment %} {% render_partial "products:cheapest_product"  %}  {% endcomment %}
+			  {%render_partial 'products:popular_product_groups' %}
+			<!-- cheapest-popular / end -->
+
+		
+			<!-- last_product -->
+			{% render_partial "products:last_product"  %}
+			<!-- last_product / end -->
+			
+			<!-- .block-features -->
+			<div class="block block-features block-features--layout--boxed">
+			 
+					<div class="block-features__list">
+						<div class="block-features__item">
+							<div class="block-features__icon">
+								<i class="fa fa-list"></i>
+							</div>
+							<div class="block-features__content">
+								<div class="block-features__title">ارسال رایگان</div>
+								<div class="block-features__subtitle">       صنعت پویا</div>
+							</div>
+						</div>
+						<div class="block-features__divider"></div>
+						<div class="block-features__item">
+							<div class="block-features__icon">
+								<i class="fa fa-list"></i>
+							</div>
+							<div class="block-features__content">
+								<div class="block-features__title">پشتیبانی 24 ساعته</div>
+								<div class="block-features__subtitle">هر زمان تماس بگیرید</div>
+							</div>
+						</div>
+						<div class="block-features__divider"></div>
+						<div class="block-features__item">
+							<div class="block-features__icon">
+								<i class="fa fa-list"></i>
+							</div>
+							<div class="block-features__content">
+								<div class="block-features__title">100% امن</div>
+								<div class="block-features__subtitle">پرداخت های امن</div>
+							</div>
+						</div>
+						<div class="block-features__divider"></div>
+						<div class="block-features__item">
+							<div class="block-features__icon">
+								<i class="fa fa-list"></i>
+							</div>
+							<div class="block-features__content">
+								<div class="block-features__title">پیشنهادات جدید</div>
+								<div class="block-features__subtitle">تخفیف تا 90%</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div> 
+
+{% endblock content %}
+
+
+
