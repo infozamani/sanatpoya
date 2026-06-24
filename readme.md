@@ -58,14 +58,18 @@
 
 ```
 sanatpoya/
-├── main/               # Core app (homepage, about us)
-├── specialties/        # Expert groups and specialists
-├── teams/              # Team introduction
-├── templates/          # HTML templates
-│   └── main_template.html
-├── static/             # Static files (CSS, JS, images)
-├── manage.py
-└── requirements.txt
+├── apps/
+│   ├── accounts/      # احراز هویت و پروفایل‌های کاربر
+│   ├── main/           # منطق اصلی برنامه
+│   ├── specialties/    # دسته‌بندی متخصصان و خدمات
+│   ├── orders/         # مدیریت سفارشات
+│   ├── payments/       # پردازش پرداخت‌ها
+│   └── blogs/          # وبلاگ و مقالات
+├── media/              # فایل‌های آپلود شده کاربران
+├── static/             # فایل‌های استاتیک (CSS، JS، تصاویر)
+├── templates/          # قالب‌های HTML
+├── manage.py           # اسکریپت مدیریت جنگو
+└── requirements.txt    # وابستگی‌های پروژه
 ```
 
 ---
