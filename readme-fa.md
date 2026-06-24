@@ -1,3 +1,8 @@
+<img width="736" height="454" alt="4" src="https://github.com/user-attachments/assets/23fa8e5c-fa73-4756-947d-2d4e4f63ba29" />
+<img width="948" height="459" alt="3" src="https://github.com/user-attachments/assets/ca36622b-4629-43c2-8bee-9a74879da406" />
+<img width="951" height="454" alt="2" src="https://github.com/user-attachments/assets/56b9599b-1030-4338-9ee8-f6e1da870886" />
+<img width="946" height="444" alt="1" src="https://github.com/user-attachments/assets/f0171601-3e68-447b-93d2-435fd2c728f9" />
+<img width="946" height="444" alt="1" src="https://github.com/user-attachments/assets/71d5f595-7a7f-4c85-9fdd-fa8a0556c087" />
 # صنعت پویا 🏭
 
 <div dir="rtl">
@@ -60,18 +65,14 @@
 
 ```
 sanatpoya/
-├── apps/
-│   ├── accounts/      # احراز هویت و پروفایل‌های کاربر
-│   ├── main/           # منطق اصلی برنامه
-│   ├── specialties/    # دسته‌بندی متخصصان و خدمات
-│   ├── orders/         # مدیریت سفارشات
-│   ├── payments/       # پردازش پرداخت‌ها
-│   └── blogs/          # وبلاگ و مقالات
-├── media/              # فایل‌های آپلود شده کاربران
-├── static/             # فایل‌های استاتیک (CSS، JS، تصاویر)
+├── main/               # اپ اصلی (صفحه اصلی، درباره ما)
+├── specialties/        # گروه‌های تخصصی و متخصصان
+├── teams/              # معرفی تیم
 ├── templates/          # قالب‌های HTML
-├── manage.py           # اسکریپت مدیریت جنگو
-└── requirements.txt    # وابستگی‌های پروژه
+│   └── main_template.html
+├── static/             # فایل‌های استاتیک (CSS، JS، تصاویر)
+├── manage.py
+└── requirements.txt
 ```
 
 ---

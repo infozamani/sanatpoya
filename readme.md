@@ -10,6 +10,10 @@
 **Sanatpoya** (meaning *Dynamic Industry* in Persian) is a comprehensive Iranian industrial platform that brings together specialists, consultants, manufacturers, and contractors — creating a professional space for knowledge exchange and service delivery.
 
 ---
+<img width="736" height="454" alt="4" src="https://github.com/user-attachments/assets/5528bf06-2b0a-4ae9-9d86-0038e381511a" />
+<img width="946" height="444" alt="1" src="https://github.com/user-attachments/assets/15819765-a6c4-41bc-8d28-832eb1beaa70" />
+<img width="951" height="454" alt="2" src="https://github.com/user-attachments/assets/aed08ab6-54e6-4652-adbe-cdf0176d4cea" />
+<img width="948" height="459" alt="3" src="https://github.com/user-attachments/assets/4b265452-e9de-4331-bf5c-524e7e0f830d" />
 
 ## 📌 Table of Contents
 
@@ -58,18 +62,14 @@
 
 ```
 sanatpoya/
-├── apps/
-│   ├── accounts/      # احراز هویت و پروفایل‌های کاربر
-│   ├── main/           # منطق اصلی برنامه
-│   ├── specialties/    # دسته‌بندی متخصصان و خدمات
-│   ├── orders/         # مدیریت سفارشات
-│   ├── payments/       # پردازش پرداخت‌ها
-│   └── blogs/          # وبلاگ و مقالات
-├── media/              # فایل‌های آپلود شده کاربران
-├── static/             # فایل‌های استاتیک (CSS، JS، تصاویر)
-├── templates/          # قالب‌های HTML
-├── manage.py           # اسکریپت مدیریت جنگو
-└── requirements.txt    # وابستگی‌های پروژه
+├── main/               # Core app (homepage, about us)
+├── specialties/        # Expert groups and specialists
+├── teams/              # Team introduction
+├── templates/          # HTML templates
+│   └── main_template.html
+├── static/             # Static files (CSS, JS, images)
+├── manage.py
+└── requirements.txt
 ```
 
 ---
