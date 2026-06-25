@@ -5239,6 +5239,8 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
 
 .topbar__item,
 .topbar__row {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  color: #fff;
   height: 100%;
   display: -ms-flexbox;
   display: flex;
@@ -11262,7 +11264,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
   margin-left: 124px;
   background: blue;
   color: #fff;
-  font-family: Tahoma, Arial, sans-serif;
+  
 }
 
 .checked {

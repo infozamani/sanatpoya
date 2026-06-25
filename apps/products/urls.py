@@ -15,10 +15,14 @@ urlpatterns = [
       path ('ProductsBygroup/<slug:slug>/',ProductsBygroupView.as_view(),name='ProductsBygroup'),
       path ('brands_partial/<slug:slug>/',get_brands,name='brands_partial'),
       path ('features_for_filter/<slug:slug>/',get_feature_for_filter,name='features_for_filter'),
-      path ('ShowCompareListView/',ShowCompareListView.as_view(),name='ShowCompareListView'),
-      path ('compare_table/',compare_table,name='compare_table'),
-      path ('status_of_compare_list/',status_of_compare_list,name='status_of_compare_list'),
-      path ('add_to_compare_list/',add_to_compare_list,name='add_to_compare_list'),
-      path ('delete_from_compare_list/',delete_from_compare_list,name='delete_from_compare_list'),
+      # ====== لیست مقایسه ======
+      path('ShowCompareListView/', ShowCompareListView.as_view(), name='ShowCompareListView'),
+      path('compare-table/', compare_table, name='compare_table'),
+    
+      # ====== عملیات روی لیست مقایسه ======
+      path('add-to-compare-list/', add_to_compare_list, name='add_to_compare_list'),
+      path('delete-from-compare-list/', delete_from_compare_list, name='delete_from_compare_list'),
+      path('status-of-compare-list/', status_of_compare_list, name='status_of_compare_list'),
+      path('clear-compare-list/', clear_compare_list, name='clear_compare_list'),
       
 ]

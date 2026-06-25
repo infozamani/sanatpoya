@@ -170,68 +170,226 @@ def get_filter_value_for_feature(request):
         res = {fv.value_title:fv.id for fv in feature_values}
         return JsonResponse(data=res, safe=False) 
 #----------------------------------------------------------------
-## صفحه اصلی مقایسه کالا ها:نمایش کالا های اضافه شده به لیست
+# ================================================================
+# ۱. نمایش لیست مقایسه (نسخه کامل با مدیریت خطا)
+# ================================================================
 class ShowCompareListView(View):
     def get(self, request, *args, **kwargs):
+        # ====== دریافت لیست مقایسه ======
         compare_list = CompareProduct(request)
+        
+        # ====== دریافت محصولات ======
+        products = []
+        if compare_list.compare_product:
+            products = Product.objects.filter(id__in=compare_list.compare_product)
+        
+        # ====== دریافت ویژگی‌های محصولات ======
+        features = []
+        for product in products:
+            # بررسی وجود product_features
+            if hasattr(product, 'product_features'):
+                for item in product.product_features.all():
+                    if item.feature not in features:
+                        features.append(item.feature)
+        
+        # ====== ساخت context ======
         context = {
             'compare_list': compare_list,
+            'products': products,
+            'features': features,
+            'has_products': products.exists() if hasattr(products, 'exists') else False,
         }
-        return render(request,'product_app/compare_list.html', context)
-#----------------------------------------------------------------
-# for create AVg
-def get_average_score(request):  
-    productId = request.GET.get('productId')  
-    product = get_object_or_404(Product, id=productId)  
-    scores = Product.objects.filter(product=product)  
+        
+        return render(request, 'product_app/compare_list.html', context)
 
-    if scores.exists():  
-        average_score = scores.aggregate(Avg('score'))['score__avg']  
-    else:  
-        average_score = 0  
 
-    return JsonResponse({'average_score': average_score})
-#----------------------------------------------------------------
-## نمایش جدول کالا های لیست مقایسه
+# ================================================================
+# ۲. دریافت امتیاز میانگین یک محصول (اصلاح‌شده)
+# ================================================================
+def get_average_score(request):
+    # ====== دریافت productId ======
+    productId = request.GET.get('productId')
+    
+    if not productId:
+        return JsonResponse({
+            'error': 'شناسه محصول ارسال نشده است',
+            'average_score': 0
+        }, status=400)
+    
+    # ====== دریافت محصول ======
+    product = get_object_or_404(Product, id=productId)
+    
+    # ====== محاسبه میانگین امتیازات ======
+    # توجه: باید مدل Score یا Comment داشته باشید
+    # اگر مدل Comment دارید:
+    # from apps.comments.models import Comment
+    # scores = Comment.objects.filter(product=product)
+    
+    # اگر فیلد score در خود Product است:
+    # average_score = Product.objects.filter(id=productId).aggregate(Avg('score'))['score__avg']
+    
+    # مثال با مدل فرضی Comment:
+    try:
+        from apps.comments.models import Comment
+        scores = Comment.objects.filter(product=product)
+        
+        if scores.exists():
+            average_score = scores.aggregate(Avg('score'))['score__avg']
+            average_score = round(average_score, 2)  # گرد کردن به ۲ رقم اعشار
+        else:
+            average_score = 0
+    except:
+        # اگر مدل Comment وجود ندارد
+        average_score = 0
+    
+    # ====== پاسخ JSON ======
+    return JsonResponse({
+        'success': True,
+        'average_score': average_score,
+        'product_id': productId,
+        'product_name': product.product_name,
+    })
+
+
+# ================================================================
+# ۳. (اختیاری) دریافت امتیاز برای چند محصول
+# ================================================================
+def get_products_score(request):
+    productIds = request.GET.getlist('productIds[]')
+    
+    if not productIds:
+        return JsonResponse({'error': 'شناسه محصول ارسال نشده است'}, status=400)
+    
+    result = {}
+    for productId in productIds:
+        try:
+            product = Product.objects.get(id=productId)
+            
+            # محاسبه میانگین
+            try:
+                from apps.comments.models import Comment
+                scores = Comment.objects.filter(product=product)
+                avg = scores.aggregate(Avg('score'))['score__avg'] or 0
+                result[productId] = round(avg, 2)
+            except:
+                result[productId] = 0
+                
+        except Product.DoesNotExist:
+            result[productId] = None
+    
+    return JsonResponse({
+        'success': True,
+        'scores': result
+    })
+
+
+# ================================================================
+# ۱. نمایش جدول کالاهای لیست مقایسه (اصلاح‌شده)
+# ================================================================
 def compare_table(request):
+    # ====== دریافت لیست مقایسه ======
     compareList = CompareProduct(request)
     
+    # ====== دریافت محصولات ======
     products = []
     for productId in compareList.compare_product:
-        product = Product.objects.get(id=productId)
-        products.append(product)
-         
+        try:
+            product = Product.objects.get(id=productId)
+            products.append(product)
+        except Product.DoesNotExist:
+            # اگر محصول وجود نداشت، آن را از لیست حذف کن
+            compareList.delete_form_compare_product(productId)
+    
+    # ====== دریافت ویژگی‌های محصولات ======
     features = []
-    for product in products: 
+    for product in products:
         for item in product.product_features.all():
             if item.feature not in features:
                 features.append(item.feature)
-        
-        context ={
-            'products' : products,
-            'features' : features,
-        }
-        return render(request,'product_app/partials/compare_table.html',context)
-#----------------------------------------------------------------
-## Calculate the number of mod items in the comparison list محاسبه تعدا کالاهای موجود در لیست مقایسه
+    
+    # ====== ساخت context ======
+    context = {
+        'products': products,
+        'features': features,
+    }
+    
+    # ====== رندر کردن صفحه ======
+    return render(request, 'product_app/partials/compare_table.html', context)
+
+
+# ================================================================
+# ۲. محاسبه تعداد کالاهای موجود در لیست مقایسه
+# ================================================================
 def status_of_compare_list(request):
     compareList = CompareProduct(request)
     return HttpResponse(compareList.count)
 
-#----------------------------------------------------------------
-##اضافه کردن کالا به لیست مقایسه=Add Items to Comparison List
-def add_to_compare_list(request):
-    productId = request.GET.get('productId')
-    # ProductGroupId = request.GET.get('ProductGroupId')
-    compareList = CompareProduct(request)
-    compareList.add_to_compare_product(productId)
-    # compareList.add_to_compare_product(ProductGroupId)
-    return HttpResponse('کالا به لیست مقایسه اضافه شد')
 
-#----------------------------------------------------------------
-## حذف کالا از لیست مقایسه =  Remove the item from the comparison list 
-def delete_from_compare_list(request):
+# ================================================================
+# ۳. اضافه کردن کالا به لیست مقایسه
+# ================================================================
+def add_to_compare_list(request):
+    # ====== دریافت productId از درخواست ======
     productId = request.GET.get('productId')
+    
+    if not productId:
+        messages.error(request, 'شناسه محصول ارسال نشده است')
+        return redirect('products:compare_table')
+    
+    # ====== اضافه به لیست مقایسه ======
+    compareList = CompareProduct(request)
+    result = compareList.add_to_compare_product(productId)
+    
+    if result:
+        messages.success(request, 'کالا به لیست مقایسه اضافه شد')
+    else:
+        messages.warning(request, 'امکان اضافه کردن کالا به لیست مقایسه وجود ندارد (حداکثر ۴ کالا)')
+    
+    # ====== بازگشت به صفحه قبلی ======
+    next_url = request.META.get('HTTP_REFERER', 'products:compare_table')
+    return redirect(next_url)
+
+
+# ================================================================
+# ۴. حذف کالا از لیست مقایسه
+# ================================================================
+def delete_from_compare_list(request):
+    # ====== دریافت productId ======
+    productId = request.GET.get('productId')
+    
+    if not productId:
+        messages.error(request, 'شناسه محصول ارسال نشده است')
+        return redirect('products:compare_table')
+    
+    # ====== حذف از لیست مقایسه ======
     compareList = CompareProduct(request)
     compareList.delete_form_compare_product(productId)
-    return redirect("products:compare_table")
+    
+    messages.success(request, 'کالا از لیست مقایسه حذف شد')
+    
+    # ====== بازگشت به صفحه مقایسه ======
+    return redirect('products:compare_table')
+
+
+# ================================================================
+# ۵. (اختیاری) حذف از طریق AJAX
+# ================================================================
+def delete_from_compare_ajax(request):
+    productId = request.GET.get('productId')
+    
+    if productId:
+        compareList = CompareProduct(request)
+        compareList.delete_form_compare_product(productId)
+        return HttpResponse('success')
+    
+    return HttpResponse('error', status=400)
+
+
+# ================================================================
+# ۶. (اختیاری) پاک کردن کل لیست مقایسه
+# ================================================================
+def clear_compare_list(request):
+    compareList = CompareProduct(request)
+    compareList.clear()
+    messages.success(request, 'لیست مقایسه خالی شد')
+    return redirect('products:compare_table')
