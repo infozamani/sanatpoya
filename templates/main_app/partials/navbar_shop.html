@@ -1,378 +1,280 @@
-<div >
-  <div class="nav-panel1">
-    <div class="nav-panel__container  ">
-      <div class="nav-panel__row">
-        <div class="nav-panel__logo">
-            <a href="#"><img src="{{media_url}}/images/logo/avaiko-clod.png" class="img-fluid" alt="" style="width: 100px; height: 50px;" /></a>  
-        </div>
-        <!-- .nav-links -->
-        <div class="nav-panel__nav-links nav-links navbar dropdown-menu ">
-          <ul class="nav-links__list">
-            <li class="nav-links__item nav-links__item--with-submenu">
-              <a href="{% url "main:index" %}"><span><i class="fa fa-home"></i>&nbsp; صفحه اصلی</span></a>
-            </li>
+<!-- ============================================
+     منوی فروشگاه - نسخه حرفه‌ای و واکنش‌گرا
+     ============================================ -->
+<nav class="main-navbar" id="mainNavbar" aria-label="منوی فروشگاه">
+  <div class="navbar-container">
+    
+    <!-- ====== لوگو ====== -->
+    <div class="navbar-logo">
+      <a href="{% url 'main:index' %}">
+        <img src="{{ media_url }}/images/logo/avaiko-clod.png" alt="صنعت پویا" />
+      </a>
+    </div>
 
-            <li class="nav-links__item nav-links__item--with-submenu">
-              <a href="main:shop">
-                <span>
-                  دسته بندی کالاها&nbsp;
-                  <i class="fa fa-angle-down"></i>
-                </span>
-              </a>
-              <div class="nav-links__megamenu nav-links__megamenu--size--nl">
-                <!-- .megamenu -->
-                <div class="megamenu">
-                  <div class="row ">
-                    <div   class="col-6">
-                      <ul class="megamenu__links megamenu__links--level--0">
-                        <li class="megamenu__item megamenu__item--with-submenu">
-                          <a href="">  سیم و کابل </a>
-                          <ul class="megamenu__links megamenu__links--level--1">
-                            <li class="megamenu__item">
-                              <a href="/products/product_of_group/mobil">شرکت الکترو پالیز تک البرز</a>
-                              <ul>
-                                <li class="megamenu__links--level--2">
-                                  <a href="/products/product_of_group/digital">   انواع سیم ها  </a>
-                                </li>
-                                <li class="megamenu__links--level--2">
-                                  <a href="/products/product_of_group/digital">   انواع کابل و مخابراتی   </a>
-                                </li>
-                                <li class="megamenu__links--level--2">
-                                  <a href="/products/product_of_group/digital">   انواع کابل فیبر نوری  </a>
-                                </li>
-                              </ul>
-                            </li>
-                      
-                      </ul>
-                    </div> 
-                   
-                      <div   class="col-6">
-                      <ul class="megamenu__links megamenu__links--level--0">
-                        <li class="megamenu__item megamenu__item--with-submenu">
-                          <a href="/products/product_of_group/mobleman-vafa/">  مبلمان   </a>
-                          <ul class="megamenu__links megamenu__links--level--1">
-                            <li class="megamenu__item">
-                              <a href="/products/product_of_group/mobleman-vafa/">مبلمان وفا</a>
-                              <ul>
-                                <li class="megamenu__links--level--2">
-                                  <a href="/products/product_details/moble-rahati/">  مبل راحتی </a>
-                                </li>
-                                <li class="megamenu__links--level--2">
-                                  <a href="/products/product_of_group/mobleman-vafa/">   مبل کلاسیک</a>
-                                </li>
-                                <li class="megamenu__links--level--2">
-                                  <a href="/products/product_of_group/sandali/">   صندلی ناهارخوری</a>
-                                </li>
-                              </ul>
-                            </li>
-                    
-       
-                      </ul>
-                    </div> 
+    <!-- ====== دکمه همبرگری (موبایل) ====== -->
+    <button class="navbar-toggler" id="navbarToggler" aria-label="باز و بسته کردن منو">
+      <span class="toggler-line"></span>
+      <span class="toggler-line"></span>
+      <span class="toggler-line"></span>
+    </button>
 
-                    {% comment %} <div   class="col-3">
-                      <ul class="megamenu__links megamenu__links--level--0">
-                        <li class="megamenu__item megamenu__item--with-submenu">
-                          <a href="/products/product_of_group/emlak">   مواداولیه ومحصولات </a>
-                          <ul class="megamenu__links megamenu__links--level--1">
-                            <li class="megamenu__item">
-                              <a href="/products/product_of_group/emlak">   سیم مس البرز </a>
-                            </li>
-                            <li class="megamenu__item">
-                              <a href="/products/product_of_group/digital">   مواد پلاستک</a>
-                              <ul>
-                                </li>
-                              </ul>
-                            </li>
-                          </ul>
-                        </li>
-                      </ul>
-                    </div> {% endcomment %}
-                  </div>
-                </div>
-            <li class="nav-links__item nav-links__item--with-submenu">
-              <a href="/products/product_of_group/tajhizat/">
-                <span>
-                  تجهیزات و ماشین آلات&nbsp;
-                  <i class="fa fa-angle-down"></i>
-                </span>
-              </a>
-              <div class="nav-links__megamenu nav-links__megamenu--size--nl">
-                <!-- .megamenu -->
-                <div class="megamenu">
-                  <div class="row ">
-                    <div   class="col-3">
-                      <ul class="megamenu__links megamenu__links--level--0">
-                        <li class="megamenu__item megamenu__item--with-submenu">
-                          <a href="/products/product_of_group/tajhizat/">صنعت برق </a>
-                          <ul class="megamenu__links megamenu__links--level--1">
-                            <li class="megamenu__item">
-                              <a href="/products/product_of_group/tajhizat/">سیم جمع کن</a>
-                              <hr>
-                            <li class="megamenu__item">
-                              <a href="/products/product_of_group/tajhizat"> سیم نازک کن </a>
-                              <hr>
-                              <li class="megamenu__item">
-                              <a href="/products/product_of_group/tajhizat">اکسرودر450</a>
-                            </li>
-                            </ul>
-                        </li>
-                      </ul>
-                    </div>
-                    <div   class="col-3">
-                      <ul class="megamenu__links megamenu__links--level--0">
-                        <li class="megamenu__item megamenu__item--with-submenu">
-                          <a href="/products/product_of_group/tajhizat">           لوازم و قطعات HSE   </a>
-                          
-                          <ul class="megamenu__links megamenu__links--level--1">
-                            <li class="megamenu__item">
-                              <a href="/products/product_of_group/tajhizat">     کپسول آتش نشانی </a>
-                              <hr>
-                              <li class="megamenu__item">
-                              <a href="/products/product_of_group/tajhizat">دستگاه آلارم</a>
-                      </ul>
-                    </div>
-
-                    <div   class="col-3">
-                      <ul class="megamenu__links megamenu__links--level--0">
-                        <li class="megamenu__item megamenu__item--with-submenu">
-                          <a href="/products/product_of_group/digital">    ماشین صنعتی</a>
-                          <ul class="megamenu__links megamenu__links--level--1">
-                            <li class="megamenu__item">
-                              <a href="/products/product_of_group/tajhizat">        چمن زنی  </a>
-                              <hr>
-                            <li class="megamenu__item">
-                              <a href="/products/product_of_group/tajhizat">     </a>
-                              <ul>
-                                {% comment %} <li class="megamenu__links--level--2">
-                                  <a href="/products/product_of_group/digital">چای</a>
-                                </li>
-                                <li class="megamenu__links--level--2">
-                                  <a href="/products/product_of_group/digital">دمنوش</a> {% endcomment %}
-                                </li>
-                              </ul>
-                            </li>
-                          </ul>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-       
-              <div class="nav-links__megamenu nav-links__megamenu--size--nl">
-                <!-- .megamenu -->
-                
-
-              </div>
-            </li>
-            <li class="nav-links__item nav-links__item--with-submenu">
-              <a href="main:shop">
-                <span>
-                  تهیه مواد اولیه &nbsp;
-                  <i class="fa fa-angle-down"></i>
-                </span>
-              </a>
-              <div class="nav-links__megamenu nav-links__megamenu--size--nl">
-                <!-- .megamenu -->
-                <div class="megamenu">
-                  <div class="row ">
-                    <div   class="col-3">
-                      <ul class="megamenu__links megamenu__links--level--0">
-                        <li class="megamenu__item megamenu__item--with-submenu">
-                          <a href="">صنعت برق </a>
-                          <ul class="megamenu__links megamenu__links--level--1">
-                            <li class="megamenu__item">
-                              <a href="/products/product_of_group/mobil"> سیم مس البرز</a>
-                              <hr>
-                            <li class="megamenu__item">
-                              <a href="/products/product_of_group/mobil"> پلیمری  </a>
-                              <hr>
-                              <li class="megamenu__item">
-                              <a href="/products/product_of_group/digital">پودر آتش نشانی</a>
-                            </li>
-                            </ul>
-                        </li>
-                      </ul>
-                    </div>
-                    <div   class="col-3">
-                      <ul class="megamenu__links megamenu__links--level--0">
-                        <li class="megamenu__item megamenu__item--with-submenu">
-                          <a href="/products/product_of_group/digital">           لوازم و قطعات HSE   </a>
-                          
-                          <ul class="megamenu__links megamenu__links--level--1">
-                            <li class="megamenu__item">
-                              <a href="/products/product_of_group/mobil"    >پودر آتش نشانی</a>
-                              <hr>
-                              <li class="megamenu__item">
-                              <a href="/products/product_of_group/digital">   </a>
-                      </ul>
-                    </div>
-
-                    <div   class="col-3">
-                      <ul class="megamenu__links megamenu__links--level--0">
-                        <li class="megamenu__item megamenu__item--with-submenu">
-                          <a href="/products/product_of_group/digital">    ماشین صنعتی</a>
-                          <ul class="megamenu__links megamenu__links--level--1">
-                            <li class="megamenu__item">
-                              <a href="/products/product_of_group/digital">       آهن و نبشی و میلگرد </a>
-                              <hr>
-                            <li class="megamenu__item">
-                              <a href="/products/product_of_group/digital">     </a>
-                              <ul>
-                                {% comment %} <li class="megamenu__links--level--2">
-                                  <a href="/products/product_of_group/digital">چای</a>
-                                </li>
-                                <li class="megamenu__links--level--2">
-                                  <a href="/products/product_of_group/digital">دمنوش</a> {% endcomment %}
-                                </li>
-                              </ul>
-                            </li>
-                          </ul>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-       
-              <div class="nav-links__megamenu nav-links__megamenu--size--nl">
-                <!-- .megamenu -->
-                
-
-              </div>
-            </li>
-            <li class="nav-links__item nav-links__item--with-submenu">
-              <a href="/realestate/product_of_group/emlak/">
-                <span>
-                  املاک و مستغلات    &nbsp;
-                  <i class="fa fa-angle-down"></i>
-                </span>
-              </a>
-              <div class="nav-links__megamenu nav-links__megamenu--size--nl">
-                <!-- .megamenu -->
-                <div class="megamenu">
-                  <div class="row ">
-                    <div   class="col-3">
-                      <ul class="megamenu__links megamenu__links--level--0">
-                        <li class="megamenu__item megamenu__item--with-submenu">
-                          <a >    املاک نصیرآباد </a>
-                          <ul class="megamenu__links megamenu__links--level--1">
-                            <li class="megamenu__item">
-                              <a href="/products/product_of_group/amlak-lstaghelat/">     املاک موحدی</a>
-                              <hr>
-                            <li class="megamenu__item">
-                              <a  >     کرامتی</a>
-                        </li>
-                      </ul>
-                    </div>
-                    <div   class="col-3">
-                      <ul class="megamenu__links megamenu__links--level--0">
-                        <li class="megamenu__item megamenu__item--with-submenu">
-                          <a  >     املاک چهاردانگه  </a>
-                          <ul class="megamenu__links megamenu__links--level--1">
-                             <li class="megamenu__item">
-                              <a  >مقدم</a>
-                              <hr>
-                             <li class="megamenu__item">
-                              <a  >اژدری</a>
-                              <ul>
-
-                      </ul>
-                    </div>
-
-                    <div   class="col-3">
-                      <ul class="megamenu__links megamenu__links--level--0">
-                        <li class="megamenu__item megamenu__item--with-submenu">
-                          <a href=" "> املاک شمس آباد</a>
-                          <ul class="megamenu__links megamenu__links--level--1">
-                            <li class="megamenu__item">
-                              <a  >  محسنی</a>
-                              <hr>
-                            <li class="megamenu__item">
-                              <a h >  برادران نصیری</a>
-                          
-                              <ul>
-                                {% comment %} <li class="megamenu__links--level--2">
-                                  <a href="/products/product_of_group/digital">چای</a>
-                                </li>
-                                <li class="megamenu__links--level--2">
-                                  <a href="/products/product_of_group/digital">دمنوش</a> {% endcomment %}
-                                </li>
-                              </ul>
-                            </li>
-                          </ul>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
- 
-
-            </li>
-            <li class="nav-links__item nav-links__item--with-submenu">
-              <a href="{% url "blogs:blog" %}"><span><i class="fa fa-newspaper"></i>&nbsp; بلاگ</span></a>
-            </li>
-            <!-- .menu -->
-<!-- .megamenu / end -->
-            <li class="nav-links__item nav-links__item--with-submenu">
-              <a href="#">
-                  <span>
-                      ورود / ثبت نام &nbsp;<i class="fa fa-angle-down"></i>
-                  </span>
-              </a>
-              <div class="nav-links__menu">
-                  {% if user.is_authenticated %}
-                  <ul class="menu menu--layout--classic">
-                      <li><a href="{% url "accounts:logout" %}">خروج</a></li>
-
-                  </ul>
-                  {% else %}
-                  <ul class="menu menu--layout--classic">
-                      <li><a href="{% url "accounts:login" %}">ورود</a></li>
-                      <li><a href="{% url "accounts:register" %}">ثبت نام</a></li>
-                  </ul>
-                  {% endif %}
-                  <!-- .menu / end -->
-              </div>
-          </li>
-
-            <div class="topbar__spring"></div>
-            <div class="topbar__item">
-              <div class="topbar-dropdown">
-                <button class="topbar-dropdown__btn" type="button">
-                 
-         
-                </button>
-              </div>
-            </div>
-          </ul>
-        </div>
-        <!-- .nav-links / end -->
-        <div class="indicator">
-          <a href="{% url "csf:user_favorite" %}" class="indicator__button">
-              <span class="indicator__area">
-                  <i class="fa fa-heart"></i>
-                  <span id="favorite_count_icon" class="indicator__value" id="indicator__value"   >0</span>
-              </span>
-          </a>
-      </div>
-      <div class="indicator">
-          <a href="{% url "orders:shop_cart" %}" class="indicator__button">
-              <span class="indicator__area">
-                  <i class="fa fa-shopping-cart"></i>
-                  <span class="indicator__value" id="indicator__value" > 0</span>
-              </span>
-          </a>
-      </div>
-      <div id="compare_count_icon" class="indicator">
-        <a href="/products/ShowCompareListView/" class="indicator__button">
-            <span class="indicator__area">
-                <i class="fa fa-play" style="font-size:15px"> </i>
-                <span id="compare_count" class="indicator__value" id="indicator__value" > 0</span>
-            </span>
+    <!-- ====== لیست منوها ====== -->
+    <ul class="navbar-menu" id="navbarMenu">
+      
+      <!-- ۱. صفحه اصلی -->
+      <li class="nav-item">
+        <a href="{% url 'main:index' %}" class="nav-link">
+          <i class="fas fa-home"></i>
+          <span>صفحه اصلی</span>
         </a>
-    </div>
+      </li>
+
+      <!-- ۲. دسته‌بندی کالاها (مگامنو) -->
+      <li class="nav-item nav-item--mega" id="categoryDropdown">
+        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+          <i class="fas fa-th-list"></i>
+          <span>دسته‌بندی کالاها</span>
+         
+        </a>
+        <div class="mega-menu">
+          <div class="mega-row">
+            <!-- ستون ۱: سیم و کابل -->
+            <div class="mega-col">
+              <h4 class="mega-title">
+                <i class="fas fa-bolt"></i> سیم و کابل
+              </h4>
+              <ul class="mega-links">
+                <li><a href="/products/product_of_group/mobil">الکترو پالیز تک البرز</a></li>
+                <li><a href="/products/product_of_group/digital">انواع سیم‌ها</a></li>
+                <li><a href="/products/product_of_group/digital">کابل مخابراتی</a></li>
+                <li><a href="/products/product_of_group/digital">کابل فیبر نوری</a></li>
+              </ul>
+            </div>
+            <!-- ستون ۲: مبلمان -->
+            <div class="mega-col">
+              <h4 class="mega-title">
+                <i class="fas fa-couch"></i> مبلمان
+              </h4>
+              <ul class="mega-links">
+                <li><a href="/products/product_of_group/mobleman-vafa/">مبلمان وفا</a></li>
+                <li><a href="/products/product_details/moble-rahati/">مبل راحتی</a></li>
+                <li><a href="/products/product_of_group/mobleman-vafa/">مبل کلاسیک</a></li>
+                <li><a href="/products/product_of_group/sandali/">صندلی ناهارخوری</a></li>
+              </ul>
+            </div>
+          </div>
         </div>
-      </div>
+      </li>
+
+      <!-- ۳. تجهیزات و ماشین آلات (مگامنو) -->
+      <li class="nav-item nav-item--mega" id="equipmentDropdown">
+        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+          <i class="fas fa-industry"></i>
+          <span>تجهیزات و ماشین آلات</span>
+        </a>
+        <div class="mega-menu">
+          <div class="mega-row">
+            <!-- ستون ۱: صنعت برق -->
+            <div class="mega-col">
+              <h4 class="mega-title">
+                <i class="fas fa-plug"></i> صنعت برق
+              </h4>
+              <ul class="mega-links">
+                <li><a href="/products/product_of_group/tajhizat/">سیم جمع کن</a></li>
+                <li><a href="/products/product_of_group/tajhizat">سیم نازک کن</a></li>
+                <li><a href="/products/product_of_group/tajhizat">اکسرودر 450</a></li>
+              </ul>
+            </div>
+            <!-- ستون ۲: HSE -->
+            <div class="mega-col">
+              <h4 class="mega-title">
+                <i class="fas fa-shield-halved"></i> لوازم و قطعات HSE
+              </h4>
+              <ul class="mega-links">
+                <li><a href="/products/product_of_group/tajhizat">کپسول آتش نشانی</a></li>
+                <li><a href="/products/product_of_group/tajhizat">دستگاه آلارم</a></li>
+              </ul>
+            </div>
+            <!-- ستون ۳: ماشین صنعتی -->
+            <div class="mega-col">
+              <h4 class="mega-title">
+                <i class="fas fa-gear"></i> ماشین صنعتی
+              </h4>
+              <ul class="mega-links">
+                <li><a href="/products/product_of_group/tajhizat">چمن‌زنی</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <!-- ۴. تهیه مواد اولیه (مگامنو) -->
+      <li class="nav-item nav-item--mega" id="materialDropdown">
+        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+          <i class="fas fa-boxes"></i>
+          <span>تهیه مواد اولیه</span>
+        </a>
+        <div class="mega-menu">
+          <div class="mega-row">
+            <!-- ستون ۱: صنعت برق -->
+            <div class="mega-col">
+              <h4 class="mega-title">
+                <i class="fas fa-plug"></i> صنعت برق
+              </h4>
+              <ul class="mega-links">
+                <li><a href="/products/product_of_group/mobil">سیم مس البرز</a></li>
+                <li><a href="/products/product_of_group/mobil">پلیمری</a></li>
+                <li><a href="/products/product_of_group/digital">پودر آتش نشانی</a></li>
+              </ul>
+            </div>
+            <!-- ستون ۲: HSE -->
+            <div class="mega-col">
+              <h4 class="mega-title">
+                <i class="fas fa-shield-halved"></i> لوازم و قطعات HSE
+              </h4>
+              <ul class="mega-links">
+                <li><a href="/products/product_of_group/mobil">پودر آتش نشانی</a></li>
+              </ul>
+            </div>
+            <!-- ستون ۳: ماشین صنعتی -->
+            <div class="mega-col">
+              <h4 class="mega-title">
+                <i class="fas fa-gear"></i> ماشین صنعتی
+              </h4>
+              <ul class="mega-links">
+                <li><a href="/products/product_of_group/digital">آهن، نبشی و میلگرد</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <!-- ۵. املاک و مستغلات -->
+      <li class="nav-item nav-item--dropdown" id="realEstateDropdown">
+        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+          <i class="fas fa-building"></i>
+          <span>املاک و مستغلات</span>
+        </a>
+        <ul class="dropdown-menu">
+          <li><a href="/products/product_of_group/amlak-lstaghelat/"><i class="fas fa-user-tie"></i> املاک موحدی</a></li>
+          <li class="dropdown-submenu">
+            <a href="#" class="submenu-toggle">
+              <i class="fas fa-location-dot"></i> املاک چهاردانگه
+              <i class="fas fa-chevron-left sub-arrow"></i>
+            </a>
+            <ul class="submenu">
+              <li><a href="#"><i class="fas fa-user-tie"></i> مقدم</a></li>
+              <li><a href="#"><i class="fas fa-user-tie"></i> اژدری</a></li>
+            </ul>
+          </li>
+          <li class="dropdown-submenu">
+            <a href="#" class="submenu-toggle">
+              <i class="fas fa-location-dot"></i> املاک شمس آباد
+              <i class="fas fa-chevron-left sub-arrow"></i>
+            </a>
+            <ul class="submenu">
+              <li><a href="#"><i class="fas fa-user-tie"></i> محسنی</a></li>
+              <li><a href="#"><i class="fas fa-user-tie"></i> برادران نصیری</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+
+      <!-- ۶. بلاگ -->
+      <li class="nav-item">
+        <a href="{% url 'blogs:blog' %}" class="nav-link">
+          <i class="fas fa-newspaper"></i>
+          <span>بلاگ</span>
+        </a>
+      </li>
+
+      <!-- ۷. ورود / ثبت‌نام -->
+      <li class="nav-item nav-item--auth" id="authDropdown">
+        {% if user.is_authenticated %}
+          <a href="{% url 'accounts:logout' %}" class="nav-link auth-link">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>خروج</span>
+          </a>
+        {% else %}
+          <a href="#" class="nav-link auth-link dropdown-toggle" data-toggle="dropdown">
+            <i class="fas fa-user-circle"></i>
+            <span>ورود/ثبت‌نام</span>
+          </a>
+          <ul class="dropdown-menu auth-dropdown">
+            <li><a href="{% url 'accounts:login' %}"><i class="fas fa-sign-in-alt"></i> ورود</a></li>
+            <li><a href="{% url 'accounts:register' %}"><i class="fas fa-user-plus"></i> ثبت‌نام</a></li>
+          </ul>
+        {% endif %}
+      </li>
+
+    </ul>
+
+    <!-- ====== آیکون‌های کناری ====== -->
+    <div class="navbar-icons">
+      <a href="{% url 'csf:user_favorite' %}" class="icon-btn" title="علاقه‌مندی‌ها">
+        <i class="fas fa-heart"></i>
+        <span class="icon-badge" id="favoriteCount">0</span>
+      </a>
+      <a href="{% url 'orders:shop_cart' %}" class="icon-btn" title="سبد خرید">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="icon-badge" id="cartCount">0</span>
+      </a>
+      <a href="/products/ShowCompareListView/" class="icon-btn" title="مقایسه">
+        <i class="fas fa-arrows-left-right"></i>
+        <span class="icon-badge" id="compareCount">0</span>
+      </a>
     </div>
+
   </div>
-</div>
+</nav>
+
+<!-- ============================================
+     اسکریپت منو
+     ============================================ -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  
+  // ====== ۱. منوی همبرگری ======
+  const toggler = document.getElementById('navbarToggler');
+  const menu = document.getElementById('navbarMenu');
+  
+  toggler.addEventListener('click', function() {
+    this.classList.toggle('active');
+    menu.classList.toggle('open');
+  });
+
+  // ====== ۲. بستن منو با کلیک خارج ======
+  document.addEventListener('click', function(e) {
+    const nav = document.getElementById('mainNavbar');
+    if (!nav.contains(e.target)) {
+      menu.classList.remove('open');
+      toggler.classList.remove('active');
+    }
+  });
+
+  // ====== ۳. زیرمنوها در موبایل ======
+  const dropdownToggles = document.querySelectorAll('.dropdown-toggle, .submenu-toggle');
+  
+  dropdownToggles.forEach(function(toggle) {
+    toggle.addEventListener('click', function(e) {
+      if (window.innerWidth <= 768) {
+        e.preventDefault();
+        const parent = this.closest('.nav-item--dropdown, .nav-item--mega, .dropdown-submenu');
+        if (parent) {
+          parent.classList.toggle('open');
+        }
+      }
+    });
+  });
+
+  // ====== ۴. جلوگیری از بسته شدن زیرمنو در دسکتاپ ======
+  document.querySelectorAll('.nav-item--dropdown > .dropdown-toggle, .nav-item--mega > .dropdown-toggle').forEach(function(item) {
+    item.addEventListener('click', function(e) {
+      if (window.innerWidth > 768) {
+        e.preventDefault();
+      }
+    });
+  });
+
+});
+</script>

@@ -1,164 +1,185 @@
-<div  >
-  <div class="nav-panel1">
-    <div class="nav-panel__container  ">
-      <div class="nav-panel__row">
-        <div class="nav-panel__logo">
-          <a href="index.html"><img src="{{media_url}}/images/logo/avaiko.png" class="img-fluid" alt="" style="width: 100px; height: 50px;" /></a>
-        </div>
-        <!-- .nav-links -->
-        <div class="nav-panel__nav-links nav-links navbar dropdown-menu ">
-          <ul class="nav-links__list">
-            <li class="nav-links__item nav-links__item--with-submenu">
-              <a href="{% url "main:index" %}"><span><i class="fa fa-home"></i>&nbsp; صفحه اصلی</span></a>
-            </li>
-            <li class="nav-links__item nav-links__item--with-submenu">
-              <a href="main:shop">
-                <span>
-                  بازار&nbsp;
-                  <i class=" "></i>
-                </span>
-              </a>
-              <div class="nav-links__megamenu nav-links__megamenu--size--nl">
-               
-              <div class="nav-links__megamenu nav-links__megamenu--size--nl">
-                <!-- .megamenu -->
-                
+<!-- ============================================
+     منوی املاک و مستغلات - نسخه حرفه‌ای و واکنش‌گرا
+     ============================================ -->
+<nav class="main-navbar" id="mainNavbar" aria-label="منوی اصلی">
+  <div class="navbar-container">
+    
+    <!-- ====== لوگو ====== -->
+    <div class="navbar-logo">
+      <a href="{% url 'main:index' %}">
+        <img src="{{ media_url }}/images/logo/avaiko.png" alt="صنعت پویا" />
+      </a>
+    </div>
 
-              </div>
-            </li>
-            <li class="nav-links__item nav-links__item--with-submenu">
-              <a href="/realestate/product_of_group/emlak/">
-                <span>
-                  املاک و مستغلات    &nbsp;
-                  <i class="fa fa-angle-down"></i>
-                </span>
-              </a>
-              <div class="nav-links__megamenu nav-links__megamenu--size--nl">
-                <!-- .megamenu -->
-                <div class="megamenu">
-                  <div class="row ">
-                    <div   class="col-3">
-                      <ul class="megamenu__links megamenu__links--level--0">
-                        <li class="megamenu__item megamenu__item--with-submenu">
-                          <a href="/products/product_of_group/emlak/">    املاک شمس آباد </a>
-                          <ul class="megamenu__links megamenu__links--level--1">
-                            <li class="megamenu__item">
-                              <a href="/products/product_of_group/amlak-lstaghelat/">     املاک موحدی</a>
-                              <hr>
-                            <li class="megamenu__item">
-                              <a href="/products/product_of_group/emlak">     کرامتی</a>
-                        </li>
-                      </ul>
-                    </div>
-                    <div   class="col-3">
-                      <ul class="megamenu__links megamenu__links--level--0">
-                        <li class="megamenu__item megamenu__item--with-submenu">
-                          <a href="/products/product_of_group/emlak">     املاک چهاردانگه  </a>
-                          <ul class="megamenu__links megamenu__links--level--1">
-                             <li class="megamenu__item">
-                              <a href="/products/product_of_group/emlak">مقدم</a>
-                              <hr>
-                             <li class="megamenu__item">
-                              <a href="/products/product_of_group/emlak">اژدری</a>
-                              <ul>
+    <!-- ====== دکمه همبرگری (موبایل) ====== -->
+    <button class="navbar-toggler" id="navbarToggler" aria-label="باز و بسته کردن منو">
+      <span class="toggler-line"></span>
+      <span class="toggler-line"></span>
+      <span class="toggler-line"></span>
+    </button>
 
-                      </ul>
-                    </div>
-
-                    <div   class="col-3">
-                      <ul class="megamenu__links megamenu__links--level--0">
-                        <li class="megamenu__item megamenu__item--with-submenu">
-                          <a href="/products/product_of_group/emlak"> املاک نصیرشهر</a>
-                          <ul class="megamenu__links megamenu__links--level--1">
-                            <li class="megamenu__item">
-                              <a href="/products/product_of_group/emlak">  محسنی</a>
-                              <hr>
-                            <li class="megamenu__item">
-                              <a href="/products/product_of_group/emlak">  برادران نصیری</a>
-                          
-                              <ul>
-                                {% comment %} <li class="megamenu__links--level--2">
-                                  <a href="/products/product_of_group/digital">چای</a>
-                                </li>
-                                <li class="megamenu__links--level--2">
-                                  <a href="/products/product_of_group/digital">دمنوش</a> {% endcomment %}
-                                </li>
-                              </ul>
-                            </li>
-                          </ul>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
- 
-
-            </li>
-            <li class="nav-links__item nav-links__item--with-submenu">
-              <a href="{% url "blogs:blog" %}"><span><i class="fa fa-newspaper"></i>&nbsp; بلاگ</span></a>
-            </li>
-            <!-- .menu -->
-<!-- .megamenu / end -->
-            <li class="nav-links__item nav-links__item--with-submenu">
-              <a href="#">
-                  <span>
-                      ورود / ثبت نام &nbsp;<i class="fa fa-angle-down"></i>
-                  </span>
-              </a>
-              <div class="nav-links__menu">
-                  {% if user.is_authenticated %}
-                  <ul class="menu menu--layout--classic">
-                      <li><a href="{% url "accounts:logout" %}">خروج</a></li>
-
-                  </ul>
-                  {% else %}
-                  <ul class="menu menu--layout--classic">
-                      <li><a href="{% url "accounts:login" %}">ورود</a></li>
-                      <li><a href="{% url "accounts:register" %}">ثبت نام</a></li>
-                  </ul>
-                  {% endif %}
-                  <!-- .menu / end -->
-              </div>
-          </li>
-
-            <div class="topbar__spring"></div>
-            <div class="topbar__item">
-              <div class="topbar-dropdown">
-                <button class="topbar-dropdown__btn" type="button">
-                 
-         
-                </button>
-              </div>
-            </div>
-          </ul>
-        </div>
-        <!-- .nav-links / end -->
-        <div class="indicator">
-          <a href="{% url "csf:user_favorite" %}" class="indicator__button">
-              <span class="indicator__area">
-                  <i class="fa fa-heart"></i>
-                  <span id="favorite_count_icon" class="indicator__value" id="indicator__value"   >0</span>
-              </span>
-          </a>
-      </div>
-      <div class="indicator">
-          <a href="{% url "orders:shop_cart" %}" class="indicator__button">
-              <span class="indicator__area">
-                  <i class="fa fa-shopping-cart"></i>
-                  <span class="indicator__value" id="indicator__value" > 0</span>
-              </span>
-          </a>
-      </div>
-      <div id="compare_count_icon" class="indicator">
-        <a href="/products/ShowCompareListView/" class="indicator__button">
-            <span class="indicator__area">
-                <i class="fa fa-play" style="font-size:15px"> </i>
-                <span id="compare_count" class="indicator__value" id="indicator__value" > 0</span>
-            </span>
+    <!-- ====== لیست منوها ====== -->
+    <ul class="navbar-menu" id="navbarMenu">
+      
+      <!-- ۱. صفحه اصلی -->
+      <li class="nav-item">
+        <a href="{% url 'main:index' %}" class="nav-link">
+          <i class="fas fa-home"></i>
+          <span>صفحه اصلی</span>
         </a>
+      </li>
+
+      <!-- ۲. بازار -->
+      <li class="nav-item">
+        <a href="{% url 'main:shop' %}" class="nav-link">
+          <i class="fas fa-store"></i>
+          <span>بازار</span>
+        </a>
+      </li>
+
+      <!-- ۳. املاک و مستغلات (با زیرمنو) -->
+      <li class="nav-item nav-item--dropdown" id="realEstateDropdown">
+        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+          <i class="fas fa-building"></i>
+          <span>املاک و مستغلات</span>
+          <i class="fas fa-chevron-down dropdown-arrow"></i>
+        </a>
+        <ul class="dropdown-menu">
+          <!-- گروه ۱: املاک شمس آباد -->
+          <li class="dropdown-item dropdown-submenu">
+            <a href="#" class="submenu-toggle">
+              <i class="fas fa-location-dot"></i> املاک شمس آباد
+              <i class="fas fa-chevron-left sub-arrow"></i>
+            </a>
+            <ul class="submenu">
+              <li><a href="/products/product_of_group/amlak-lstaghelat/"><i class="fas fa-user-tie"></i> املاک موحدی</a></li>
+              <li><a href="/products/product_of_group/emlak"><i class="fas fa-user-tie"></i> کرامتی</a></li>
+            </ul>
+          </li>
+          <!-- گروه ۲: املاک چهاردانگه -->
+          <li class="dropdown-item dropdown-submenu">
+            <a href="#" class="submenu-toggle">
+              <i class="fas fa-location-dot"></i> املاک چهاردانگه
+              <i class="fas fa-chevron-left sub-arrow"></i>
+            </a>
+            <ul class="submenu">
+              <li><a href="/products/product_of_group/emlak"><i class="fas fa-user-tie"></i> مقدم</a></li>
+              <li><a href="/products/product_of_group/emlak"><i class="fas fa-user-tie"></i> اژدری</a></li>
+            </ul>
+          </li>
+          <!-- گروه ۳: املاک نصیرشهر -->
+          <li class="dropdown-item dropdown-submenu">
+            <a href="#" class="submenu-toggle">
+              <i class="fas fa-location-dot"></i> املاک نصیرشهر
+              <i class="fas fa-chevron-left sub-arrow"></i>
+            </a>
+            <ul class="submenu">
+              <li><a href="/products/product_of_group/emlak"><i class="fas fa-user-tie"></i> محسنی</a></li>
+              <li><a href="/products/product_of_group/emlak"><i class="fas fa-user-tie"></i> برادران نصیری</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+
+      <!-- ۴. بلاگ -->
+      <li class="nav-item">
+        <a href="{% url 'blogs:blog' %}" class="nav-link">
+          <i class="fas fa-newspaper"></i>
+          <span>بلاگ</span>
+        </a>
+      </li>
+
+      <!-- ۵. ورود / ثبت‌نام -->
+      <li class="nav-item nav-item--auth" id="authDropdown">
+        {% if user.is_authenticated %}
+          <a href="{% url 'accounts:logout' %}" class="nav-link auth-link">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>خروج</span>
+          </a>
+        {% else %}
+          <a href="#" class="nav-link auth-link dropdown-toggle" data-toggle="dropdown">
+            <i class="fas fa-user-circle"></i>
+            <span>ورود/ثبت‌نام</span>
+            <i class="fas fa-chevron-down dropdown-arrow"></i>
+          </a>
+          <ul class="dropdown-menu auth-dropdown">
+            <li><a href="{% url 'accounts:login' %}"><i class="fas fa-sign-in-alt"></i> ورود</a></li>
+            <li><a href="{% url 'accounts:register' %}"><i class="fas fa-user-plus"></i> ثبت‌نام</a></li>
+          </ul>
+        {% endif %}
+      </li>
+
+    </ul>
+
+    <!-- ====== آیکون‌های کناری ====== -->
+    <div class="navbar-icons">
+      <!-- علاقه‌مندی‌ها -->
+      <a href="{% url 'csf:user_favorite' %}" class="icon-btn" title="علاقه‌مندی‌ها">
+        <i class="fas fa-heart"></i>
+        <span class="icon-badge" id="favoriteCount">0</span>
+      </a>
+      <!-- سبد خرید -->
+      <a href="{% url 'orders:shop_cart' %}" class="icon-btn" title="سبد خرید">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="icon-badge" id="cartCount">0</span>
+      </a>
+      <!-- مقایسه -->
+      <a href="/products/ShowCompareListView/" class="icon-btn" title="مقایسه">
+        <i class="fas fa-arrows-left-right"></i>
+        <span class="icon-badge" id="compareCount">0</span>
+      </a>
     </div>
-        </div>
-      </div>
-    </div>
+
   </div>
-</div>
+</nav>
+
+<!-- ============================================
+     اسکریپت منو
+     ============================================ -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  
+  // ====== ۱. منوی همبرگری ======
+  const toggler = document.getElementById('navbarToggler');
+  const menu = document.getElementById('navbarMenu');
+  
+  toggler.addEventListener('click', function() {
+    this.classList.toggle('active');
+    menu.classList.toggle('open');
+  });
+
+  // ====== ۲. بستن منو با کلیک خارج ======
+  document.addEventListener('click', function(e) {
+    const nav = document.getElementById('mainNavbar');
+    if (!nav.contains(e.target)) {
+      menu.classList.remove('open');
+      toggler.classList.remove('active');
+    }
+  });
+
+  // ====== ۳. زیرمنوها در موبایل ======
+  const dropdownToggles = document.querySelectorAll('.dropdown-toggle, .submenu-toggle');
+  
+  dropdownToggles.forEach(function(toggle) {
+    toggle.addEventListener('click', function(e) {
+      if (window.innerWidth <= 768) {
+        e.preventDefault();
+        const parent = this.closest('.nav-item--dropdown, .dropdown-submenu');
+        if (parent) {
+          parent.classList.toggle('open');
+        }
+      }
+    });
+  });
+
+  // ====== ۴. جلوگیری از بسته شدن زیرمنو در دسکتاپ ======
+  document.querySelectorAll('.nav-item--dropdown > .dropdown-toggle').forEach(function(item) {
+    item.addEventListener('click', function(e) {
+      if (window.innerWidth > 768) {
+        e.preventDefault();
+      }
+    });
+  });
+
+});
+</script>
