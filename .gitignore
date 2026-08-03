@@ -34,3 +34,7 @@ staticfiles
 .vscode/
 help.me
 **/__pycache__
+sanatpoya.rar
+sanatpoya.zip
+deploy.sh
+db.sqlite3

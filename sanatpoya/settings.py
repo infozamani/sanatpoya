@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+import warnings
+warnings.filterwarnings('ignore', category=UserWarning, module='ckeditor')
+warnings.filterwarnings('ignore', category=UserWarning, module='ckeditor_uploader')
 
 ENV = os.getenv('DJANGO_ENV', 'local')
 
@@ -40,7 +43,7 @@ if ENV == 'production':
 # Application definition
 
 INSTALLED_APPS = [
-   'django.contrib.admin',
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -82,11 +85,17 @@ INSTALLED_APPS = [
     'django_filters', 
     'django.contrib.humanize',
     "compressor",
+    'django_ckeditor_5'
      
     # 'metametackeditordjango_render_partial'
     # 'rest_framework',
     
 ]
+
+# ====== تنظیمات CKEditor ======
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_IMAGE_BACKEND = "pillow"
+
 SITE_ID = 1 
 
 
@@ -115,6 +124,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'apps.main.views.media_admin'
+                
                  
             ],
         },
@@ -277,5 +287,3 @@ EMAIL_USE_TLS = False
 EMAIL_HOST_USER = 'fariborz499@gmail.com'  # آدرس ایمیل خود را وارد کنید  
 EMAIL_HOST_PASSWORD = 'inFo18657@#'  # رمز عبور خود را وارد کنید  
 DEFAULT_FROM_EMAIL = 'fariborz499@gmail.com' # این خط را نیز می‌توانید اضافه کنید
-
-

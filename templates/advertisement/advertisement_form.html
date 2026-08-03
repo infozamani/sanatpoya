@@ -1,15 +1,329 @@
-<!DOCTYPE html>  
-<html lang="en">  
-<head>  
-    <meta charset="UTF-8">  
-    <title>ایجاد تبلیغ</title>  
-</head>  
-<body class="container">  
-    <h1>ایجاد تبلیغ جدید</h1>  
-    <form method="post" enctype="multipart/form-data">  
-        {% csrf_token %}  
-        {{ form.as_p }}  
-        <button type="submit">ذخیره</button>  
-    </form>  
-</body>  
-</html>
+{% extends "shop_template.html" %}
+{% load static %}
+
+{% block title %}ایجاد تبلیغ جدید | صنعت پویا{% endblock title %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8 max-w-4xl">
+    
+    <!-- هدر فرم -->
+    <div class="relative bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-2xl mb-8 overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <svg class="absolute -top-10 -right-10 w-40 h-40" viewBox="0 0 200 200" fill="white">
+                <circle cx="100" cy="100" r="80" />
+            </svg>
+            <svg class="absolute -bottom-10 -left-10 w-32 h-32" viewBox="0 0 200 200" fill="white">
+                <rect x="20" y="20" width="160" height="160" rx="20" />
+            </svg>
+        </div>
+        
+        <div class="relative px-8 py-10 text-center">
+            <span class="inline-block bg-white/20 backdrop-blur-sm text-white text-sm font-semibold px-4 py-1 rounded-full mb-4">
+                🚀 ثبت تبلیغات جدید
+            </span>
+            <h1 class="text-3xl md:text-4xl font-bold text-white mb-3">
+                ایجاد تبلیغ جدید
+            </h1>
+            <p class="text-white/90 text-lg max-w-2xl mx-auto">
+                با ثبت تبلیغ خود، کسب‌وکارتان را به هزاران مخاطب هدف معرفی کنید
+            </p>
+        </div>
+    </div>
+
+    <!-- فرم اصلی با طراحی زیبا -->
+    <div class="bg-white rounded-2xl shadow-xl p-6 md:p-8">
+        <form method="post" enctype="multipart/form-data" class="space-y-6" id="advertisement-form">
+            {% csrf_token %}
+            
+            {% if form.non_field_errors %}
+                <div class="bg-red-50 border-r-4 border-red-500 p-4 rounded-lg">
+                    <div class="flex items-center">
+                        <svg class="w-5 h-5 text-red-500 ml-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                        </svg>
+                        <span class="text-red-700">{{ form.non_field_errors }}</span>
+                    </div>
+                </div>
+            {% endif %}
+            
+            <!-- فیلد عنوان -->
+            <div class="form-group">
+                <label for="{{ form.title.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2">
+                    {{ form.title.label }}
+                    <span class="text-red-500">*</span>
+                </label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                        <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                    </div>
+                    {{ form.title }}
+                    {% if form.title.errors %}
+                        <div class="text-red-500 text-sm mt-1">{{ form.title.errors }}</div>
+                    {% endif %}
+                </div>
+                <p class="text-xs text-gray-500 mt-1">عنوانی جذاب و مختصر برای تبلیغ خود انتخاب کنید (حداکثر ۱۰۰ کاراکتر)</p>
+            </div>
+
+            <!-- فیلد توضیحات -->
+            <div class="form-group">
+                <label for="{{ form.description.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2">
+                    {{ form.description.label }}
+                    <span class="text-red-500">*</span>
+                </label>
+                <div class="relative">
+                    <div class="absolute top-3 right-0 pr-3 flex items-start pointer-events-none">
+                        <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/>
+                        </svg>
+                    </div>
+                    {{ form.description }}
+                    {% if form.description.errors %}
+                        <div class="text-red-500 text-sm mt-1">{{ form.description.errors }}</div>
+                    {% endif %}
+                </div>
+                <div class="flex justify-between items-center mt-1">
+                    <p class="text-xs text-gray-500">توضیحات کامل و جذاب برای تبلیغ خود بنویسید</p>
+                    <span id="char-count" class="text-xs text-gray-400">۰ کاراکتر</span>
+                </div>
+            </div>
+
+            <!-- فیلد تصویر با پیش‌نمایش -->
+            <div class="form-group">
+                <label for="{{ form.image_name.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2">
+                    {{ form.image_name.label }}
+                    <span class="text-red-500">*</span>
+                </label>
+                <div class="relative border-2 border-dashed border-gray-300 rounded-xl p-6 hover:border-blue-500 transition-colors duration-300" id="drop-zone">
+                    <input type="file" name="{{ form.image_name.name }}" id="{{ form.image_name.id_for_label }}" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" accept="image/*" onchange="previewImage(event)">
+                    <div class="text-center" id="upload-placeholder">
+                        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                        <p class="mt-2 text-sm text-gray-600">تصویر خود را اینجا بکشید و رها کنید</p>
+                        <p class="text-xs text-gray-400">یا برای انتخاب کلیک کنید</p>
+                        <p class="text-xs text-gray-400 mt-2">فرمت‌های مجاز: JPG, PNG, GIF, WebP</p>
+                    </div>
+                    <div id="image-preview" class="hidden mt-4">
+                        <div class="relative inline-block">
+                            <img id="preview" src="#" alt="پیش‌نمایش تصویر" class="max-h-48 rounded-lg shadow-md">
+                            <button type="button" onclick="removeImage()" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    {% if form.image_name.errors %}
+                        <div class="text-red-500 text-sm mt-1">{{ form.image_name.errors }}</div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- فیلد لینک -->
+            <div class="form-group">
+                <label for="{{ form.url.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2">
+                    {{ form.url.label }}
+                    <span class="text-red-500">*</span>
+                </label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                        <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
+                        </svg>
+                    </div>
+                    {{ form.url }}
+                    {% if form.url.errors %}
+                        <div class="text-red-500 text-sm mt-1">{{ form.url.errors }}</div>
+                    {% endif %}
+                </div>
+                <p class="text-xs text-gray-500 mt-1">لینک معتبر و فعال برای هدایت کاربران (مثال: https://example.com)</p>
+            </div>
+
+            <!-- دکمه‌های اقدام -->
+            <div class="flex flex-wrap gap-4 pt-6 border-t border-gray-200">
+                <button type="submit" class="flex-1 min-w-[150px] px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
+                    <svg class="inline-block w-5 h-5 ml-2 -mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    ذخیره تبلیغ
+                </button>
+                
+                <a href="{% url 'advertisements:advertisement_list' %}" class="flex-1 min-w-[150px] px-6 py-3 bg-gray-200 text-gray-700 font-bold rounded-lg hover:bg-gray-300 transition-all duration-300 text-center">
+                    <svg class="inline-block w-5 h-5 ml-2 -mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                    </svg>
+                    بازگشت به لیست
+                </button>
+                
+                <button type="reset" class="px-6 py-3 bg-red-100 text-red-600 font-bold rounded-lg hover:bg-red-200 transition-all duration-300">
+                    <svg class="inline-block w-5 h-5 ml-2 -mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                    </svg>
+                    پاک کردن
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- نکات راهنما -->
+    <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="bg-blue-50 rounded-xl p-4 text-center">
+            <div class="text-3xl mb-2">🎯</div>
+            <h4 class="font-semibold text-gray-800">عنوان جذاب</h4>
+            <p class="text-sm text-gray-600">عنوانی که توجه کاربران را جلب کند</p>
+        </div>
+        <div class="bg-purple-50 rounded-xl p-4 text-center">
+            <div class="text-3xl mb-2">🖼️</div>
+            <h4 class="font-semibold text-gray-800">تصویر باکیفیت</h4>
+            <p class="text-sm text-gray-600">تصویری واضح و مرتبط با تبلیغ</p>
+        </div>
+        <div class="bg-green-50 rounded-xl p-4 text-center">
+            <div class="text-3xl mb-2">🔗</div>
+            <h4 class="font-semibold text-gray-800">لینک معتبر</h4>
+            <p class="text-sm text-gray-600">لینکی که به صفحه مقصد هدایت کند</p>
+        </div>
+    </div>
+
+</div>
+
+<!-- استایل‌های سفارشی -->
+<style>
+    /* استایل‌های فیلدهای فرم */
+    .form-group input:not([type="file"]),
+    .form-group textarea {
+        width: 100%;
+        padding: 12px 45px 12px 16px;
+        border: 2px solid #e5e7eb;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        font-size: 16px;
+        background-color: #f9fafb;
+    }
+    
+    .form-group input:not([type="file"]):focus,
+    .form-group textarea:focus {
+        outline: none;
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+        background-color: #ffffff;
+    }
+    
+    .form-group textarea {
+        min-height: 120px;
+        resize: vertical;
+        padding-top: 12px;
+    }
+    
+    /* دراپ زون */
+    #drop-zone {
+        background-color: #f9fafb;
+        transition: all 0.3s ease;
+    }
+    
+    #drop-zone:hover {
+        background-color: #eff6ff;
+        border-color: #3b82f6;
+    }
+    
+    #drop-zone.dragover {
+        background-color: #dbeafe;
+        border-color: #2563eb;
+        transform: scale(1.02);
+    }
+    
+    /* انیمیشن‌ها */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .form-group {
+        animation: fadeInUp 0.5s ease-out forwards;
+        opacity: 0;
+    }
+    
+    .form-group:nth-child(1) { animation-delay: 0.1s; }
+    .form-group:nth-child(2) { animation-delay: 0.2s; }
+    .form-group:nth-child(3) { animation-delay: 0.3s; }
+    .form-group:nth-child(4) { animation-delay: 0.4s; }
+</style>
+
+<script>
+    // شمارش کاراکترهای توضیحات
+    document.addEventListener('DOMContentLoaded', function() {
+        const descriptionField = document.getElementById('{{ form.description.id_for_label }}');
+        const charCount = document.getElementById('char-count');
+        
+        if (descriptionField && charCount) {
+            descriptionField.addEventListener('input', function() {
+                const count = this.value.length;
+                charCount.textContent = count + ' کاراکتر';
+                if (count > 500) {
+                    charCount.classList.add('text-red-500');
+                    charCount.classList.remove('text-gray-400');
+                } else {
+                    charCount.classList.remove('text-red-500');
+                    charCount.classList.add('text-gray-400');
+                }
+            });
+        }
+    });
+
+    // پیش‌نمایش تصویر
+    function previewImage(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('preview').src = e.target.result;
+                document.getElementById('image-preview').classList.remove('hidden');
+                document.getElementById('upload-placeholder').classList.add('hidden');
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    // حذف تصویر
+    function removeImage() {
+        document.getElementById('preview').src = '#';
+        document.getElementById('image-preview').classList.add('hidden');
+        document.getElementById('upload-placeholder').classList.remove('hidden');
+        document.getElementById('{{ form.image_name.id_for_label }}').value = '';
+    }
+
+    // درگ و دراپ
+    const dropZone = document.getElementById('drop-zone');
+    const fileInput = document.getElementById('{{ form.image_name.id_for_label }}');
+
+    if (dropZone && fileInput) {
+        dropZone.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            this.classList.add('dragover');
+        });
+
+        dropZone.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            this.classList.remove('dragover');
+        });
+
+        dropZone.addEventListener('drop', function(e) {
+            e.preventDefault();
+            this.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                fileInput.files = files;
+                previewImage({ target: { files: files } });
+            }
+        });
+    }
+</script>
+
+{% endblock content %}

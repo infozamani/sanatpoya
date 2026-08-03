@@ -1,9 +1,10 @@
 from django.urls import path
-from .views import index,SliderView,shop,realestate,AboutUsView,create_post,regulations
+from .views import index,SliderView,shop,realestate,AboutUsView,create_post,regulations,home
 #----------------------------------------------------------------
 app_name = 'main'
 urlpatterns = [
-    path('',index,name='index'),
+    path('', home, name='home'),  
+    path('index/', index, name='index'), 
     path('shop/',shop,name='shop'),
     path('realestate/',realestate,name='realestate'),
     path('about_us/',AboutUsView.as_view(),name='about_us'),
@@ -12,4 +13,4 @@ urlpatterns = [
     path ('regulations/',regulations, name='regulations'),
     
 ]
-# chench the test
+ 

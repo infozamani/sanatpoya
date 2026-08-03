@@ -1,73 +1,63 @@
- {% extends "main_template.html" %}  
+{% extends "main_template.html" %}  
 {% load render_partial %}   
+{% load static %}
+
 {% block title %}
    صنعت پویا
 {% endblock title %}
+
 {% block content %}
-  
 <html lang="fa" dir="rtl">
- 
-	<!-- site -->
-	<div class="site">
-		<!-- site__body -popular-->
-		<div class="site__body " >
-		 <hr>
-			<div class="block block-banner">
-				<div  >
-					<a href="" class="block-banner__body">
-						<div class="block-banner__image block-banner__image--desktop"
-							style="background-image: url('https://picsum.photos/1110/170')"></div>
-						<div class="block-banner__image block-banner__image--mobile"
-							style="background-image: url('https://picsum.photos/510/390')"></div>
-						<div class="block-banner__title" style="color:white;" >
-							فروش و تبلیغات	 
-							<br class="block-banner__mobile-br">
-						</div>
-						<div class="block-banner__text"><b style="background-color: blue; color: navajowhite;font-size: 15px;">     
-							 </b></div>
-						{% comment %} <div class="block-banner__text"><b style="background-color: blue; color: navajowhite;font-size: 15px;">سایت صنعت پویا، متخصص در ارائه خدمات فروش و تبلیغات، به‌صورت حرفه‌ای به بهبود کسب‌وکار شما کمک می‌کند. این فرصت را از دست ندهید و برای دیده‌شدن در صفحات اول گوگل،یک ماه به صورت رایگان از خدمات ما بهره مند شوید.(تبلیغات و استفاده از قسمت فروشگاهی کاملا رایگان می باشد)
-							.</b></div> {% endcomment %}
-						<div class="block-banner__button"><span class="btn btn-sm btn-blue" style="background-color: blue; color: darksalmon;font-size:15px;">هم اکنون با ارسال تیکت یا تماس اقدام نمایید</span> 
-						</div>
-					</a>
-				</div>
-				<div class="block block--highlighted block-categories block-categories--layout--compact ">
-				<div >
-					<div class="row">
-						<div class="col-12">
-							{% render_partial 'specialties:popular_expert_groups' %}				   
-										   
-							
-						</div>
-					</div>
-				</div>  
-			</div>
-		</div>
-			<!-- .block-banner -->
-				 <hr>
-				<!-- About sanatpoya -->
-				<div id="about" class="bg-white  ">
-					<div class="col-12 text-center area">
-						
-							<h1>خدمات صنعت پویا در حوزه تکنولوژی</h1>
-						
-						<h2 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
-							
-							"دست در دست هم دهیم به مهر, میهن خویش را کنیم آباد" 
-						</h2>
-						<p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
-							در دنیای امروز، تنوع و تخصص در صنعت از اهمیت بالایی برخوردار است. وب‌سایت «صنعت پویا» به عنوان یک سایت معتبر و جامع، تلاش می‌کند تا با گردآوری مشاورین، تولیدکنندگان، پیمانکاران و دیگر متخصصان، فضایی مناسب برای تبادل دانش و خدمات فراهم کند.				
-						</p>
-						<a href="{% url "main:about_us" %}" class="btn btn-secondary">
-							درباره ما بیشتر بدانید
-						</a>
-						 
-						{% render_partial 'teams:team_list' %}	
-					</div>
-				</div>
-			</div>
-		</div>  
-			
- 
+<div class="site">
+    <div class="site__body">
+        <hr>
+        
+        <!-- ===== اسلایدر تبلیغات ===== -->
+        {% include 'main_app/partials/ad_slider.html' %}
+        <!-- ===== پایان اسلایدر تبلیغات ===== -->
+        
+        <hr>
+        
+        <!-- بنر استاتیک قدیمی (اختیاری - کامنت شده) -->
+        {% comment %}
+        <div class="block block-banner">
+            <!-- ... -->
+        </div>
+        {% endcomment %}
+        
+        <hr>
+        
+        <!-- بخش تخصص‌ها -->
+        <div class="block block--highlighted block-categories block-categories--layout--compact">
+            <div>
+                <div class="row">
+                    <div class="col-12">
+                        {% render_partial 'specialties:popular_expert_groups' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <hr>
+        
+        <!-- بخش درباره ما -->
+        <div id="about" class="bg-white">
+            <div class="col-12 text-center area">
+                <h1>خدمات صنعت پویا در حوزه تکنولوژی</h1>
+                <h2 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+                    "دست در دست هم دهیم به مهر، میهن خویش را کنیم آباد" 
+                </h2>
+                <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+                    در دنیای امروز، تنوع و تخصص در صنعت از اهمیت بالایی برخوردار است. وب‌سایت «صنعت پویا» به عنوان یک سایت معتبر و جامع، تلاش می‌کند تا با گردآوری مشاورین، تولیدکنندگان، پیمانکاران و دیگر متخصصان، فضایی مناسب برای تبادل دانش و خدمات فراهم کند.				
+                </p>
+                <a href="{% url 'main:about_us' %}" class="btn btn-secondary">
+                    درباره ما بیشتر بدانید
+                </a>
+                {% render_partial 'teams:team_list' %}	
+            </div>
+        </div>
+        
+    </div>
+</div>
 </html>
 {% endblock content %}

@@ -1,30 +1,115 @@
 {% extends "shop_template.html" %}
-
-{% load render_partial %} 
+{% load render_partial %}
+{% load humanize %}
 
 {% block title %}
-    فروشگاه
+    گروه‌های محصولات | صنعت پویا
 {% endblock title %}
 
 {% block content %}
-<div  >
-<div class="block-categories__list">
-    {% for group in product_groups %}
-     <div class="block-categories__item category-card category-card--layout--compact">
-         <div class="category-card__body">
-             <div class="category-card__image">
-                 <a href="{% url "products:product_details" %}">
-                     <img src="{{media_url}}{{group.image_name}}" alt="">
-                 </a>
-             </div>
-             <div class="category-card__content">
-                 <div class="category-card__name"><a href="{% url "products:product_details" %}">{{group.group_title}}</a></div>
-                 <div class="category-card__products">{{group.products_of_groups.all|length}} محصول</div>
-             </div>
-         </div>
-     </div>
-     {% endfor %}
-     <a href="{% url "products:product_groups" %}">همه</a>
- </div> 
- </div> 
+<div class="site__body">
+    <div class="page-header">
+        <div class="page-header__container container">
+            <div class="page-header__breadcrumb">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'main:shop' %}">خانه</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">گروه‌های محصولات</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="page-header__title">
+                <h1>گروه‌های محصولات</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="block">
+        <div class="container">
+            <div class="block-categories__list">
+                {% for group in product_groups %}
+                    <div class="block-categories__item category-card category-card--layout--compact">
+                        <div class="category-card__body">
+                            <div class="category-card__image">
+                                <a href="{% url 'products:ProductsBygroup' slug=group.slug %}">
+                                    <img src="{{ media_url }}{{ group.image_name }}" alt="{{ group.group_title }}">
+                                </a>
+                            </div>
+                            <div class="category-card__content">
+                                <div class="category-card__name">
+                                    <a href="{% url 'products:ProductsBygroup' slug=group.slug %}">
+                                        {{ group.group_title }}
+                                    </a>
+                                </div>
+                                <div class="category-card__products">
+                                    {{ group.products_of_groups.all|length }} محصول
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="text-center py-5">
+                        <i class="fa fa-boxes" style="font-size: 64px; color: #ddd;"></i>
+                        <h3 style="color: #666;">گروه محصولی یافت نشد</h3>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.block-categories__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.category-card {
+    transition: all 0.3s ease;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.category-card__body {
+    padding: 20px;
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    text-align: center;
+    height: 100%;
+}
+
+.category-card__image img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.category-card__name {
+    font-size: 15px;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.category-card__name a {
+    color: #1a1a2e;
+    text-decoration: none;
+}
+
+.category-card__name a:hover {
+    color: #e94560;
+}
+
+.category-card__products {
+    font-size: 13px;
+    color: #999;
+}
+</style>
 {% endblock content %}

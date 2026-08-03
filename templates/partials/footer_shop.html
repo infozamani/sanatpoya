@@ -1,0 +1,238 @@
+<!-- site__footer -->
+<footer class="site__footer">
+    <div class="site-footer">
+        
+        <!-- ====== بخش بالایی فوتر (هماهنگ با منوی تیره) ====== -->
+        <div class="site-footer__widgets" style="background: #1a1a2e; color: #fff; padding: 50px 0; border-bottom: 3px solid rgba(233, 69, 96, 0.2);">
+            <div class="container">
+                <div class="row">
+                    
+                    <!-- ====== ستون ۱: تماس با ما ====== -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="site-footer__widget footer-contacts">
+                            <h5 class="footer-contacts__title" style="color: #fff; border-right: 3px solid #e94560; padding-right: 12px; margin-bottom: 20px;">
+                                <i class="fas fa-phone-alt" style="color: #e94560; margin-left: 8px;"></i>
+                                تماس با ما
+                            </h5>
+                            <ul class="footer-contacts__contacts" style="color: #ccc; padding: 0; list-style: none;">
+                                <li style="padding: 8px 0; display: flex; align-items: center;">
+                                    <i class="footer-contacts__icon fas fa-globe-americas" style="color: #e94560; width: 28px; font-size: 18px;"></i>
+                                    <span>تهران، خیابان آزادی</span>
+                                </li>
+                                <li style="padding: 8px 0; display: flex; align-items: center;">
+                                    <i class="footer-contacts__icon fas fa-mobile-alt" style="color: #e94560; width: 28px; font-size: 18px;"></i>
+                                    <span class="ltr_text" style="color: #fff; font-weight: 500;">09354530305</span>
+                                </li>
+                                <li style="padding: 8px 0; display: flex; align-items: center;">
+                                    <i class="footer-contacts__icon fas fa-envelope" style="color: #e94560; width: 28px; font-size: 16px;"></i>
+                                    <span style="color: #ddd;">info@sanatpoya.com</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- ====== ستون ۲: اطلاعات ====== -->
+                    <div class="col-6 col-md-3 col-lg-2">
+                        <div class="site-footer__widget footer-links">
+                            <h5 class="footer-links__title" style="color: #fff; border-right: 3px solid #e94560; padding-right: 12px; margin-bottom: 20px;">
+                                اطلاعات
+                            </h5>
+                            <ul class="footer-links__list" style="padding: 0; list-style: none;">
+                                <li class="footer-links__item" style="padding: 6px 0;">
+                                    <a href="{% url 'main:about_us' %}" class="footer-links__link" style="color: #ccc; text-decoration: none; transition: all 0.3s; display: flex; align-items: center;">
+                                        <i class="fas fa-chevron-left" style="font-size: 10px; color: #e94560; margin-left: 8px;"></i>
+                                        درباره ما
+                                    </a>
+                                </li>
+                                <li class="footer-links__item" style="padding: 6px 0;">
+                                    <a href="{% url 'main:PostCreate' %}" class="footer-links__link" style="color: #ccc; text-decoration: none; transition: all 0.3s; display: flex; align-items: center;">
+                                        <i class="fas fa-chevron-left" style="font-size: 10px; color: #e94560; margin-left: 8px;"></i>
+                                        تماس با ما
+                                    </a>
+                                </li>
+                                <li class="footer-links__item" style="padding: 6px 0;">
+                                    <a href="{% url 'main:regulations' %}" class="footer-links__link" style="color: #ccc; text-decoration: none; transition: all 0.3s; display: flex; align-items: center;">
+                                        <i class="fas fa-chevron-left" style="font-size: 10px; color: #e94560; margin-left: 8px;"></i>
+                                        قوانین و مقررات
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- ====== ستون ۳: حساب کاربری ====== -->
+                    <div class="col-6 col-md-3 col-lg-2">
+                        <div class="site-footer__widget footer-links">
+                            <h5 class="footer-links__title" style="color: #fff; border-right: 3px solid #e94560; padding-right: 12px; margin-bottom: 20px;">
+                                حساب کاربری
+                            </h5>
+                            <ul class="footer-links__list" style="padding: 0; list-style: none;">
+                                <li class="footer-links__item" style="padding: 6px 0;">
+                                    <a href="{% url 'accounts:login' %}" class="footer-links__link" style="color: #ccc; text-decoration: none; transition: all 0.3s; display: flex; align-items: center;">
+                                        <i class="fas fa-chevron-left" style="font-size: 10px; color: #e94560; margin-left: 8px;"></i>
+                                        ورود
+                                    </a>
+                                </li>
+                                <li class="footer-links__item" style="padding: 6px 0;">
+                                    <a href="{% url 'accounts:register' %}" class="footer-links__link" style="color: #ccc; text-decoration: none; transition: all 0.3s; display: flex; align-items: center;">
+                                        <i class="fas fa-chevron-left" style="font-size: 10px; color: #e94560; margin-left: 8px;"></i>
+                                        ثبت نام
+                                    </a>
+                                </li>
+                                <li class="footer-links__item" style="padding: 6px 0;">
+                                    <a href="/support/tickets/" class="footer-links__link" style="color: #ccc; text-decoration: none; transition: all 0.3s; display: flex; align-items: center;">
+                                        <i class="fas fa-chevron-left" style="font-size: 10px; color: #e94560; margin-left: 8px;"></i>
+                                        <i class="fas fa-ticket-alt" style="color: #e94560; margin-left: 5px;"></i>
+                                        ارسال تیکت
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- ====== ستون ۴: شبکه‌های اجتماعی ====== -->
+                    <div class="col-12 col-md-12 col-lg-4">
+                        <div class="site-footer__widget footer-newsletter">
+                            <h5 class="footer-contacts__title" style="color: #fff; border-right: 3px solid #e94560; padding-right: 12px; margin-bottom: 20px;">
+                                <i class="fas fa-share-alt" style="color: #e94560; margin-left: 8px;"></i>
+                                شبکه‌های اجتماعی
+                            </h5>
+                            <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;">
+                                <a href="https://www.facebook.com/sanatpoya/" target="_blank" 
+                                   style="display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 12px; background: #3b5998; color: #fff; transition: all 0.3s; font-size: 22px; text-decoration: none;">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="https://t.me/sanatpoya" target="_blank" 
+                                   style="display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 12px; background: #0088cc; color: #fff; transition: all 0.3s; font-size: 22px; text-decoration: none;">
+                                    <i class="fab fa-telegram-plane"></i>
+                                </a>
+                                <a href="https://www.youtube.com/c/sanatpoya" target="_blank" 
+                                   style="display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 12px; background: #ff0000; color: #fff; transition: all 0.3s; font-size: 22px; text-decoration: none;">
+                                    <i class="fab fa-youtube"></i>
+                                </a>
+                                <a href="https://www.instagram.com/sanatpoya/" target="_blank" 
+                                   style="display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 12px; background: #e4405f; color: #fff; transition: all 0.3s; font-size: 22px; text-decoration: none;">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a href="https://www.aparat.com/sanatpoya" target="_blank" 
+                                   style="display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 12px; background: #e94560; color: #fff; transition: all 0.3s; font-size: 22px; text-decoration: none;">
+                                    <i class="fas fa-play"></i>
+                                </a>
+                            </div>
+                            <p style="color: #888; font-size: 13px; margin-top: 18px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px;">
+                                <i class="fas fa-comment-dots" style="color: #e94560;"></i>
+                                ما را در شبکه‌های اجتماعی دنبال کنید
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- ====== بخش پایینی فوتر ====== -->
+        <div class="site-footer__bottom" style="background: #0f0f1f; padding: 18px 0; border-top: 2px solid rgba(233, 69, 96, 0.15);">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-12 text-center">
+                        <div class="site-footer__copyright" style="color: #777; font-size: 14px;">
+                            <i class="fas fa-copyright" style="color: #e94560;"></i>
+                            کلیه حقوق و امتیازات این وبسایت متعلق است به :
+                            <a href="http://sanatpoya.com" target="_blank" style="color: #e94560; text-decoration: none; font-weight: 600; transition: color 0.3s;">
+                                صنعت پویا sanatpoya.com
+                            </a>
+                            <span style="color: #555; margin: 0 10px;">|</span>
+                            <span style="color: #666; font-size: 12px;">
+                                <i class="fas fa-code" style="color: #e94560;"></i>
+                                نسخه 1.0
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</footer>
+<!-- site__footer / end -->
+
+<style>
+/* ============================================================
+     استایل‌های فوتر فروشگاه - هماهنگ با منو
+     ============================================================ */
+
+/* ---- افکت لینک‌های فوتر ---- */
+.footer-links__link {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.footer-links__link:hover {
+    color: #fff !important;
+    padding-right: 8px;
+}
+
+.footer-links__link i {
+    transition: transform 0.3s ease;
+}
+
+.footer-links__link:hover i {
+    transform: translateX(-4px);
+    color: #e94560;
+}
+
+/* ---- افکت آیکون‌های شبکه‌های اجتماعی ---- */
+.site-footer__widgets .footer-newsletter a[target="_blank"] {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.site-footer__widgets .footer-newsletter a[target="_blank"]:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+/* ---- استایل جداکننده ---- */
+.footer-contacts__title {
+    font-weight: 600;
+    font-size: 17px;
+}
+
+/* ---- واکنش‌گرایی موبایل ---- */
+@media (max-width: 768px) {
+    .site-footer__widgets {
+        padding: 35px 0 !important;
+    }
+    
+    .footer-contacts__title,
+    .footer-links__title {
+        font-size: 16px !important;
+        border-right: none !important;
+        border-bottom: 2px solid #e94560;
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+    }
+    
+    .site-footer__widgets .footer-newsletter a[target="_blank"] {
+        width: 42px !important;
+        height: 42px !important;
+        font-size: 18px !important;
+        border-radius: 10px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .site-footer__bottom {
+        padding: 12px 0 !important;
+    }
+    
+    .site-footer__copyright {
+        font-size: 12px !important;
+    }
+    
+    .site-footer__widgets .footer-newsletter a[target="_blank"] {
+        width: 38px !important;
+        height: 38px !important;
+        font-size: 16px !important;
+    }
+}
+</style>

@@ -1,0 +1,695 @@
+{% extends "main_template.html" %}
+{% load render_partial %}
+{% load humanize %}
+
+{% block title %}
+    {{ current_group.group_title }} | صنعت پویا
+{% endblock title %}
+
+{% block content %}
+<div class="site__body">
+    <!-- ====== هدر صفحه ====== -->
+    <div class="page-header">
+        <div class="page-header__container container">
+            <div class="page-header__breadcrumb">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'main:index' %}">
+                                <i class="fa fa-home"></i> خانه
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'specialties:expert_groups' %}">متخصصان</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            {{ current_group.group_title }}
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="page-header__title d-flex justify-content-between align-items-center flex-wrap">
+                <h1>
+                    <i class="fa fa-users" style="color: #e94560;"></i> 
+                    متخصصان: {{ current_group.group_title }}
+                </h1>
+                <span class="badge badge-primary badge-lg">{{ expert_count|default:0 }}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== محتوای اصلی ====== -->
+    <div class="block">
+        <div class="container">
+            <div class="row">
+                
+                <!-- ==========================================================
+                     سایدبار فیلترها (سمت راست)
+                     ========================================================== -->
+                <div class="col-lg-3 col-md-4">
+                    <div class="block-sidebar">
+                        
+                        <!-- توضیحات گروه -->
+                        <div class="block-sidebar__item mb-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h6 class="card-title">
+                                        <i class="fa fa-info-circle"></i> درباره گروه
+                                    </h6>
+                                    <p class="card-text" style="font-size: 14px; color: #666;">
+                                        {{ current_group.description|default:'توضیحاتی برای این گروه ثبت نشده است.' }}
+                                    </p>
+                                    {% if current_group.image_name %}
+                                        <img src="{{ media_url }}{{ current_group.image_name }}" 
+                                             alt="{{ current_group.group_title }}" 
+                                             style="width: 100%; border-radius: 8px; margin-top: 10px; max-height: 150px; object-fit: cover;">
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ====== فیلترها ====== -->
+                        <div class="block-sidebar__item">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h6 class="card-title">
+                                        <i class="fa fa-filter"></i> فیلترها
+                                        <span id="activeFiltersCount" class="badge badge-danger" style="display: none; font-size: 12px;">0</span>
+                                    </h6>
+                                    
+                                    <form method="get" action="" id="filterForm">
+                                        
+                                        <!-- ====== گروه‌ها ====== -->
+                                        <div class="widget-filters__item">
+                                            <div class="filter filter--opened" data-collapse-item>
+                                                <button type="button" class="filter__title" data-collapse-trigger style="color:#000;">
+                                                    گروه‌ها
+                                                    <svg class="filter__arrow" width="12px" height="7px">
+                                                        <use xlink:href="images/sprite.svg#arrow-rounded-down-12x7"></use>
+                                                    </svg>
+                                                </button>
+                                                <div class="filter__body" data-collapse-content>
+                                                    <div class="filter__container">
+                                                        <div class="filter-categories" style="max-height: 250px; overflow-y: auto;">
+                                                            {% render_partial 'specialties:expert_groups_partial' slug=current_group.slug %}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- ====== هویت ====== -->
+                                        <div class="widget-filters__item">
+                                            <div class="filter filter--opened" data-collapse-item>
+                                                <button type="button" class="filter__title" data-collapse-trigger style="color:#000;">
+                                                    شخصیت
+                                                    <svg class="filter__arrow" width="12px" height="7px">
+                                                        <use xlink:href="images/sprite.svg#arrow-rounded-down-12x7"></use>
+                                                    </svg>
+                                                </button>
+                                                <div class="filter__body" data-collapse-content>
+                                                    <div class="filter__container">
+                                                        <div class="filter-list" style="max-height: 200px; overflow-y: auto;">
+                                                            {% render_partial 'specialties:identitys_partial' slug=current_group.slug %}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- ====== توانایی ====== -->
+                                        <div class="widget-filters__item">
+                                            <div class="filter filter--opened" data-collapse-item>
+                                                <button type="button" class="filter__title" data-collapse-trigger style="color:#000;">
+                                                    توانمندی
+                                                    <svg class="filter__arrow" width="12px" height="7px">
+                                                        <use xlink:href="images/sprite.svg#arrow-rounded-down-12x7"></use>
+                                                    </svg>
+                                                </button>
+                                                <div class="filter__body" data-collapse-content>
+                                                    <div class="filter__container">
+                                                        <div class="filter-list" style="max-height: 200px; overflow-y: auto;">
+                                                            {% render_partial 'specialties:ability_partial' slug=current_group.slug %}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- ====== زمینه فعالیت ====== -->
+                                        <div class="widget-filters__item">
+                                            <div class="filter filter--opened" data-collapse-item>
+                                                <button type="button" class="filter__title" data-collapse-trigger style="color:#000;">
+                                                    زمینه فعالیت
+                                                    <svg class="filter__arrow" width="12px" height="7px">
+                                                        <use xlink:href="images/sprite.svg#arrow-rounded-down-12x7"></use>
+                                                    </svg>
+                                                </button>
+                                                <div class="filter__body" data-collapse-content>
+                                                    <div class="filter__container">
+                                                        <div class="filter-list" style="max-height: 200px; overflow-y: auto;">
+                                                            {% render_partial 'specialties:fieldwork_partial' slug=current_group.slug %}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- ====== خدمات ====== -->
+                                        <div class="widget-filters__item">
+                                            <div class="filter filter--opened" data-collapse-item>
+                                                <button type="button" class="filter__title" data-collapse-trigger style="color:#000;">
+                                                    خدمات
+                                                    <svg class="filter__arrow" width="12px" height="7px">
+                                                        <use xlink:href="images/sprite.svg#arrow-rounded-down-12x7"></use>
+                                                    </svg>
+                                                </button>
+                                                <div class="filter__body" data-collapse-content>
+                                                    <div class="filter__container">
+                                                        <div class="filter-list" style="max-height: 200px; overflow-y: auto;">
+                                                            {% render_partial 'specialties:service_partial' slug=current_group.slug %}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- ====== دکمه‌های فیلتر ====== -->
+                                        <div class="widget-filters__actions d-flex gap-2 mt-3">
+                                            <button type="submit" class="btn btn-primary btn-sm">
+                                                <i class="fa fa-filter"></i> فیلتر
+                                            </button>
+                                            <a href="{% url 'specialties:expert_of_group' slug=current_group.slug %}" class="btn btn-secondary btn-sm">
+                                                <i class="fa fa-undo"></i> حذف فیلتر
+                                            </a>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==========================================================
+                     محتوای اصلی (سمت چپ)
+                     ========================================================== -->
+                <div class="col-lg-9 col-md-8">
+                    
+                    <!-- ====== گزینه‌های نمایش ====== -->
+                    <div class="view-options d-flex justify-content-between align-items-center mb-4 flex-wrap">
+                        <div class="view-options__legend">
+                            <span>تعداد کل کارشناسان: </span>
+                            <strong style="color: #e94560;">{{ expert_count|default:0 }}</strong>
+                        </div>
+                        <div class="view-options__control d-flex align-items-center">
+                            <label for="showCount" class="mr-2">نمایش:</label>
+                            <select class="form-control form-control-sm" name="show" id="showCount" 
+                                    style="width: 80px;" onchange="this.form.submit()">
+                                {% for item in show_count_product %}
+                                    <option value="{{ item }}" {% if request.GET.show == item|stringformat:"s" %}selected{% endif %}>
+                                        {{ item }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- ====== لیست متخصصان ====== -->
+                    <div class="row" id="expertsList">
+                        {% for expert in page_obj %}
+                            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 mb-4">
+                                {% include "specialtie_app/partials/expert_card.html" with expert=expert %}
+                            </div>
+                        {% empty %}
+                            <div class="col-12">
+                                <div class="text-center py-5">
+                                    <i class="fa fa-user-times" style="font-size: 64px; color: #ddd;"></i>
+                                    <h3 style="color: #666; margin-top: 20px;">متخصصی در این گروه یافت نشد</h3>
+                                    <p style="color: #999;">لطفاً فیلترهای خود را تغییر دهید یا با گروه دیگری جستجو کنید</p>
+                                    <a href="{% url 'specialties:expert_groups' %}" class="btn btn-primary mt-3">
+                                        <i class="fa fa-arrow-right"></i> مشاهده همه گروه‌ها
+                                    </a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <!-- ====== صفحه‌بندی ====== -->
+                    {% if page_obj.paginator.num_pages > 1 %}
+                        <div class="pagination-wrapper mt-4">
+                            {% include "partials/Pagination.html" %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================
+     اسکریپت‌ها
+     ============================================ -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // ====== ۱. باز و بسته کردن فیلترها ======
+    document.querySelectorAll('[data-collapse-trigger]').forEach(function(trigger) {
+        trigger.addEventListener('click', function() {
+            const parent = this.closest('.filter');
+            if (parent) {
+                parent.classList.toggle('filter--opened');
+            }
+        });
+    });
+
+    // ====== ۲. ارسال خودکار فرم با تغییر چک‌باکس‌ها ======
+    document.querySelectorAll('.filter-list input[type="checkbox"]').forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+            document.getElementById('filterForm').submit();
+        });
+    });
+
+    // ====== ۳. شمارنده فیلترهای فعال ======
+    function updateActiveFilters() {
+        const count = document.querySelectorAll('.filter-list input[type="checkbox"]:checked').length;
+        const badge = document.getElementById('activeFiltersCount');
+        if (badge) {
+            if (count > 0) {
+                badge.style.display = 'inline-block';
+                badge.textContent = count;
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+    }
+    
+    document.querySelectorAll('.filter-list input[type="checkbox"]').forEach(function(checkbox) {
+        checkbox.addEventListener('change', updateActiveFilters);
+    });
+    updateActiveFilters();
+});
+
+// ============================================================
+// ۴. افزودن به علاقه‌مندی‌ها
+// ============================================================
+function toggleWishlistExpert(expertId) {
+    const btn = event.currentTarget;
+    const icon = btn.querySelector('i');
+    
+    fetch(`/csf/toggle-expert-favorite/?expertId=${expertId}`, {
+        method: 'GET',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            if (data.is_favorite) {
+                icon.className = 'fa fa-heart';
+                icon.style.color = '#e94560';
+            } else {
+                icon.className = 'fa fa-heart-o';
+                icon.style.color = '';
+            }
+            showToast('success', data.message || 'عملیات با موفقیت انجام شد');
+        } else {
+            showToast('error', data.message || 'خطا در عملیات');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showToast('error', 'خطا در ارتباط با سرور');
+    });
+}
+
+// ============================================================
+// ۵. افزودن به مقایسه
+// ============================================================
+function addExpertToCompare(expertId) {
+    fetch(`/specialties/add-expert-to-compare/?expertId=${expertId}`, {
+        method: 'GET',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            showToast('success', 'به لیست مقایسه اضافه شد');
+        } else {
+            showToast('error', data.message || 'خطا در افزودن به مقایسه');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showToast('error', 'خطا در ارتباط با سرور');
+    });
+}
+
+// ============================================================
+// ۶. نمایش پیام Toast
+// ============================================================
+function showToast(type, message) {
+    const oldToast = document.querySelector('.custom-toast');
+    if (oldToast) oldToast.remove();
+    
+    const toast = document.createElement('div');
+    toast.className = `custom-toast toast-${type}`;
+    toast.innerHTML = `
+        <div class="toast-content">
+            <i class="fa ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+            <span>${message}</span>
+        </div>
+        <button class="toast-close" onclick="this.parentElement.remove()">&times;</button>
+    `;
+    document.body.appendChild(toast);
+    
+    setTimeout(() => toast.classList.add('show'), 10);
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
+}
+</script>
+
+<style>
+/* ============================================================
+     استایل‌های فیلترها
+     ============================================================ */
+.widget-filters__item {
+    border-bottom: 1px solid #f0f0f0;
+    padding: 10px 0;
+}
+
+.widget-filters__item:last-child {
+    border-bottom: none;
+}
+
+.filter__title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background: none;
+    border: none;
+    font-weight: 600;
+    color: #1a1a2e;
+    padding: 5px 0;
+    cursor: pointer;
+}
+
+.filter__body {
+    padding-top: 10px;
+}
+
+.filter__arrow {
+    transition: transform 0.3s;
+}
+
+.filter--opened .filter__arrow {
+    transform: rotate(180deg);
+}
+
+.filter-list__item {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 4px 0 !important;
+    cursor: pointer !important;
+    font-size: 13px !important;
+}
+
+.filter-list__counter {
+    color: #999 !important;
+    font-size: 11px !important;
+    margin-right: auto !important;
+}
+
+.gap-2 {
+    gap: 8px;
+}
+
+/* ============================================================
+     استایل کارت متخصص
+     ============================================================ */
+.expert-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    transition: all 0.3s ease;
+    height: 100%;
+    border: 1px solid #f0f0f0;
+    display: flex;
+    flex-direction: column;
+}
+
+.expert-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    border-color: #e94560;
+}
+
+.expert-card__image {
+    position: relative;
+    padding-top: 100%;
+    background: #f8f9fa;
+    overflow: hidden;
+}
+
+.expert-card__image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.expert-card:hover .expert-card__image img {
+    transform: scale(1.05);
+}
+
+.expert-card__badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #e94560;
+    color: #fff;
+    font-size: 10px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.expert-card__body {
+    padding: 14px 15px 10px;
+    flex: 1;
+}
+
+.expert-card__name {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0 0 4px;
+}
+
+.expert-card__name a {
+    color: #1a1a2e;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.expert-card__name a:hover {
+    color: #e94560;
+}
+
+.expert-card__group {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 4px;
+}
+
+.expert-card__ability {
+    font-size: 13px;
+    color: #e94560;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+.expert-card__rating {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 13px;
+    color: #666;
+}
+
+.expert-card__rating .stars {
+    color: #ffd700;
+    letter-spacing: 1px;
+}
+
+.expert-card__actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 15px 12px;
+    border-top: 1px solid #f0f0f0;
+    background: #fafafa;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.expert-card__actions .btn-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid #e0e0e0;
+    background: #fff;
+    color: #666;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    cursor: pointer;
+}
+
+.expert-card__actions .btn-icon:hover {
+    background: #e94560;
+    border-color: #e94560;
+    color: #fff;
+}
+
+.expert-card__more {
+    color: #e94560;
+    font-size: 12px;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.expert-card__more:hover {
+    text-decoration: underline;
+    color: #c73652;
+}
+
+/* ============================================================
+     استایل Toast
+     ============================================================ */
+.custom-toast {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    background: #1a1a2e;
+    color: #fff;
+    padding: 12px 18px;
+    border-radius: 8px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-width: 280px;
+    max-width: 420px;
+    z-index: 99999;
+    transform: translateX(-100%);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    border-right: 4px solid #e94560;
+}
+
+.custom-toast.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.custom-toast.toast-success {
+    border-right-color: #28a745;
+}
+
+.custom-toast.toast-error {
+    border-right-color: #dc3545;
+}
+
+.toast-close {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.4);
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.toast-close:hover {
+    color: #fff;
+}
+
+/* ============================================================
+     استایل اسکرول فیلترها
+     ============================================================ */
+.filter-categories::-webkit-scrollbar,
+.filter-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.filter-categories::-webkit-scrollbar-track,
+.filter-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.filter-categories::-webkit-scrollbar-thumb,
+.filter-list::-webkit-scrollbar-thumb {
+    background: #e94560;
+    border-radius: 10px;
+}
+
+/* ============================================================
+     واکنش‌گرایی
+     ============================================================ */
+@media (max-width: 768px) {
+    .view-options {
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start !important;
+    }
+    
+    .expert-card__actions {
+        flex-wrap: wrap;
+        gap: 4px;
+        justify-content: center;
+    }
+    
+    .expert-card__more {
+        width: 100%;
+        text-align: center;
+        margin-top: 4px;
+    }
+}
+
+@media (max-width: 576px) {
+    .page-header__title {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 8px;
+    }
+    
+    .badge-lg {
+        font-size: 13px;
+        padding: 4px 12px;
+    }
+    
+    .custom-toast {
+        min-width: 250px;
+        max-width: 350px;
+        bottom: 15px;
+        left: 15px;
+        padding: 10px 14px;
+    }
+}
+</style>
+
+{% endblock content %}

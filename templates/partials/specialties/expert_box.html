@@ -1,0 +1,135 @@
+{% load humanize %}
+
+<div class="products-list__item" style="width: 220px !important; margin: 8px !important;">
+    <div class="product-card expert-card" style="border: 1px solid #eee; border-radius: 10px; overflow: hidden; transition: all 0.3s; height: 100%;">
+        
+        <!-- ====== نشان جدید ====== -->
+        <div class="product-card__badges-list">
+            <div class="product-card__badge product-card__badge--new">متخصص</div>
+        </div>
+        
+        <!-- ====== تصویر ====== -->
+        <div class="product-card__image" style="padding: 15px; background: #f8f9fa;">
+            <a href="{% url 'specialties:expert_details' slug=expert.slug %}">
+                {% if expert.image_name %}
+                    <img src="{{ media_url }}{{ expert.image_name }}" alt="{{ expert.expert_user }}" 
+                         style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px;">
+                {% else %}
+                    <img src="{{ media_url }}images/default-avatar.png" alt="{{ expert.expert_user }}" 
+                         style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px;">
+                {% endif %}
+            </a>
+        </div>
+        
+        <!-- ====== اطلاعات ====== -->
+        <div class="product-card__info" style="padding: 12px 15px 15px;">
+            
+            <!-- نام متخصص -->
+            <div class="product-card__name" style="font-size: 16px; font-weight: 600; text-align: center;">
+                <a href="{% url 'specialties:expert_details' slug=expert.slug %}" style="color: #1a1a2e;">
+                    {{ expert.expert_user }}
+                </a>
+            </div>
+            
+            <!-- گروه تخصصی -->
+            <div style="text-align: center; font-size: 13px; color: #666; margin: 4px 0;">
+                <i class="fa fa-folder-open"></i> 
+                {% for group in expert.expertise_group.all %}
+                    {{ group.group_title }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </div>
+            
+            <!-- تخصص / توانایی -->
+            <div style="text-align: center; font-size: 13px; color: #e94560; margin: 4px 0;">
+                <i class="fa fa-check-circle"></i> {{ expert.ability.ability_name|default:'بدون تخصص' }}
+            </div>
+            
+            <!-- امتیاز -->
+            <div style="text-align: center; margin: 8px 0;">
+                <span class="fa fa-star" style="color: #ffd700;"></span>
+                <span style="color: #666; font-size: 14px;">
+                    {{ expert.get_average_score_exp|floatformat:1|default:'0' }}
+                </span>
+                <span style="color: #999; font-size: 12px;">({{ expert.comments_expert.all|length }})</span>
+            </div>
+            
+            <!-- دکمه بیشتر آشنا شوید -->
+            <div style="text-align: center; margin-top: 10px;">
+                <a href="{% url 'specialties:expert_details' slug=expert.slug %}" 
+                   style="color: #e94560; font-size: 14px; font-weight: 500; text-decoration: none; border-bottom: 2px solid transparent; transition: all 0.3s;">
+                    بیشتر آشنا شوید...
+                    <i class="fa fa-arrow-left" style="font-size: 12px;"></i>
+                </a>
+            </div>
+        </div>
+        
+        <!-- ====== دکمه‌های پایین ====== -->
+        <div class="product-card__actions" style="padding: 0 15px 15px;">
+            <div class="product-card__buttons" style="display: flex; justify-content: center; gap: 8px;">
+                
+                <!-- دکمه علاقه‌مندی -->
+                <button class="btn btn-light btn-svg-icon" type="button" onclick="toggleWishlistExpert({{ expert.id }})" title="علاقه‌مندی">
+                    <i class="fa fa-heart-o"></i>
+                </button>
+                
+                <!-- دکمه مقایسه -->
+                <button class="btn btn-light btn-svg-icon" type="button" onclick="addExpertToCompare({{ expert.id }})" title="مقایسه">
+                    <i class="fa fa-balance-scale"></i>
+                </button>
+                
+                <!-- دکمه اشتراک‌گذاری -->
+                <button class="btn btn-light btn-svg-icon" type="button" onclick="shareExpert({{ expert.id }})" title="اشتراک‌گذاری">
+                    <i class="fa fa-share-alt"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.expert-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.expert-card .product-card__badge--new {
+    background: #e94560;
+    color: #fff;
+    font-size: 11px;
+    padding: 4px 12px;
+    border-radius: 20px;
+}
+
+.expert-card .btn-light {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #eee;
+    transition: all 0.3s;
+}
+
+.expert-card .btn-light:hover {
+    background: #e94560;
+    border-color: #e94560;
+    color: #fff;
+}
+
+.expert-card .btn-light:hover i {
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+    .products-list__item {
+        width: calc(50% - 16px) !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .products-list__item {
+        width: calc(100% - 16px) !important;
+    }
+}
+</style>

@@ -1,0 +1,92 @@
+{% load humanize %}
+
+<div class="expert-card">
+    <!-- ====== تصویر ====== -->
+    <div class="expert-card__image">
+        <a href="{% url 'specialties:expert_details' slug=expert.slug %}">
+            {% if expert.image_name %}
+                <img src="{{ media_url }}{{ expert.image_name }}" alt="{{ expert.expert_user }}" loading="lazy">
+            {% else %}
+                <img src="{{ media_url }}images/default-avatar.png" alt="{{ expert.expert_user }}" loading="lazy">
+            {% endif %}
+        </a>
+        <span class="expert-card__badge">
+            <i class="fa fa-check-circle"></i> متخصص
+        </span>
+    </div>
+    
+    <!-- ====== محتوا ====== -->
+    <div class="expert-card__body">
+        <h4 class="expert-card__name">
+            <a href="{% url 'specialties:expert_details' slug=expert.slug %}">
+                {{ expert.expert_user }}
+            </a>
+        </h4>
+        
+        <div class="expert-card__group">
+            <i class="fa fa-folder-open"></i>
+            {% for group in expert.expertise_group.all %}
+                {{ group.group_title }}{% if not forloop.last %}, {% endif %}
+            {% empty %}
+                بدون گروه
+            {% endfor %}
+        </div>
+        
+        <div class="expert-card__ability">
+            <i class="fa fa-check-circle"></i>
+            {{ expert.ability.ability_name|default:'بدون تخصص' }}
+        </div>
+        
+        <div class="expert-card__rating">
+            <span class="stars">
+                {% with ''|center:5 as range %}
+                    {% for i in range %}
+                        {% if forloop.counter <= expert.get_average_score_exp|floatformat:0 %}
+                            <i class="fa fa-star"></i>
+                        {% else %}
+                            <i class="fa fa-star-o"></i>
+                        {% endif %}
+                    {% endfor %}
+                {% endwith %}
+            </span>
+            <span>{{ expert.get_average_score_exp|floatformat:1|default:'0' }}</span>
+            <span style="color: #999; font-size: 12px;">
+                ({{ expert.comments_expert.all|length }} نظر)
+            </span>
+        </div>
+    </div>
+    
+    <!-- ====== دکمه‌ها ====== -->
+    <div class="expert-card__actions">
+        <div>
+            <button class="btn-icon" onclick="toggleWishlistExpert({{ expert.id }})" title="علاقه‌مندی">
+                <i class="fa fa-heart-o"></i>
+            </button>
+            <button class="btn-icon" onclick="addExpertToCompare({{ expert.id }})" title="مقایسه">
+                <i class="fa fa-balance-scale"></i>
+            </button>
+            <button class="btn-icon" onclick="shareExpert('{{ expert.slug }}')" title="اشتراک‌گذاری">
+                <i class="fa fa-share-alt"></i>
+            </button>
+        </div>
+        <a href="{% url 'specialties:expert_details' slug=expert.slug %}" class="expert-card__more">
+            بیشتر آشنا شوید <i class="fa fa-arrow-left"></i>
+        </a>
+    </div>
+</div>
+
+<script>
+function shareExpert(slug) {
+    const url = window.location.origin + '/specialties/expert_details/' + slug + '/';
+    if (navigator.share) {
+        navigator.share({
+            title: 'متخصص',
+            url: url
+        }).catch(() => {});
+    } else {
+        navigator.clipboard.writeText(url)
+            .then(() => showToast('success', 'لینک کپی شد'))
+            .catch(() => showToast('error', 'خطا در کپی لینک'));
+    }
+}
+</script>   

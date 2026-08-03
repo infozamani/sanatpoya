@@ -10,16 +10,36 @@ from django.views.generic.edit import CreateView,FormMixin,UpdateView,DeleteView
 from django.contrib import messages
 
 #----------------------------------------------------------------
-def media_admin(request):
-    return {'media_url':settings.MEDIA_URL,}
-# def test(request):
-#     context = {
-#         'name': 'zamani',
-#     }
-#     return render(request,'main_app/shop.html',context)
-#----------------------------------------------------------------
-def index (request):
-    return render(request,'main_app/index.html')
+from django.utils import timezone
+from apps.advertisement.models import Advertisement   
+
+
+from django.shortcuts import render
+from django.conf import settings
+from apps.advertisement.models import Advertisement
+from django.utils import timezone
+
+def index(request):
+    """صفحه اصلی با نمایش تبلیغات"""
+    ads = Advertisement.objects.filter(
+        is_active=True,
+        expiry_date__gt=timezone.now()
+    ).order_by('order', '-created_at')
+    
+    # برای دیباگ - تعداد تبلیغات را چاپ کنید
+    print(f"تعداد تبلیغات: {ads.count()}")
+    for ad in ads:
+        print(f"عنوان: {ad.title}, تصویر: {ad.image_name.url if ad.image_name else 'ندارد'}")
+    
+    context = {
+        'ads': ads,
+        'MEDIA_URL': settings.MEDIA_URL,
+    }
+    return render(request, 'main_app/index.html', context)
+ 
+def home(request):
+    """صفحه اصلی (تکرار)"""
+    return index(request)
 #----------------------------------------------------------------
 def shop (request):
     return render(request,'main_app/shop.html')
@@ -60,4 +80,15 @@ class SliderView(View):
      def get(self, request):
          sliders = Slider.objects.filter(is_active=True)
          return render(request,'main_app/sliders.html',{'sliders':sliders})
+     
+ 
+from django.conf import settings
+
+def media_admin(request):
+    """
+    Context processor برای ارسال MEDIA_URL به تمام قالب‌ها
+    """
+    return {
+        'media_url': settings.MEDIA_URL,
+    }
 

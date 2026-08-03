@@ -1,0 +1,69 @@
+{% load static %}
+<div class="ad-card group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden">
+    <!-- تصویر با افکت hover -->
+    <div class="relative overflow-hidden h-64 bg-gray-100">
+        {% if ad.image_name %}
+            <img src="{{ media_url }}{{ ad.image_name }}" 
+                 alt="{{ ad.title }}" 
+                 class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+        {% else %}
+            <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50">
+                <span class="text-gray-400">بدون تصویر</span>
+            </div>
+        {% endif %}
+        
+        <!-- برچسب تاریخ -->
+        <div class="absolute top-4 right-4 bg-blue-600 text-white text-xs px-3 py-1 rounded-full shadow-lg">
+            {{ ad.created_at|date:"Y/m/d" }}
+        </div>
+    </div>
+    
+    <!-- محتوای کارت -->
+    <div class="p-6">
+        <!-- عنوان -->
+        <h3 class="text-xl font-bold text-gray-800 mb-2 line-clamp-2 hover:text-blue-600 transition-colors">
+            {{ ad.title }}
+        </h3>
+        
+        <!-- توضیحات -->
+        <p class="text-gray-600 text-sm mb-4 line-clamp-3">
+            {{ ad.description|truncatechars:120 }}
+        </p>
+        
+        <!-- دکمه اقدام -->
+        <div class="flex items-center justify-between">
+            <a href="{{ ad.url }}" 
+               target="_blank"
+               class="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors duration-300 group">
+                <span>مشاهده و خرید</span>
+                <svg class="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </a>
+            
+            <!-- آیکون اشتراک‌گذاری -->
+            <button class="text-gray-400 hover:text-blue-600 transition-colors" onclick="shareAd('{{ ad.title }}', '{{ ad.url }}')">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+function shareAd(title, url) {
+    if (navigator.share) {
+        navigator.share({
+            title: title,
+            text: 'تبلیغات صنعت پویا',
+            url: url
+        }).catch(() => {});
+    } else {
+        // کپی لینک در صورت عدم پشتیبانی
+        navigator.clipboard.writeText(url).then(() => {
+            alert('لینک تبلیغ کپی شد!');
+        });
+    }
+}
+</script>

@@ -1,0 +1,19 @@
+<ul class="filter-categories__list">
+    <li class="filter-categories__item filter-categories__item--current">
+        <a href="{% url 'specialties:expert_of_group' slug=current_group.slug %}">
+            {{ current_group.group_title }}
+        </a>
+        <span class="filter-categories__counter">{{ current_group.expertises_of_group.count }}</span>
+    </li>
+    
+    {% for group in groups %}
+        <li class="filter-categories__item">
+            <a href="{% url 'specialties:expert_of_group' slug=group.slug %}">
+                {{ group.group_title }}
+            </a>
+            <span class="filter-categories__counter">{{ group.count }}</span>
+        </li>
+    {% empty %}
+        <li class="filter-categories__item">گروه دیگری وجود ندارد</li>
+    {% endfor %}
+</ul>
