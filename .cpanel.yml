@@ -1,8 +1,27 @@
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/cp65771/public_html/
-    - /bin/cp -R . $DEPLOYPATH --exclude=static --exclude=media --exclude=.git --exclude=virtualenv --exclude=__pycache__
+    # 1. فایل‌های پروژه را به /home/cp65771/sanatpoya کپی می‌کند (به جز media و static)
+    - export DEPLOYPATH=/home/cp65771/sanatpoya
+    - /bin/cp -R . $DEPLOYPATH --exclude=media --exclude=static --exclude=.git --exclude=__pycache__ --exclude=*.pyc
+    
+    # 2. فایل‌های استاتیک را به public_html/static کپی می‌کند
+    - export STATICPATH=/home/cp65771/public_html/static
+    - mkdir -p $STATICPATH
+    - /bin/cp -R static/* $STATICPATH
+    
+    # 3. فایل‌های مدیا را به public_html/media کپی می‌کند (اگر وجود داشته باشند)
+    - export MEDIAPATH=/home/cp65771/public_html/media
+    - mkdir -p $MEDIAPATH
+    - /bin/cp -R media/* $MEDIAPATH 2>/dev/null || true
+    
+    # 4. فعال‌سازی محیط مجازی و نصب وابستگی‌ها
     - cd /home/cp65771/sanatpoya && source /home/cp65771/virtualenv/sanatpoya/3.11/bin/activate && pip install -r requirements.txt
+    
+    # 5. اجرای migrations
     - cd /home/cp65771/sanatpoya && source /home/cp65771/virtualenv/sanatpoya/3.11/bin/activate && python manage.py migrate
+    
+    # 6. جمع‌آوری فایل‌های استاتیک در public_html
     - cd /home/cp65771/sanatpoya && source /home/cp65771/virtualenv/sanatpoya/3.11/bin/activate && python manage.py collectstatic --noinput
+    
+    # 7. ریستارت اپلیکیشن
     - touch /home/cp65771/sanatpoya/passenger_wsgi.py
