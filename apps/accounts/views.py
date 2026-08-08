@@ -97,11 +97,7 @@ class RegisterUserView(View):
                 except:
                     pass  # اگر پیامک ارسال نشد، خطا نده
                 
-                # نمایش کد در کنسول (برای تست)
-                print(f"========== کد فعال‌سازی ==========")
-                print(f"شماره: {mobile_number}")
-                print(f"کد: {active_code}")
-                print(f"====================================")
+                
                 
                 # ذخیره در سشن
                 request.session['user_session'] = {
@@ -369,11 +365,7 @@ class RememberPasswordView(View):
                 except:
                     pass
                 
-                # نمایش کد در کنسول
-                print(f"========== کد فراموشی رمز ==========")
-                print(f"شماره: {mobile_number}")
-                print(f"کد: {active_code}")
-                print(f"======================================")
+                    
                 
                 # ذخیره در سشن
                 request.session['user_session'] = {

@@ -28,8 +28,8 @@ def index(request):
     ).order_by('order', '-created_at')
     latest_blogs = Blog.objects.filter(is_active=True).order_by('-id')[:6]
     
-    for ad in ads:
-        print(f"عنوان: {ad.title}, تصویر: {ad.image_name.url if ad.image_name else 'ندارد'}")
+    # for ad in ads:
+    #     print(f"عنوان: {ad.title}, تصویر: {ad.image_name.url if ad.image_name else 'ندارد'}")
     
     context = {
         'ads': ads,
