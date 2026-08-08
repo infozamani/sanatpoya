@@ -9,11 +9,11 @@ class TeamMember(models.Model):
     phone = models.CharField(max_length=20, blank=True, null=True, verbose_name="تلفن")
     
     # مدارک و گواهی‌ها (به صورت لیست JSON)
-    credentials = models.JSONField(default=list, verbose_name="مدارک و گواهی‌ها")
+    credentials = models.TextField(blank=True, null=True, verbose_name="مدارک و گواهی‌ها")
     # مثال: ["PMP Certified", "OSHA 30", "Licensed Contractor"]
     
     # مهارت‌ها (به صورت لیست JSON)
-    skills = models.JSONField(default=list, verbose_name="مهارت‌ها")
+    skills = models.TextField(blank=True, null=True, verbose_name="مهارت‌ها")
     # مثال: ["PE License", "LEED AP", "Project Management"]
     
     # لینک‌های شبکه‌های اجتماعی

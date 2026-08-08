@@ -18,6 +18,7 @@ from django.shortcuts import render
 from django.conf import settings
 from apps.advertisement.models import Advertisement
 from django.utils import timezone
+from apps.blog.models import Blog 
 
 def index(request):
     """صفحه اصلی با نمایش تبلیغات"""
@@ -25,14 +26,14 @@ def index(request):
         is_active=True,
         expiry_date__gt=timezone.now()
     ).order_by('order', '-created_at')
+    latest_blogs = Blog.objects.filter(is_active=True).order_by('-id')[:6]
     
-    # برای دیباگ - تعداد تبلیغات را چاپ کنید
-    print(f"تعداد تبلیغات: {ads.count()}")
     for ad in ads:
         print(f"عنوان: {ad.title}, تصویر: {ad.image_name.url if ad.image_name else 'ندارد'}")
     
     context = {
         'ads': ads,
+        'latest_blogs': latest_blogs,
         'MEDIA_URL': settings.MEDIA_URL,
     }
     return render(request, 'main_app/index.html', context)
