@@ -19,7 +19,12 @@ from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
 from apps.main.views import home  
+from django.http import HttpResponse
 
+# این تابع را در بالا یا انتهای فایل اضافه کنید
+def test_view(request):
+    return HttpResponse("✅ تغییرات از لوکال به سرور با موفقیت انجام شد!")
+ 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('apps.main.urls',namespace='main')),
@@ -41,6 +46,7 @@ urlpatterns = [
     path('specialties/', include('apps.specialties.urls',namespace='specialties')),
     path('support/', include('apps.support.urls',namespace='support')),
     path("django-check-seo/", include("django_check_seo.urls")),
+     path('test/', test_view, name='test'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
