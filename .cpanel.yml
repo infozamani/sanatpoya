@@ -1,0 +1,8 @@
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/cp65771/public_html/
+    - /bin/cp -R . $DEPLOYPATH --exclude=static --exclude=media --exclude=.git --exclude=virtualenv --exclude=__pycache__
+    - cd /home/cp65771/sanatpoya && source /home/cp65771/virtualenv/sanatpoya/3.11/bin/activate && pip install -r requirements.txt
+    - cd /home/cp65771/sanatpoya && source /home/cp65771/virtualenv/sanatpoya/3.11/bin/activate && python manage.py migrate
+    - cd /home/cp65771/sanatpoya && source /home/cp65771/virtualenv/sanatpoya/3.11/bin/activate && python manage.py collectstatic --noinput
+    - touch /home/cp65771/sanatpoya/passenger_wsgi.py
