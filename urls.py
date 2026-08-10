@@ -19,21 +19,7 @@ from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
 from apps.main.views import home  
-from django.http import HttpResponse
-from django.conf import settings
-from django.contrib import admin
-import os
 
-
-# ===== ویوی مخصوص فایل تأیید اینماد =====
-def txt_file_view(request):
-    # استفاده از settings.BASE_DIR (روش اول)
-    file_path = os.path.join(settings.BASE_DIR, '33476952.txt')
-    if os.path.exists(file_path):
-        with open(file_path, 'r') as f:
-            return HttpResponse(f.read(), content_type='text/plain')
-    else:
-        return HttpResponse("File not found", status=404)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('apps.main.urls',namespace='main')),
@@ -54,10 +40,8 @@ urlpatterns = [
     # path('test_api/', include('apps.test_api.urls',namespace='test_api')),
     path('specialties/', include('apps.specialties.urls',namespace='specialties')),
     path('support/', include('apps.support.urls',namespace='support')),
-    # path("django-check-seo/", include("django_check_seo.urls")),
-      path('33476952.txt', txt_file_view, name='verify_file'),
-    
- ]
+    path("django-check-seo/", include("django_check_seo.urls")),
+]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

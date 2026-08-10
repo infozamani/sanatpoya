@@ -37,3 +37,13 @@ help.me
 sanatpoya.rar
 sanatpoya.zip
 db.sqlite3
+
+# Server-specific (do not upload to GitHub)
+media/
+*.log
+passenger_wsgi.py
+.env
+staticfiles/
+db.sqlite3
+__pycache__/
+*.pyc
