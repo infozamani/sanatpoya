@@ -40,7 +40,6 @@ db.sqlite3
 
 # Server-specific (do not upload to GitHub)
 *.log
-passenger_wsgi.py
 .env
 staticfiles/
 db.sqlite3
