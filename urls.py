@@ -1,47 +1,80 @@
-"""
-URL configuration for sanatpoya project.
+fib1.py
+key.py
+debug.log
+test.py
+text_of_habai.txt
+page_txt
+document
+test.bat
+testshowtel.html
+text1.html
+venv/
+text.html
+deploy.sh
+sanatpoya/m.bat
+sanatpoya/mi.bat
+sanatpoya/r.bat
+sanatpoya/v.bat
+del_cash.py
+sanatpoya/d.bat
+sanatpoya/.gitignore
+sanatpoya/fib1.py
+sanatpoya/debug.log
+sanatpoya/test.html
+sanatpoya/text_of_habai.txt
+sanatpoya/page_txt
+sanatpoya/document
+sanatpoya/v.bat
+sanatpoya/test.bat
+sanatpoya/testshowtel.html
+sanatpoya/text1.html
+sanatpoya/venv
+sanatpoya/staticfiles
+staticfiles
+.vscode/
+help.me
+**/__pycache__
+sanatpoya.rar
+sanatpoya.zip
+db.sqlite3
 
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.0/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
-from django.contrib import admin
-from django.urls import path,include
-from django.conf import settings
-from django.conf.urls.static import static
-from apps.main.views import home  
+# Server-specific (do not upload to GitHub)
+media/
+*.log
+passenger_wsgi.py
+.env
+staticfiles/
+db.sqlite3
+__pycache__/
+*.pyc
+# Server-specific files (NEVER sync these)
+sanatpoya/settings.py
+sanatpoya/settings.py.save
+passenger_wsgi.py
+.env
+*.env
+backup_20260810_1023.tar.gz
+# Local database
+db.sqlite3
 
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('',include('apps.main.urls',namespace='main')),
-    path('accounts/',include('apps.accounts.urls',namespace='accounts')),
-    path('products/',include('apps.products.urls',namespace='products')),
-    path('realestate/',include('apps.realestate.urls',namespace='realestate')),
-    path('orders/',include('apps.orders.urls',namespace='orders')),
-    path('discounts/',include('apps.discounts.urls',namespace='discounts')),
-    path('payments/',include('apps.payments.urls',namespace='payments')),
-    path('warehouses/',include('apps.warehouses.urls',namespace='warehouses')),
-    path('csf/',include('apps.comment_scoring_favorites.urls',namespace='csf')),
-    path('search/',include('apps.search.urls',namespace='search')),
-    path('blogs/',include('apps.blog.urls',namespace='blogs')),
-    path('advertisements/',include('apps.advertisement.urls',namespace='advertisements')),
-    path('ckeditor/', include('ckeditor_uploader.urls')),
-    path('chatbot/', include('apps.chatbot.urls')),
-    path('emailer/', include('apps.emailer.urls')),
-    # path('test_api/', include('apps.test_api.urls',namespace='test_api')),
-    path('specialties/', include('apps.specialties.urls',namespace='specialties')),
-    path('support/', include('apps.support.urls',namespace='support')),
-    path("django-check-seo/", include("django_check_seo.urls")),
-]
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+# Media & static (server-side)
+
+staticfiles/
+public_html/media/
+public_html/static/
+
+# Logs
+*.log
+stderr.log
+error.log
+
+# OS & IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo

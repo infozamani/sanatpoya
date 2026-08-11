@@ -1,0 +1,193 @@
+# # # ساخت migrations
+# # python manage.py makemigrations
+# # python manage.py migrate
+# # #==========================
+# # python manage.py createsuperuser
+# # #==========================
+# # # ایجاد محیط مجازی (Virtual Environment)
+# # python -m venv venv
+
+# # # فعال‌سازی محیط مجازی
+# # # در ویندوز:
+# # venv\Scripts\activate
+# # # در مک/لینوکس:
+# # source venv/bin/activate
+
+# # # به‌روزرسانی pip
+# # pip install --upgrade pip
+# # #3333333333333333333333333333333
+# # # ایجاد فایل requirements.txt
+# # pip freeze > requirements.txt
+# برای نصب 
+#pip install -r requirements.txt
+# # #3333333333333333333333333333333
+# # 1. پاکسازی
+# # rm db.sqlite3
+# # rm -rf apps/accounts/migrations/
+# # rm -rf apps/hrms_core/migrations/
+# # rm db.sqlite3
+# # rm -rf */migrations/ 2>/dev/null || true
+# # محیط مجازی را حذف کنید
+# # Remove-Item -Recurse -Force venv
+# # # 2. ساخت migrations اولیه
+# # python manage.py makemigrations
+
+# # # 3. migrate
+# # python manage.py migrate
+# #
+# #python --version
+# # # 4. ایجاد سوپریوزر
+# # python manage.py createsuperuser
+# #========================================
+# #وارد شدن به mysql
+# #cd پروژه>mysql -u root -p
+# # python manage.py dbshell
+# # python manage.py dbshell
+# # python manage.py shell
+# #حذف جداول دیتابیس خطرناک
+# # DROP DATABASE IF EXISTS hrms_db;
+# # CREATE DATABASE hrms_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+# # EXIT;
+# # نمایش جداول
+# # python manage.py inspectdb
+
+# # # یا فقط جدول خاص
+# # python manage.py inspectdb accounts_customuser
+# #========================
+# # پاک کردن کش 
+# # python manage.py shell
+# # >>> from django.core.management import call_command
+# # >>> call_command('flush', interactive=False)
+# # >>> exit()
+# #========================
+# #shell
+# #برای تبدیل اکسل برای پروژه که اکسل جدید را بشناسه
+# from apps.employees_app.models import ExcelTemplate
+# ExcelTemplate.objects.filter(code='employee_standard_persnl').delete()
+# print("✅ قالب قبلی حذف شد")
+# exit()
+# #----------------------------------------
+# # برای تغییر شیت 
+# # df = pd.read_excel(excel_file, sheet_name='PERSNL alyaf', dtype=str)
+# #===========================================
+# # توی ترمینال، کل پروژه رو سرچ کن
+# # grep -r "url" --include="*.html" templates/
+# #===============================
+# # python manage.py dbshell
+# #برای حذف ا پ در دیتابیس تا مهجرت صورت بگیرد
+# # DELETE FROM django_migrations WHERE app = 'ready_forms';
+# # .exit
+# # # 1. پوشه migrations را حذف کنید
+# # rm -rf apps/ready_forms/migrations
+
+# # # 2. دیتابیس رو دراپ کنید (اختیاری - فقط در توسعه)
+# # python manage.py dbshell
+# # DROP DATABASE your_db_name;
+# # CREATE DATABASE hrms_db;
+# # .exit
+
+# # # 3. migration جدید بسازید
+# # python manage.py makemigrations ready_forms
+
+# # # 4. migrate کنید
+# # python manage.py migrate
+# # =========================================== GIT===================
+# # git init
+# # git add .
+git status
+# # git commit -m "Initial commit"
+ببینی که قبیا چه آدرس در گیت داشته 
+ git remote -v
+تغییر آدرس 
+# # git remote add origin https://github.com/user/repo.git
+# # git branch -M main
+# # git push -u origin main
+#  اگر خواستی تغییرات را بفرستی با برنچ کار کن 
+# 1. یک برنچ جدید ایجاد کنید
+git checkout -b main_new
+
+# 2. برنچ جدید را به گیت‌هاب بفرستید
+git push -u origin main_new
+اگر خواستی به الجبار پوش کنی 
+git push -u origin main --force    
+# # ===========================================Git to vs cose=========
+# # تنظیم نام کاربری (نام خودت رو بذار)
+# git config --global user.name "Your Name"
+
+# # تنظیم ایمیل (ایمیل گیت‌هاب خودت)
+# git config --global user.email "your-email@example.com"
+# # در ریشه پروژه فایل .gitignore بسازید
+# # Python
+# __pycache__/
+# *.py[cod]
+# *$py.class
+# venv/
+# env/
+# ENV/
+# .venv/
+
+# # Django
+# *.log
+# db.sqlite3
+# /media/
+# /staticfiles/
+
+# # IDE
+# .vscode/
+# .idea/
+# *.swp
+# *.swo
+
+# # Local settings
+# local_settings.py
+
+# # Secrets
+# .env
+# *.pem
+# *.key
+
+# # OS
+# .DS_Store
+# Thumbs.db
+# 4-python -m pip freeze > requirements.txt
+# 5-# 1. بررسی وضعیت فعلی
+# git status
+
+# # 2. اضافه کردن همه فایل‌ها به استیج
+# git add .
+
+# # 3. ایجاد یک commit (ذخیره تغییرات)
+# git commit -m "Initial commit: HRMS project version 1.0"
+
+# git remote remove origin
+
+# # 4. اضافه کردن remote repository (لینک گیت‌هاب خودت رو جایگزین کن)
+# git remote add origin https://github.com/infozamani/hrms_project.git
+
+# # 5. تغییر نام برنچ اصلی به main
+# git branch -M main
+
+# # 6. ارسال به گیت‌هاب
+git add -u برای وقتی که status  را می زنیم باز فایلی مانده با add. حذف نمیشه
+# git push -u origin main
+#6- git pull origin main --allow-unrelated-histories
+# git push origin main
+# 8- بررسی کردن کامنت ها
+#git log --oneline -5
+# for دریافت فایل های از گیت‌هاب
+# winget install --id Git.Git -e --source winget
+# $ git clone https://github.com/infozamani/sanatpoya.git
+
+# وقتی از سئو ایراد گرفت
+#  python manage.py collectstatic --noinput
+# python manage.py compress --force
+#############################################
+# جستجو در تمام فایل‌های HTML
+grep -r "product-card" --include="*.html"
+
+# جستجو در پوشه templates
+grep -r "product-card" templates/ --include="*.html"
+
+# جستجو با findstr در ویندوز
+findstr /s /i "product-card" *.html
+#############################################
