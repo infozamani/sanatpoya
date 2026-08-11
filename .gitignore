@@ -49,7 +49,6 @@ __pycache__/
 # Server-specific files (NEVER sync these)
 sanatpoya/settings.py
 sanatpoya/settings.py.save
-passenger_wsgi.py
 .env
 *.env
 backup_20260810_1023.tar.gz
