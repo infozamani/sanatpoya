@@ -58,7 +58,7 @@ backup_20260810_1023.tar.gz
 db.sqlite3
 
 # Media & static (server-side)
-media/
+
 staticfiles/
 public_html/media/
 public_html/static/
