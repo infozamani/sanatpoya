@@ -52,7 +52,7 @@ def realestate (request):
 class AboutUsView(View):
     def get(self, request):
         abouts = AboutUs.objects.all()
-        print(abouts)
+        
       
         return render(request,'main_app/about-us.html',{'abouts':abouts, })
 #----------------------------------------------------------------
