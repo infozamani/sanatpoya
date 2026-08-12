@@ -1,15 +1,15 @@
 <div class="block block--highlighted block-categories block-categories--layout--compact container">
     <style>
         /* ==========================================================
-           دسته‌های محبوب - کارت‌های درب (Arch/Portal) 3D
-           هماهنگ با تم رنگی navbar - نسخه روشن‌تر و کوچک‌تر
+           دسته‌های محبوب - کارت‌های درب (Arch/Portal)
+           رنگ‌های ملایم و تیره‌تر - لینک‌پذیر
         ========================================================== */
         .block-categories--layout--compact {
             padding: 30px 0;
             margin: 20px 0;
         }
         .block-categories--layout--compact > .container {
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-radius: 24px;
@@ -38,7 +38,7 @@
             margin: 0 auto;
         }
 
-        /* لیست کارت‌ها - 4 ستونه با سایز کوچک‌تر */
+        /* لیست کارت‌ها - 4 ستونه */
         .block-categories__list {
             display: grid;
             grid-template-columns: repeat(4, minmax(140px, 200px));
@@ -56,7 +56,7 @@
         }
 
         /* ==========================================================
-           کارت درب (Arch/Portal) - سایز کوچک‌تر
+           کارت درب (Arch/Portal) - لینک‌پذیر
         ========================================================== */
         .category-card--layout--compact {
             position: relative;
@@ -67,6 +67,8 @@
             width: 100%;
             aspect-ratio: 2 / 3;
             overflow: visible;
+            text-decoration: none !important;
+            display: block;
         }
         .category-card--layout--compact::before {
             content: '';
@@ -87,17 +89,17 @@
             z-index: 10;
         }
 
-        /* بدنه کارت درب - روشن‌تر */
+        /* بدنه کارت درب - رنگ‌های ملایم و تیره‌تر */
         .category-card__body {
             position: relative;
             border-radius: 40% 40% 10% 10% / 25% 25% 8% 8%;
             padding: 28px 16px 20px;
             text-align: center;
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.15);
             box-shadow: 
-                0 6px 24px rgba(26, 26, 46, 0.06),
-                inset 0 1px 0 rgba(255,255,255,0.1);
+                0 6px 24px rgba(26, 26, 46, 0.08),
+                inset 0 1px 0 rgba(255,255,255,0.05);
             transition: box-shadow 0.4s ease;
             min-height: 130px;
             display: flex;
@@ -106,15 +108,15 @@
             align-items: center;
             width: 100%;
             height: 100%;
-            background: linear-gradient(145deg, #f0f4ff, #e8edf5);
+            background: linear-gradient(145deg, #e8edf5, #d5dce8);
         }
         .category-card--layout--compact:hover .category-card__body {
             box-shadow: 
-                0 20px 50px rgba(59, 130, 246, 0.12),
-                inset 0 1px 0 rgba(255,255,255,0.2);
+                0 20px 50px rgba(59, 130, 246, 0.15),
+                inset 0 1px 0 rgba(255,255,255,0.1);
         }
 
-        /* افکت درخشش (نور از درب) */
+        /* افکت درخشش */
         .category-card__body::after {
             content: '';
             position: absolute;
@@ -122,7 +124,7 @@
             left: -30%;
             width: 160%;
             height: 160%;
-            background: radial-gradient(ellipse at center, rgba(255,255,255,0.15) 0%, transparent 70%);
+            background: radial-gradient(ellipse at center, rgba(255,255,255,0.1) 0%, transparent 70%);
             opacity: 0;
             transition: opacity 0.5s ease;
             pointer-events: none;
@@ -132,7 +134,7 @@
             opacity: 1;
         }
 
-        /* قاب داخلی درب (روشن‌تر) */
+        /* قاب داخلی درب */
         .category-card__body::before {
             content: '';
             position: absolute;
@@ -140,42 +142,42 @@
             left: 12%;
             width: 76%;
             height: 70%;
-            border: 1px solid rgba(59, 130, 246, 0.08);
+            border: 1px solid rgba(59, 130, 246, 0.06);
             border-radius: 40% 40% 10% 10% / 25% 25% 8% 8%;
             pointer-events: none;
             transition: all 0.5s ease;
         }
         .category-card--layout--compact:hover .category-card__body::before {
-            border-color: rgba(59, 130, 246, 0.2);
+            border-color: rgba(59, 130, 246, 0.15);
             transform: scale(1.04);
         }
 
         /* ==========================================================
-           گرادیان‌های روشن و شاداب
+           گرادیان‌های ملایم و تیره‌تر
         ========================================================== */
         .category-card--layout--compact:nth-child(8n+1) .category-card__body {
-            background: linear-gradient(145deg, #eff6ff, #dbeafe);
+            background: linear-gradient(145deg, #dbeafe, #bfdbfe);
         }
         .category-card--layout--compact:nth-child(8n+2) .category-card__body {
-            background: linear-gradient(145deg, #f5f3ff, #ede9fe);
+            background: linear-gradient(145deg, #ede9fe, #ddd6fe);
         }
         .category-card--layout--compact:nth-child(8n+3) .category-card__body {
-            background: linear-gradient(145deg, #fef2f2, #fee2e2);
+            background: linear-gradient(145deg, #fce7f3, #fbcfe8);
         }
         .category-card--layout--compact:nth-child(8n+4) .category-card__body {
-            background: linear-gradient(145deg, #ecfdf5, #d1fae5);
+            background: linear-gradient(145deg, #d1fae5, #a7f3d0);
         }
         .category-card--layout--compact:nth-child(8n+5) .category-card__body {
-            background: linear-gradient(145deg, #fefce8, #fef9c3);
+            background: linear-gradient(145deg, #fef3c7, #fde68a);
         }
         .category-card--layout--compact:nth-child(8n+6) .category-card__body {
-            background: linear-gradient(145deg, #fdf2f8, #fce7f3);
+            background: linear-gradient(145deg, #fce4ec, #f8bbd0);
         }
         .category-card--layout--compact:nth-child(8n+7) .category-card__body {
-            background: linear-gradient(145deg, #f0f9ff, #e0f2fe);
+            background: linear-gradient(145deg, #e0f2fe, #bae6fd);
         }
         .category-card--layout--compact:nth-child(8n+8) .category-card__body {
-            background: linear-gradient(145deg, #f8fafc, #f1f5f9);
+            background: linear-gradient(145deg, #e2e8f0, #cbd5e1);
         }
 
         /* ==========================================================
@@ -187,19 +189,18 @@
             width: 100%;
             text-align: center;
         }
-        .category-card__name a {
+        .category-card__name span {
             color: #1a1a2e !important;
             font-size: 14px;
             font-weight: 700;
-            text-decoration: none;
             display: inline-block;
-            text-shadow: 0 1px 4px rgba(255,255,255,0.3);
+            text-shadow: 0 1px 4px rgba(255,255,255,0.2);
             transition: all 0.3s ease;
             letter-spacing: 0.2px;
             line-height: 1.4;
             white-space: normal;
         }
-        .category-card--layout--compact:hover .category-card__name a {
+        .category-card--layout--compact:hover .category-card__name span {
             transform: translateZ(20px);
             color: #2563eb !important;
         }
@@ -230,18 +231,18 @@
             font-size: 11px;
             color: rgba(26, 26, 46, 0.6);
             font-weight: 600;
-            padding: 4px 12px;
-            background: rgba(255,255,255,0.5);
+            padding: 3px 12px;
+            background: rgba(255,255,255,0.4);
             backdrop-filter: blur(4px);
             border-radius: 20px;
             display: inline-block;
             width: auto;
             padding: 3px 14px;
-            border: 1px solid rgba(255,255,255,0.5);
+            border: 1px solid rgba(255,255,255,0.3);
             transition: all 0.3s ease;
         }
         .category-card--layout--compact:hover .category-card__products {
-            background: rgba(255,255,255,0.8);
+            background: rgba(255,255,255,0.6);
             color: #2563eb;
             border-color: rgba(37, 99, 235, 0.2);
         }
@@ -290,7 +291,7 @@
                 padding: 20px 12px 16px;
                 min-height: 110px;
             }
-            .category-card__name a {
+            .category-card__name span {
                 font-size: 12px;
             }
             .category-card__products {
@@ -309,7 +310,7 @@
                 grid-template-columns: repeat(2, minmax(100px, 140px));
                 gap: 12px;
             }
-            .category-card__name a {
+            .category-card__name span {
                 font-size: 11px;
             }
             .category-card__body {
@@ -334,11 +335,11 @@
 
         <div class="block-categories__list">
             {% for group in product_groups %}
-            <div class="block-categories__item category-card category-card--layout--compact">
+            <a href="{% url "products:product_of_group" slug=group.slug %}" class="category-card--layout--compact">
                 <div class="category-card__body">
                     <!-- نام گروه در وسط کارت -->
                     <div class="category-card__name">
-                        <a href="{% url "products:product_of_group" slug=group.slug %}">{{ group.group_title }}</a>
+                        <span>{{ group.group_title }}</span>
                     </div>
 
                     <!-- آیکون درب (ورود) -->
@@ -352,7 +353,7 @@
                         {{ group.count }} محصول
                     </div>
                 </div>
-            </div>
+            </a>
             {% endfor %}
         </div>
     </div>
