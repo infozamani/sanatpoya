@@ -27,10 +27,6 @@ def index(request):
         expiry_date__gt=timezone.now()
     ).order_by('order', '-created_at')
     latest_blogs = Blog.objects.filter(is_active=True).order_by('-id')[:6]
-    
-    # for ad in ads:
-    #     print(f"عنوان: {ad.title}, تصویر: {ad.image_name.url if ad.image_name else 'ندارد'}")
-    
     context = {
         'ads': ads,
         'latest_blogs': latest_blogs,
@@ -52,8 +48,6 @@ def realestate (request):
 class AboutUsView(View):
     def get(self, request):
         abouts = AboutUs.objects.all()
-        
-      
         return render(request,'main_app/about-us.html',{'abouts':abouts, })
 #----------------------------------------------------------------
 ##context_us
@@ -75,7 +69,7 @@ def create_post(request):
        
 #----------------------------------------------------------------
 def regulations (request):
-     return render(request, 'main_app/regulations.html')  
+    return render(request, 'main_app/Regulations.html')  
 # ----------------------------------------------------------------
 class SliderView(View):
      def get(self, request):
