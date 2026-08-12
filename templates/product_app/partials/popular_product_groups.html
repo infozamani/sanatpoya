@@ -1,28 +1,359 @@
 <div class="block block--highlighted block-categories block-categories--layout--compact container">
+    <style>
+        /* ==========================================================
+           دسته‌های محبوب - کارت‌های درب (Arch/Portal) 3D
+           هماهنگ با تم رنگی navbar - نسخه روشن‌تر و کوچک‌تر
+        ========================================================== */
+        .block-categories--layout--compact {
+            padding: 30px 0;
+            margin: 20px 0;
+        }
+        .block-categories--layout--compact > .container {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 30px 24px;
+            border: 1px solid rgba(255, 255, 255, 0.95);
+            box-shadow: 
+                0 8px 40px rgba(26, 26, 46, 0.06),
+                0 0 0 1px rgba(255,255,255,0.8) inset;
+        }
+        .block-header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+        .block-header__title {
+            font-size: 24px;
+            font-weight: 800;
+            color: #1a1a2e;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+        .block-header__divider {
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+            border-radius: 2px;
+            margin: 0 auto;
+        }
+
+        /* لیست کارت‌ها - 4 ستونه با سایز کوچک‌تر */
+        .block-categories__list {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(140px, 200px));
+            gap: 20px;
+            padding: 5px;
+            perspective: 1000px;
+            justify-content: center;
+        }
+
+        /* در دسکتاپ فقط 8 کارت اول نمایش داده شود */
+        @media (min-width: 769px) {
+            .category-card--layout--compact:nth-child(n+9) {
+                display: none !important;
+            }
+        }
+
+        /* ==========================================================
+           کارت درب (Arch/Portal) - سایز کوچک‌تر
+        ========================================================== */
+        .category-card--layout--compact {
+            position: relative;
+            border-radius: 40% 40% 10% 10% / 25% 25% 8% 8%;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+            cursor: pointer;
+            width: 100%;
+            aspect-ratio: 2 / 3;
+            overflow: visible;
+        }
+        .category-card--layout--compact::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 40% 40% 10% 10% / 25% 25% 8% 8%;
+            background: linear-gradient(135deg, rgba(59,130,246,0.3), rgba(139,92,246,0.3), rgba(236,72,153,0.3));
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            filter: blur(8px);
+        }
+        .category-card--layout--compact:hover::before {
+            opacity: 1;
+        }
+        .category-card--layout--compact:hover {
+            transform: translateY(-10px) rotateX(6deg) rotateY(-3deg) scale(1.04);
+            z-index: 10;
+        }
+
+        /* بدنه کارت درب - روشن‌تر */
+        .category-card__body {
+            position: relative;
+            border-radius: 40% 40% 10% 10% / 25% 25% 8% 8%;
+            padding: 28px 16px 20px;
+            text-align: center;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 
+                0 6px 24px rgba(26, 26, 46, 0.06),
+                inset 0 1px 0 rgba(255,255,255,0.1);
+            transition: box-shadow 0.4s ease;
+            min-height: 130px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(145deg, #f0f4ff, #e8edf5);
+        }
+        .category-card--layout--compact:hover .category-card__body {
+            box-shadow: 
+                0 20px 50px rgba(59, 130, 246, 0.12),
+                inset 0 1px 0 rgba(255,255,255,0.2);
+        }
+
+        /* افکت درخشش (نور از درب) */
+        .category-card__body::after {
+            content: '';
+            position: absolute;
+            top: -30%;
+            left: -30%;
+            width: 160%;
+            height: 160%;
+            background: radial-gradient(ellipse at center, rgba(255,255,255,0.15) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+            border-radius: 50%;
+        }
+        .category-card--layout--compact:hover .category-card__body::after {
+            opacity: 1;
+        }
+
+        /* قاب داخلی درب (روشن‌تر) */
+        .category-card__body::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            left: 12%;
+            width: 76%;
+            height: 70%;
+            border: 1px solid rgba(59, 130, 246, 0.08);
+            border-radius: 40% 40% 10% 10% / 25% 25% 8% 8%;
+            pointer-events: none;
+            transition: all 0.5s ease;
+        }
+        .category-card--layout--compact:hover .category-card__body::before {
+            border-color: rgba(59, 130, 246, 0.2);
+            transform: scale(1.04);
+        }
+
+        /* ==========================================================
+           گرادیان‌های روشن و شاداب
+        ========================================================== */
+        .category-card--layout--compact:nth-child(8n+1) .category-card__body {
+            background: linear-gradient(145deg, #eff6ff, #dbeafe);
+        }
+        .category-card--layout--compact:nth-child(8n+2) .category-card__body {
+            background: linear-gradient(145deg, #f5f3ff, #ede9fe);
+        }
+        .category-card--layout--compact:nth-child(8n+3) .category-card__body {
+            background: linear-gradient(145deg, #fef2f2, #fee2e2);
+        }
+        .category-card--layout--compact:nth-child(8n+4) .category-card__body {
+            background: linear-gradient(145deg, #ecfdf5, #d1fae5);
+        }
+        .category-card--layout--compact:nth-child(8n+5) .category-card__body {
+            background: linear-gradient(145deg, #fefce8, #fef9c3);
+        }
+        .category-card--layout--compact:nth-child(8n+6) .category-card__body {
+            background: linear-gradient(145deg, #fdf2f8, #fce7f3);
+        }
+        .category-card--layout--compact:nth-child(8n+7) .category-card__body {
+            background: linear-gradient(145deg, #f0f9ff, #e0f2fe);
+        }
+        .category-card--layout--compact:nth-child(8n+8) .category-card__body {
+            background: linear-gradient(145deg, #f8fafc, #f1f5f9);
+        }
+
+        /* ==========================================================
+           نام دسته - وسط کارت
+        ========================================================== */
+        .category-card__name {
+            margin-top: 4px;
+            z-index: 2;
+            width: 100%;
+            text-align: center;
+        }
+        .category-card__name a {
+            color: #1a1a2e !important;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-block;
+            text-shadow: 0 1px 4px rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+            letter-spacing: 0.2px;
+            line-height: 1.4;
+            white-space: normal;
+        }
+        .category-card--layout--compact:hover .category-card__name a {
+            transform: translateZ(20px);
+            color: #2563eb !important;
+        }
+
+        /* ==========================================================
+           آیکون درب (زیر نام)
+        ========================================================== */
+        .category-card__icon {
+            margin-top: 6px;
+            font-size: 18px;
+            color: rgba(37, 99, 235, 0.2);
+            transition: all 0.4s ease;
+            z-index: 2;
+        }
+        .category-card--layout--compact:hover .category-card__icon {
+            color: #2563eb;
+            transform: translateZ(15px) scale(1.1);
+        }
+
+        /* ==========================================================
+           تعداد محصول - زیر درب (پایین کارت)
+        ========================================================== */
+        .category-card__products {
+            margin-top: 8px;
+            z-index: 2;
+            width: 100%;
+            text-align: center;
+            font-size: 11px;
+            color: rgba(26, 26, 46, 0.6);
+            font-weight: 600;
+            padding: 4px 12px;
+            background: rgba(255,255,255,0.5);
+            backdrop-filter: blur(4px);
+            border-radius: 20px;
+            display: inline-block;
+            width: auto;
+            padding: 3px 14px;
+            border: 1px solid rgba(255,255,255,0.5);
+            transition: all 0.3s ease;
+        }
+        .category-card--layout--compact:hover .category-card__products {
+            background: rgba(255,255,255,0.8);
+            color: #2563eb;
+            border-color: rgba(37, 99, 235, 0.2);
+        }
+
+        /* ==========================================================
+           انیمیشن شناور
+        ========================================================== */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+        }
+        .category-card--layout--compact {
+            animation: float 4s ease-in-out infinite;
+        }
+        .category-card--layout--compact:nth-child(2n) { animation-delay: 0.4s; }
+        .category-card--layout--compact:nth-child(3n) { animation-delay: 0.8s; }
+        .category-card--layout--compact:nth-child(4n) { animation-delay: 1.2s; }
+        .category-card--layout--compact:nth-child(5n) { animation-delay: 1.6s; }
+        .category-card--layout--compact:nth-child(6n) { animation-delay: 2.0s; }
+        .category-card--layout--compact:nth-child(7n) { animation-delay: 0.6s; }
+        .category-card--layout--compact:nth-child(8n) { animation-delay: 1.8s; }
+
+        .category-card--layout--compact:hover {
+            animation-play-state: paused;
+        }
+
+        /* ==========================================================
+           ریسپانسیو
+        ========================================================== */
+        @media (max-width: 992px) {
+            .block-categories__list {
+                grid-template-columns: repeat(3, minmax(120px, 180px));
+                gap: 16px;
+            }
+        }
+        @media (max-width: 768px) {
+            .block-categories__list {
+                grid-template-columns: repeat(3, minmax(100px, 150px));
+                gap: 14px;
+                padding: 5px;
+            }
+            .block-categories--layout--compact > .container {
+                padding: 24px 16px;
+            }
+            .category-card__body {
+                padding: 20px 12px 16px;
+                min-height: 110px;
+            }
+            .category-card__name a {
+                font-size: 12px;
+            }
+            .category-card__products {
+                font-size: 10px;
+                padding: 2px 10px;
+            }
+            .category-card__icon {
+                font-size: 14px;
+            }
+            .category-card--layout--compact {
+                aspect-ratio: 2 / 3;
+            }
+        }
+        @media (max-width: 480px) {
+            .block-categories__list {
+                grid-template-columns: repeat(2, minmax(100px, 140px));
+                gap: 12px;
+            }
+            .category-card__name a {
+                font-size: 11px;
+            }
+            .category-card__body {
+                padding: 16px 10px 12px;
+                min-height: 90px;
+            }
+            .category-card__products {
+                font-size: 9px;
+                padding: 2px 8px;
+            }
+            .category-card--layout--compact {
+                aspect-ratio: 2 / 3;
+            }
+        }
+    </style>
+
     <div class="container">
         <div class="block-header">
             <h3 id="#digikala" class="block-header__title">دسته های محبوب</h3>
             <div class="block-header__divider"></div>
         </div>
+
         <div class="block-categories__list">
-           {% for group in product_groups %}
+            {% for group in product_groups %}
             <div class="block-categories__item category-card category-card--layout--compact">
                 <div class="category-card__body">
-                    <div class="category-card__image">
-                        <a href="{% url "products:product_of_group" slug=group.slug%}">
-                            <img src="{{media_url}}{{group.image_name}}" alt="">
-                        </a>
+                    <!-- نام گروه در وسط کارت -->
+                    <div class="category-card__name">
+                        <a href="{% url "products:product_of_group" slug=group.slug %}">{{ group.group_title }}</a>
                     </div>
-                    <div class="category-card__content">
-                        <div class="category-card__name">
-                            <a href="{% url "products:product_of_group" slug=group.slug%}">{{group.group_title}}</a>
-                        </div>
-                        <div class="category-card__products">{{group.products_of_groups.all|length}} محصول</div>
+
+                    <!-- آیکون درب (ورود) -->
+                    <div class="category-card__icon">
+                        <i class="fas fa-door-open"></i>
+                    </div>
+
+                    <!-- تعداد محصول - زیر درب -->
+                    <div class="category-card__products">
+                        <i class="fas fa-box" style="font-size: 10px; margin-left: 4px;"></i>
+                        {{ group.count }} محصول
                     </div>
                 </div>
             </div>
             {% endfor %}
-   
         </div>
     </div>
 </div>
