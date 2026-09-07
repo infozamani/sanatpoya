@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Sitemap: https://sanatpoya.ir/sitemap.xml
+Disallow: /admin/
+Disallow: /cart/
+Disallow: /checkout/

@@ -1,74 +1,73 @@
-{% load static %}  
-{% load compress %}  
+{% load static %}
+{% load compress %}
 
-<!DOCTYPE html>  
-<html lang="fa">  
-<head>  
-    <meta charset="UTF-8">  
-    <meta name="viewport" content="width=device-width, initial-scale=1">  
-    <meta name="format-detection" content="telephone=no">  
+<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=no">
 
     <title>
-     
-        {% block title %}  
-        فروشگاه صنعت پویا|صنعت پویا |املاک صنعت پویا
-        {% endblock title %}  
-    
+        {% block title %}
+            املاک صنعت پویا | صنعت پویا
+        {% endblock title %}
     </title>
-      
 
-      <!-- Meta Descriptions for SEO -->  
-      <meta property="og:description" content="صنعت پویا، مرجع جامع متخصصان صنعتی. برای اطلاعات بیشتر کلیک کنید! به ما بپیوندید." />    <meta name="keywords" content=" املاک صنعتی , فروشگاه صنعتی,  صنعت پویا">  
-    
+    <!-- ====== متا تگ‌های سئو ====== -->
+    <meta name="description" content="املاک صنعتی صنعت پویا - خرید و فروش املاک صنعتی، انبارها و زمین‌های صنعتی">
+    <meta name="keywords" content="املاک صنعتی, خرید ملک صنعتی, فروش انبار, زمین صنعتی, صنعت پویا">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="صنعت پویا">
+    <link rel="canonical" href="{{ request.build_absolute_uri }}">
 
-      <!-- Open Graph Meta Tags -->  
-      <meta property="og:title" content="{% block og_title %} صنعت پویا    {% endblock %}" />  
-      <meta property="og:description" content="{% block og_description %}     راهکارهای نوین در صنعت و تکنولوژی   {% endblock %}" />  
-      <meta property="og:image" content="{% block og_image %}images/{% endblock %}" />  
-      <meta property="og:url" content="{% block og_url %}"https://sanatpoya.com/" {% endblock %}" />  
-      <meta property="og:type" content="website" />  
-      {% comment %} <!-- Twitter Meta Tags -->  
-      <meta name="twitter:card" content="summary_large_image" />  
-      <meta name="twitter:title" content="{% block twitter_title %} صنعت پویا  {% endblock %}" />  
-      <meta name="twitter:description" content="{% block twitter_description %}توضیح Twitter{% endblock %}" />  
-      <meta name="twitter:image" content="{% block twitter_image %}آدرس تصویر{% endblock %}" />   {% endcomment %}
-  
-    <link rel="icon" type="image/png" href="{{ media_url }}/images/logo/avaiko.png">  
+    <!-- ====== Open Graph ====== -->
+    <meta property="og:title" content="{% block og_title %}املاک صنعت پویا | خرید و فروش املاک صنعتی{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}خرید و فروش املاک صنعتی، انبارها و زمین‌های صنعتی{% endblock %}">
+    <meta property="og:image" content="{% block og_image %}{{ media_url }}images/logo/avaiko.png{% endblock %}">
+    <meta property="og:url" content="{% block og_url %}{{ request.build_absolute_uri }}{% endblock %}">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="صنعت پویا">
 
-    <!-- CSS -->  
-       
-        <link rel="stylesheet" href="{% static 'vendor/bootstrap-4.5.3/css/bootstrap.min.css' %}">  
-        <link rel="stylesheet" href="{% static 'vendor/owl-carousel-2.3.4/assets/owl.carousel.min.css' %}">  
-        <link rel="stylesheet" href="{% static 'css/style.css' %}">  
-        <link rel="stylesheet" href="{% static 'css/stylelistpersen.css' %}">  
-        <link rel="stylesheet" href="{% static 'css/custom.css' %}">  
-        <link rel="stylesheet" href="{% static 'vendor/fontawesome-5.6.3/css/all.min.css' %}">  
-        
-      
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">  
-</head>  
+    <!-- ====== Twitter Card ====== -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="املاک صنعت پویا">
+    <meta name="twitter:description" content="خرید و فروش املاک صنعتی">
+    <meta name="twitter:image" content="{{ media_url }}images/logo/avaiko.png">
 
-<body  class="container-fluid">  
-	{% include "main_app/partials/header_realestate.html" %} 
-	{% include "partials/messages.html" %} 
+    <link rel="icon" type="image/png" href="{{ media_url }}images/logo/avaiko.png">
 
-	{% block content %}	
+    <!-- ====== CSS ====== -->
+    {% compress css %}
+        <link rel="stylesheet" href="{% static 'vendor/bootstrap-4.5.3/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'vendor/owl-carousel-2.3.4/assets/owl.carousel.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/stylelistpersen.css' %}">
+        <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+        <link rel="stylesheet" href="{% static 'vendor/fontawesome-5.6.3/css/all.min.css' %}">
+        {% endcompress %}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
 
-	{% endblock content %}
-	 
+<body class="container-fluid">
+    {% include "main_app/partials/header_realestate.html" %}
+    {% include "partials/messages.html" %}
 
-    {% include "partials/footer.html" %}  
+    {% block content %}
+    {% endblock content %}
 
-    <!-- JS -->  
-      
-        <script src="{% static 'vendor/jquery-3.3.1/jquery.min.js' %}"></script>  
-        <script src="{% static 'vendor/bootstrap-4.5.3/js/bootstrap.bundle.min.js' %}"></script>  
-        <script src="{% static 'vendor/owl-carousel-2.3.4/owl.carousel.min.js' %}"></script>  
-        <script src="{% static 'js/main.js' %}"></script>  
-        <script src="{% static 'js/admin_script.js' %}"></script>  
-        <script src="{% static 'js/myscript.js' %}"></script>  
-  
-         
-</body>  
+    {% include "partials/footer.html" %}
+
+    <!-- ====== JS ====== -->
+    {% compress js %}
+        <script src="{% static 'vendor/jquery-3.3.1/jquery.min.js' %}"></script>
+        <script src="{% static 'vendor/bootstrap-4.5.3/js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'vendor/owl-carousel-2.3.4/owl.carousel.min.js' %}"></script>
+        <script src="{% static 'js/main.js' %}"></script>
+        <script src="{% static 'js/admin_script.js' %}"></script>
+        <script src="{% static 'js/myscript.js' %}"></script>
+    {% endcompress %}
+</body>
 
 </html>

@@ -72,8 +72,6 @@ INSTALLED_APPS = [
     
     "django_check_seo",
     'django.contrib.sites',
-    'cms',
-    'menus',
     'treebeard',
     'channels',
     
@@ -84,14 +82,26 @@ INSTALLED_APPS = [
     'django_render_partial',
     'django_filters', 
     'django.contrib.humanize',
-    "compressor",
-    'django_ckeditor_5'
+    'compressor',
+    'django.contrib.sitemaps',
+    'django_ckeditor_5',
+     
      
     # 'metametackeditordjango_render_partial'
     # 'rest_framework',
     
 ]
-
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder', 
+]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+COMPRESS_ROOT = STATIC_ROOT
+COMPRESS_ENABLED = True
+COMPRESS_OFFLINE = True
+COMPRESS_CSS_FILTERS = ['compressor.filters.css_default.CssAbsoluteFilter', 'compressor.filters.cssmin.CSSMinFilter']
+COMPRESS_JS_FILTERS = ['compressor.filters.jsmin.JSMinFilter']
 # ====== تنظیمات CKEditor ======
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_IMAGE_BACKEND = "pillow"
@@ -125,6 +135,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'apps.main.views.media_admin'
                 
+                
                  
             ],
         },
@@ -146,21 +157,21 @@ CHANNEL_LAYERS = {
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# DATABASES = {
-#    "default": {
-#        "ENGINE": "django.db.backends.sqlite3",
-#        "NAME": BASE_DIR / "db.sqlite3",}
-# }
 DATABASES = {
-        'default': {
-          'ENGINE': 'mysql.connector.django',
-          'NAME': 'sanatpoya',
-          'USER': 'root',
-          'PASSWORD':'123456',
-          'HOST':'localhost',
-          'PORT':'3306'
-     }
- }
+   "default": {
+       "ENGINE": "django.db.backends.sqlite3",
+       "NAME": BASE_DIR / "db.sqlite3",}
+}
+# DATABASES = {
+#         'default': {
+#           'ENGINE': 'mysql.connector.django',
+#           'NAME': 'sanatpoya',
+#           'USER': 'root',
+#           'PASSWORD':'123456',
+#           'HOST':'localhost',
+#           'PORT':'3306'
+#      }
+#  }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

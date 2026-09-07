@@ -1,19 +1,5 @@
-"""
-URL configuration for sanatpoya project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.0/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
+ 
+ 
 from django.contrib import admin
 from django.urls import path,include
 from django.conf import settings
@@ -23,6 +9,15 @@ from django.http import HttpResponse
 from django.conf import settings
 from django.contrib import admin
 import os
+from django.contrib.sitemaps.views import sitemap
+from django.views.generic import TemplateView
+from apps.products.sitemaps import ProductSitemap, CategorySitemap, StaticViewSitemap
+from apps.blog.sitemaps import BlogSitemap 
+sitemaps = {
+    'products': ProductSitemap,
+    'categories': CategorySitemap,
+    'blogs': BlogSitemap,
+    'static': StaticViewSitemap,}
 
 
 # ===== ویوی مخصوص فایل تأیید اینماد =====
@@ -55,7 +50,9 @@ urlpatterns = [
     path('specialties/', include('apps.specialties.urls',namespace='specialties')),
     path('support/', include('apps.support.urls',namespace='support')),
     # path("django-check-seo/", include("django_check_seo.urls")),
-      path('33476952.txt', txt_file_view, name='verify_file'),
+    path('33476952.txt', txt_file_view, name='verify_file'),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='sitemap'),
+    path('robots.txt', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
     
  ]
 if settings.DEBUG:

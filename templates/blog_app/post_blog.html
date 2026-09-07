@@ -1,65 +1,94 @@
-{% extends "main_template.html" %}  
+{% extends "main_template.html" %}
+{% load humanize %}
 
-{% block title %}  
-{{ blog.title }}  
-{% endblock title %}  
+<!-- ====== عنوان اختصاصی ====== -->
+{% block title %}
+    {% if blog.seo_title %}
+        {{ blog.seo_title }}
+    {% else %}
+        {{ blog.title }} | صنعت پویا
+    {% endif %}
+{% endblock title %}
 
-{% block content %}  
+<!-- ====== متا تگ‌های اختصاصی ====== -->
+{% block meta %}
+    <!-- توضیحات متا -->
+    <meta name="description" content="{% if blog.meta_description %}{{ blog.meta_description }}{% else %}{{ blog.summery_description|default:blog.title|truncatechars:160 }}{% endif %}">
+    
+    <!-- کلمات کلیدی -->
+    {% if blog.meta_keywords %}
+        <meta name="keywords" content="{{ blog.meta_keywords }}">
+    {% endif %}
+    
+    <!-- کلمه کلیدی اصلی -->
+    {% if blog.focus_keyword %}
+        <meta name="focus_keyword" content="{{ blog.focus_keyword }}">
+    {% endif %}
+    
+    <!-- لینک اصلی (برای جلوگیری از محتوای تکراری) -->
+    <link rel="canonical" href="{{ request.build_absolute_uri }}">
+    
+    <!-- روبات‌ها -->
+    <meta name="robots" content="index, follow">
+    
+    <!-- نویسنده -->
+    <meta name="author" content="{{ blog.author.name }} {{ blog.author.family }}">
+    
+    <!-- تاریخ انتشار -->
+    <meta property="article:published_time" content="{{ blog.register_data|date:'c' }}">
+    
+    <!-- تصویر مخصوص شبکه‌های اجتماعی -->
+    <meta property="og:image" content="{{ request.build_absolute_uri }}{{ blog.main_image.url }}">
+{% endblock meta %}
 
-<div class="site__body">  
-    <div class="page-header">  
-        <div class="page-header__container container">  
-            <div class="page-header__breadcrumb">  
-                <nav aria-label="breadcrumb">  
-                    <ol class="breadcrumb">  
-                        <li class="breadcrumb-item"><a href="{% url 'main:index' %}">خانه</a> /</li>  
-                        <li class="breadcrumb-item active" aria-current="page">{{ blog.title }}</li>  
-                    </ol>  
-                </nav>  
-            </div>  
-        </div>  
-    </div>  
-    <div class="container">  
-        <div class="row justify-content-center">  
-            <div class="col-md-12 col-lg-9 col-xl-8">  
-                <div class="block post post--layout--full">  
-                    <div class="post__header post-header post-header--layout--full">  
-                        <div class="post-card__content">    
-                            <h5><a href="#">{{ blog.title }}</a></h5>  
-                            <div class="post-header__meta">  
-                                <div class="post-header__meta-item">توسط   
-                                    <a href="#">{{ blog.author.name }} {{ blog.author.family }}</a>  
-                                </div>  
-                                <div class="post-header__meta-item">  
-                                    <a href="#">{{blog.author.register_data }}</a>  
-                                </div>  
-                                <div class="post-header__meta-item">  
-                                    <a href="#">{{blog.author.email }}</a>  
-                                </div>  
-                            </div>  
-                            <div class="post-card__image">  
-                                <img src="{{ media_url }}{{ blog.main_image }}" alt="">  
-                            </div>  
-                         
-                            <div class="post-content">  
-                                {{ blog.description|safe }}  
-                            </div>  
-                            <div class="post-author">
-                                <div class="post-author__avatar">
-                                    <a href=""><img src="{{media_url}}/images/teammates/teammate-1.jpg" alt=""></a>
-                                </div>
-                                <div class="post-author__info">
-                                    <div class="post-author__name">نویسنده : <a href="">   {{ blog.author.name }} {{ blog.author.family }}</a></div>
-                                    <div class="post-author__about"  >    {{blog.author.register_data }}</div>
-                                    <div class="post-author__about"  >    {{blog.author.email }}</div>
-                                </div>
-                            </div> 
-                        </div>  
-                    </div>  
-                </div>  
-            </div>  
-        </div>  
-    </div>  
-</div>  
+<!-- ====== Open Graph (برای اشتراک در شبکه‌های اجتماعی) ====== -->
+{% block og_title %}
+    {% if blog.seo_title %}{{ blog.seo_title }}{% else %}{{ blog.title }}{% endif %}
+{% endblock og_title %}
 
+{% block og_description %}
+    {% if blog.meta_description %}{{ blog.meta_description }}{% else %}{{ blog.summery_description|default:blog.title|truncatechars:200 }}{% endif %}
+{% endblock og_description %}
+
+<!-- ====== محتوای اصلی ====== -->
+{% block content %}
+    <div class="blog-detail container py-4">
+        <!-- هدر مقاله -->
+        <div class="blog-header mb-4">
+            <h1 class="blog-title">{{ blog.title }}</h1>
+            
+            <div class="blog-meta d-flex flex-wrap gap-3 text-muted">
+                <span><i class="fas fa-user"></i> {{ blog.author.name }} {{ blog.author.family }}</span>
+                <span><i class="fas fa-calendar-alt"></i> {{ blog.register_data|date:'Y/m/d' }}</span>
+                <span><i class="fas fa-clock"></i> {{ blog.register_data|timesince }}</span>
+            </div>
+            
+            <!-- تصویر اصلی -->
+            <div class="blog-image mt-3">
+                <img src="{{ blog.main_image.url }}" alt="{{ blog.seo_title|default:blog.title }}" class="img-fluid rounded">
+            </div>
+        </div>
+        
+        <!-- خلاصه مقاله -->
+        {% if blog.summery_description %}
+            <div class="blog-summary alert alert-info">
+                <strong>خلاصه:</strong> {{ blog.summery_description }}
+            </div>
+        {% endif %}
+        
+        <!-- محتوای کامل -->
+        <div class="blog-content">
+            {{ blog.description|safe }}
+        </div>
+        
+        <!-- کلمات کلیدی در پایین مقاله (اختیاری) -->
+        {% if blog.meta_keywords %}
+            <div class="blog-keywords mt-4">
+                <strong>برچسب‌ها:</strong>
+                {% for keyword in blog.meta_keywords.split|slice:":5" %}
+                    <span class="badge bg-secondary me-1">{{ keyword }}</span>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
 {% endblock content %}

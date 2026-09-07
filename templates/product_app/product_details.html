@@ -2,9 +2,23 @@
 {% load humanize %}
 {% load render_partial %}
 
-{% block title %}
-    {{ product.product_name }} | صنعت پویا
-{% endblock title %}
+ 
+
+<!-- ====== متا تگ‌های اختصاصی ====== -->
+{% block meta %}
+    <meta name="description" content="{{ product.summery_description|default:product.product_name|truncatechars:160 }}">
+    <meta name="keywords" content="{{ product.product_name }}, خرید, قیمت, {{ product.brand.brand_name }}">
+    <link rel="canonical" href="{{ request.build_absolute_uri }}">
+{% endblock meta %}
+
+<!-- ====== Open Graph اختصاصی ====== -->
+{% block og_title %}
+     {{ product.product_name }} | صنعت پویا
+{% endblock og_title %}
+
+{% block og_description %}
+    {{ product.summery_description|default:product.product_name|truncatechars:200 }}
+{% endblock og_description %}
 
 {% block content %}
 <div class="site__body">
