@@ -167,8 +167,12 @@ class FeatureValueAdmin(admin.ModelAdmin):
 ##create product
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('product_name','display_product_groups','price','is_active','brand','update_date','slug', 'seo_title', 'seo_description', 'seo_keywords')
-    # list_filter = ('brand','product_group')
+    list_display = ('product_name','display_product_groups','price','is_active','brand','update_date','slug', 'seo_title', 'meta_description', 'meta_keywords')
+    fieldsets = (
+    (None, {'fields': ('product_name', 'slug', 'price')}),  
+    ('تنظیمات سئو', {'fields': ('seo_title', 'meta_description', 'meta_keywords')}),
+)
+    prepopulated_fields = {'slug': ('name',)}
     list_filter = (('brand__brand_name',DropdownFilter),('product_group__group_title',DropdownFilter),)
     search_fields = ('product_name',)
     ordering = ('update_date','product_name')

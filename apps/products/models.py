@@ -75,28 +75,10 @@ class Product(models.Model) :
     brand = models.ForeignKey(Brand, verbose_name=("برند کالا"), on_delete=models.CASCADE, related_name='brands')
     features = models.ManyToManyField(Feature, through='ProductFeature')
     slug =  models.SlugField(max_length=200,null=True)
-    seo_title = models.CharField(max_length=200, blank=True)  
-    seo_description = models.TextField(max_length=300,blank=True)  
-    seo_keywords = models.TextField(max_length=400,blank=True)
+    seo_title = models.CharField(max_length=70, blank=True, verbose_name="عنوان سئو")
+    meta_description = models.CharField(max_length=160, blank=True, verbose_name="توضیحات متا")
+    meta_keywords = models.CharField(max_length=255, blank=True, verbose_name="کلمات کلیدی")
     
-    #   create SEO image
-    # image_large= ImageSpecField(  
-    #     source='image_name',   
-    #     processors=[Thumbnail(837, 491)],  
-    #     format=['JPEG'],  
-    #     options={'quality': 60}  ) 
-    
-    # image_medium= ImageSpecField(  
-    #     source='image_name',  
-    #     processors=[Thumbnail(406, 227)],  
-    #     format=['JPEG'],   
-    #     options={'quality': 60} )  
-    
-    # image_small= ImageSpecField(  
-    #     source='image_name',   
-    #     processors=[Thumbnail(107, 60)],  
-    #     format=['JPEG'],   
-    #     options={'quality': 60} )  
     #------------------------------------------------
     def __str__(self):
         return self.product_name
