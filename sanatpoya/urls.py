@@ -1,5 +1,3 @@
- 
- 
 from django.contrib import admin
 from django.urls import path,include
 from django.conf import settings
@@ -13,6 +11,9 @@ from django.contrib.sitemaps.views import sitemap
 from django.views.generic import TemplateView
 from apps.products.sitemaps import ProductSitemap, CategorySitemap, StaticViewSitemap
 from apps.blog.sitemaps import BlogSitemap 
+from django.contrib.sitemaps.views import sitemap
+from django.views.generic import TemplateView
+from apps.products.sitemaps import ProductSitemap, CategorySitemap, StaticViewSitemap
 sitemaps = {
     'products': ProductSitemap,
     'categories': CategorySitemap,

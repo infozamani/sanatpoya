@@ -172,7 +172,7 @@ class ProductAdmin(admin.ModelAdmin):
     (None, {'fields': ('product_name', 'slug', 'price')}),  
     ('تنظیمات سئو', {'fields': ('seo_title', 'meta_description', 'meta_keywords')}),
 )
-    prepopulated_fields = {'slug': ('name',)}
+    prepopulated_fields = {'slug': ('product_name',)} 
     list_filter = (('brand__brand_name',DropdownFilter),('product_group__group_title',DropdownFilter),)
     search_fields = ('product_name',)
     ordering = ('update_date','product_name')
