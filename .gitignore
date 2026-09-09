@@ -57,8 +57,8 @@ db.sqlite3
 # Media & static (server-side)
 
 staticfiles/
-public_html/media/
-public_html/static/
+sanatpoya/media/
+
 
 # Logs
 *.log
